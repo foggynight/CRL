@@ -37,11 +37,17 @@ int sl_is_empty(sl_node_t *head, sl_node_t *tail);
  * @param node {sl_node_t *}:  Pointer to the node to add to the list */
 void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
 
+/** sl_remove_node: Remove a node from a singly linked list.
+ * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
+ * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
+ * @param node {sl_node_t *}:  Pointer to the node to remove from the list */
+void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+
 sl_node_t *sl_create_node(void)
 {
     sl_node_t *node = calloc(1, sl_node_t);
     if (!node) {
-        fputs("list/single_link.h: Error: create_node failed\n", stderr);
+        fputs("list/single_link.h: Error: create_node: calloc returned NULL\n", stderr);
         exit(EXIT_FAILED);
     }
     return node;
@@ -50,7 +56,7 @@ sl_node_t *sl_create_node(void)
 void sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
-        fputs("list/single_link.h: Error: destroy_node failed\n", stderr);
+        fputs("list/single_link.h: Error: destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILED);
     }
     free(node);
@@ -58,10 +64,9 @@ void sl_destroy_node(sl_node_t *node)
 
 int sl_is_empty(sl_node_t *head, sl_node_t *tail)
 {
-    /* Invalid list initialization */
     if ((*head && !*tail)
      || (!*head && *tail) {
-        fputs("list/single_link.h: Error: Invalid list initialization\n", stderr);
+        fputs("list/single_link.h: Error: sl_is_empty: Invalid list initialization\n", stderr);
         exit(EXIT_FAILED);
     }
     return !head && !tail;
@@ -69,12 +74,47 @@ int sl_is_empty(sl_node_t *head, sl_node_t *tail)
 
 void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
 {
+    if (!node) {
+        fputs("list/single_link.h: Error: sl_add_node: Cannot add NULL\n", stderr);
+        exit(1);
+    }
+
     if (sl_is_empty(*head, *tail)) {
         *head = *tail = node;
     }
     else {
         (*tail)->next = node;
         *tail = node;
+    }
+}
+
+void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+{
+    if (sl_is_empty(*head, *tail)) {
+        fputs("list/single_link.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
+        exit(1);
+    }
+
+    if (node == *head) {
+        sl_node_t *old_head = *head;
+        *head = *(head)->next;
+        destroy_node(old_head);
+    }
+    else if (node == *tail) {
+        sl_node_t *old_tail = *tail;
+
+        sl_node_t *walk;
+        for (*walk = *head; *(walk)->next != *tail; *walk = *(walk)->next);
+        *tail = walk;
+        *tail->next = NULL;
+
+        destroy_node(old_tail);
+    }
+    else {
+        sl_node_t *walk;
+        for (*walk = *head; *(walk)->next != node; *walk = *(walk)->next);
+        *(walk)->next = *(walk)->next->next;
+        destroy_node(walk);
     }
 }
 
