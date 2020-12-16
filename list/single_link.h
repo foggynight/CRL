@@ -25,6 +25,12 @@ sl_node_t *sl_create_node(void);
  * @param node {sl_node_t *}: Pointer to the target node */
 void sl_destroy_node(sl_node_t *node);
 
+/** sl_is_empty: Check if a list is empty.
+ * @param head {sl_node_t *}: Pointer to the head of the list
+ * @param tail {sl_node_t *}: Pointer to the tail of the list
+ * @return {int}: Non-zero if the list is empty */
+int sl_is_empty(sl_node_t *head, sl_node_t *tail);
+
 /** sl_add_node: Add a node to a singly linked list.
  * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
  * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
@@ -50,7 +56,7 @@ void sl_destroy_node(sl_node_t *node)
     free(node);
 }
 
-void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+int sl_is_empty(sl_node_t *head, sl_node_t *tail)
 {
     /* Invalid list initialization */
     if ((*head && !*tail)
@@ -58,12 +64,14 @@ void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
         fputs("list/single_link.h: Error: Invalid list initialization\n", stderr);
         exit(EXIT_FAILED);
     }
+    return !head && !tail;
+}
 
-    /* List is empty */
-    if (!*head) {
+void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+{
+    if (sl_is_empty(*head, *tail)) {
         *head = *tail = node;
     }
-    /* List is not empty */
     else {
         (*tail)->next = node;
         *tail = node;
