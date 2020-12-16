@@ -114,9 +114,11 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
     else {
         sl_node_t *walk;
         for (*walk = *head; *(walk)->next != node; *walk = *(walk)->next);
-        *(walk)->next = *(walk)->next->next;
 
-        destroy_node(walk);
+        sl_node_t *new_next = *(walk)->next->next;
+        destroy_node(walk->next);
+
+        *(walk)->next = new_next;
     }
 }
 
