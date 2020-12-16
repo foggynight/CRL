@@ -98,6 +98,7 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
     if (node == *head) {
         sl_node_t *old_head = *head;
         *head = *(head)->next;
+
         destroy_node(old_head);
     }
     else if (node == *tail) {
@@ -114,6 +115,7 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
         sl_node_t *walk;
         for (*walk = *head; *(walk)->next != node; *walk = *(walk)->next);
         *(walk)->next = *(walk)->next->next;
+
         destroy_node(walk);
     }
 }
