@@ -50,6 +50,8 @@ void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
  * @param node {sl_node_t *}:  Pointer to the node to remove from the list */
 void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
 
+#ifdef CRL_DEFINE
+
 sl_node_t *sl_create_node(void)
 {
     sl_node_t *node = calloc(1, sizeof(sl_node_t));
@@ -136,4 +138,5 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
     }
 }
 
-#endif
+#endif // CRL_DEFINE
+#endif // CRL_LIST_SINGLE_LINK_H_
