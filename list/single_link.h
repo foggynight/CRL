@@ -1,6 +1,12 @@
-/* --- list/single_link.h ---
+/* --- single_link.h ---
  *
- * Generic singly linked list implementation.
+ * Generic singly linked list implementation, maintain a head and tail
+ * pointer.
+ *
+ * This file is part of the crl library.
+ *
+ * File Version: 0.1.0
+ * Last Updated: 2020-12-17
  *
  * Copyright (C) 2020 Robert Coffey
  * Licensed under the GNU GPLv2 */
