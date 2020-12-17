@@ -90,14 +90,21 @@ void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
 
 void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
 {
-    if (sl_is_empty(*head, *tail)) {
+    if (!node) {
         fputs("list/single_link.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    if (sl_is_empty(*head, *tail)) {
+        fputs("list/single_link.h: Error: sl_remove_node: List is empty\n", stderr);
         exit(EXIT_FAILURE);
     }
 
     if (node == *head) {
         sl_node_t *old_head = *head;
+
         *head = (*head)->next;
+        if (old_head == *tail)
+            *tail = *head;
 
         sl_destroy_node(old_head);
     }
