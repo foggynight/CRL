@@ -41,14 +41,14 @@ void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
  * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
  * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
  * @param node {sl_node_t *}:  Pointer to the node to remove from the list */
-void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
 
 sl_node_t *sl_create_node(void)
 {
-    sl_node_t *node = calloc(1, sl_node_t);
+    sl_node_t *node = calloc(1, sizeof(sl_node_t));
     if (!node) {
         fputs("list/single_link.h: Error: create_node: calloc returned NULL\n", stderr);
-        exit(EXIT_FAILED);
+        exit(EXIT_FAILURE);
     }
     return node;
 }
@@ -57,17 +57,17 @@ void sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
         fputs("list/single_link.h: Error: destroy_node: Cannot destroy NULL\n", stderr);
-        exit(EXIT_FAILED);
+        exit(EXIT_FAILURE);
     }
     free(node);
 }
 
 int sl_is_empty(sl_node_t *head, sl_node_t *tail)
 {
-    if ((*head && !*tail)
-     || (!*head && *tail) {
+    if ((head && !tail)
+     || (!head && tail)) {
         fputs("list/single_link.h: Error: sl_is_empty: Invalid list initialization\n", stderr);
-        exit(EXIT_FAILED);
+        exit(EXIT_FAILURE);
     }
     return !head && !tail;
 }
@@ -76,7 +76,7 @@ void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
 {
     if (!node) {
         fputs("list/single_link.h: Error: sl_add_node: Cannot add NULL\n", stderr);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     if (sl_is_empty(*head, *tail)) {
@@ -92,33 +92,33 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
 {
     if (sl_is_empty(*head, *tail)) {
         fputs("list/single_link.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     if (node == *head) {
         sl_node_t *old_head = *head;
-        *head = *(head)->next;
+        *head = (*head)->next;
 
-        destroy_node(old_head);
+        sl_destroy_node(old_head);
     }
     else if (node == *tail) {
         sl_node_t *old_tail = *tail;
 
         sl_node_t *walk;
-        for (*walk = *head; *(walk)->next != *tail; *walk = *(walk)->next);
+        for (walk = *head; walk->next != *tail; walk = walk->next);
         *tail = walk;
-        *tail->next = NULL;
+        (*tail)->next = NULL;
 
-        destroy_node(old_tail);
+        sl_destroy_node(old_tail);
     }
     else {
         sl_node_t *walk;
-        for (*walk = *head; *(walk)->next != node; *walk = *(walk)->next);
+        for (walk = *head; walk->next != node; walk = walk->next);
 
-        sl_node_t *new_next = *(walk)->next->next;
-        destroy_node(walk->next);
+        sl_node_t *new_next = walk->next->next;
+        sl_destroy_node(walk->next);
 
-        *(walk)->next = new_next;
+        walk->next = new_next;
     }
 }
 
