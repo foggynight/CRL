@@ -1,12 +1,13 @@
 /* --- single_link.h ---
  *
- * Generic singly linked list implementation, maintain a head and tail
- * pointer.
- *
- * This file is part of the crl library.
+ * Generic singly linked list implementation, requires a head and tail
+ * pointer which are to be initialized to NULL.
  *
  * File Version: 0.1.0
  * Last Updated: 2020-12-17
+ *
+ * This file is part of the crl library:
+ * https://github.com/foggynight/crl
  *
  * Copyright (C) 2020 Robert Coffey
  * Licensed under the GNU GPLv2 */
