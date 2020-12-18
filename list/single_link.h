@@ -3,7 +3,7 @@
  * Generic singly linked list implementation, requires a head and tail
  * pointer which are to be initialized to NULL.
  *
- * File Version: 0.1.0
+ * File Version: 0.1.1
  * Last Updated: 2020-12-17
  *
  * This file is part of the crl library:
