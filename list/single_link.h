@@ -3,14 +3,14 @@
  * Generic singly linked list implementation, requires a head and tail
  * pointer which are to be initialized to NULL.
  *
- * File Version: 0.1.1
- * Last Updated: 2020-12-17
+ * File Version: 0.1.2
+ * Last Updated: 2020-12-18
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
  * Copyright (C) 2020 Robert Coffey
- * Licensed under the GNU GPLv2 */
+ * Released under the GPLv2 license */
 
 #ifndef CRL_LIST_SINGLE_LINK_H_
 #define CRL_LIST_SINGLE_LINK_H_

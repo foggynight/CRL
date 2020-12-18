@@ -8,7 +8,7 @@
  * Last Updated: 2020-12-17
  *
  * Copyright (C) 2020 Robert Coffey
- * Licensed under the GNU GPLv2 */
+ * Released under the GPLv2 license */
 
 #include <assert.h>
 #include <stdlib.h>
