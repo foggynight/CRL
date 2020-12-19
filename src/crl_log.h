@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.2
+ * File Version: 0.1.3
  * Last Updated: 2020-12-19
  *
  * This file is part of the crl library:
@@ -31,7 +31,7 @@
  * @param flags {int}: Flags indicating preamble */
 void log_(const char *msg, int flags);
 
-#define CRL_DEFINE
+#ifdef CRL_DEFINE
 
 void log_(const char *msg, int flags)
 {
