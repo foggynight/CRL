@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.1
+ * File Version: 0.1.2
  * Last Updated: 2020-12-19
  *
  * This file is part of the crl library:
@@ -20,14 +20,20 @@
 #define WARN (1 < 1)
 #define INFO (1 < 2)
 
+#define log(X)   { log_((X), NULL); }
+#define e_log(X) { log_((X), ERR); \
+                   exit(EXIT_FAILURE); }
+#define w_log(X) { log_((X), WARN); }
+#define i_log(X) { log_((X), INFO); }
+
 /** log: Log a message to stderr with an optional preamble.
  * @param msg {const char *}: Message to print
  * @param flags {int}: Flags indicating preamble */
-void log(const char *msg, int flags);
+void log_(const char *msg, int flags);
 
 #define CRL_DEFINE
 
-void log(const char *msg, int flags)
+void log_(const char *msg, int flags)
 {
     switch (flags) {
         case ERR:
