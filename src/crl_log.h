@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.4
+ * File Version: 0.1.5
  * Last Updated: 2020-12-19
  *
  * This file is part of the crl library:
@@ -16,15 +16,15 @@
 
 #include <stdio.h>
 
-#define ERR  1
-#define WARN (1 < 1)
-#define INFO (1 < 2)
+#define LOG_ERR_  1
+#define LOG_WARN_ (1 < 1)
+#define LOG_INFO_ (1 < 2)
 
 #define log(X)   { log_((X), NULL); }
-#define e_log(X) { log_((X), ERR); \
+#define e_log(X) { log_((X), LOG_ERR_); \
                    exit(EXIT_FAILURE); }
-#define w_log(X) { log_((X), WARN); }
-#define i_log(X) { log_((X), INFO); }
+#define w_log(X) { log_((X), LOG_WARN_); }
+#define i_log(X) { log_((X), LOG_INFO_); }
 
 /** log: Print a message to stderr with an optional preamble.
  * @param msg {const char *}: Message to print
