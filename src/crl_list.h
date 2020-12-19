@@ -1,10 +1,10 @@
-/* --- single_link.h ---
+/* --- crl_list.h ---
  *
  * Generic singly linked list implementation, requires a head and tail
  * pointer which are to be initialized to NULL.
  *
- * File Version: 0.1.2
- * Last Updated: 2020-12-18
+ * File Version: 0.1.3
+ * Last Updated: 2020-12-19
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
@@ -12,8 +12,8 @@
  * Copyright (C) 2020 Robert Coffey
  * Released under the GPLv2 license */
 
-#ifndef CRL_LIST_SINGLE_LINK_H_
-#define CRL_LIST_SINGLE_LINK_H_
+#ifndef CRL_LIST_H_
+#define CRL_LIST_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -139,4 +139,4 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
 }
 
 #endif // CRL_DEFINE
-#endif // CRL_LIST_SINGLE_LINK_H_
+#endif // CRL_LIST_H_
