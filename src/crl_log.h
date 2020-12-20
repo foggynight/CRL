@@ -1,12 +1,16 @@
 /* --- crl_log.h ---
  *
- * Logging and error handling.
+ * Macros for logging to the stderr stream.
  *
- * File Version: 0.2.0
- * Last Updated: 2020-12-20
+ * Define CRL_NO_EXIT before including this header to prevent the
+ * crl_elog functions from calling exit.
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
+ *
+ * File Version: 0.2.1
+ * First Commit: 2020-12-19
+ * Last Updated: 2020-12-20
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the GPLv2 license */
@@ -29,16 +33,15 @@
 #define crl_ilogf(...) do { fprintf(stderr, "Info: " __VA_ARGS__); } while (0)
 #define crl_wlogf(...) do { fprintf(stderr, "Warning: " __VA_ARGS__); } while (0)
 
+#ifndef CRL_NO_EXIT
+#include <stdlib.h>
+#define crl_elog(X) do { fprintf(stderr, "Error: %s\n", (X)); exit(EXIT_FAILURE); } while (0)
+#define crl_elogf(...) do { fprintf(stderr, "Error: " __VA_ARGS__); exit(EXIT_FAILURE); } while (0)
+#endif // CRL_NO_EXIT
+
 #ifdef CRL_NO_EXIT
 #define crl_elog(X) do { fprintf(stderr, "Error: %s\n", (X)); } while (0)
 #define crl_elogf(...) do { fprintf(stderr, "Error: " __VA_ARGS__); } while (0)
-#endif // CRL_NO_EXIT
-
-#ifndef CRL_NO_EXIT
-#include <stdlib.h>
-
-#define crl_elog(X) do { fprintf(stderr, "Error: %s\n", (X)); exit(EXIT_FAILURE); } while (0)
-#define crl_elogf(...) do { fprintf(stderr, "Error: " __VA_ARGS__); exit(EXIT_FAILURE); } while (0)
 #endif // CRL_NO_EXIT
 
 #endif // CRL_LOG_H_
