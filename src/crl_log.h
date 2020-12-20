@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.8
+ * File Version: 0.1.9
  * Last Updated: 2020-12-20
  *
  * This file is part of the crl library:
@@ -21,11 +21,10 @@
 #define LOG_WARN_ 0x2
 #define LOG_ERR_  0x4
 
-#define log(X)   { log_((X), 0); }
-#define i_log(X) { log_((X), LOG_INFO_); }
-#define w_log(X) { log_((X), LOG_WARN_); }
-#define e_log(X) { log_((X), LOG_ERR_); \
-                   exit(EXIT_FAILURE); }
+#define log(X)   do { log_((X), 0); } while (0)
+#define i_log(X) do { log_((X), LOG_INFO_); } while (0)
+#define w_log(X) do { log_((X), LOG_WARN_); } while (0)
+#define e_log(X) do { log_((X), LOG_ERR_); exit(EXIT_FAILURE); } while (0)
 
 /** log: Print a message to stderr with an optional preamble.
  * @param msg {const char *}: Message to print
