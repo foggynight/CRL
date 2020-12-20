@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.9
+ * File Version: 0.1.10
  * Last Updated: 2020-12-20
  *
  * This file is part of the crl library:
@@ -17,32 +17,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LOG_INFO_ 0x1
-#define LOG_WARN_ 0x2
-#define LOG_ERR_  0x4
+#define CRL_LOG_INFO_ 0x1
+#define CRL_LOG_WARN_ 0x2
+#define CRL_LOG_ERR_  0x4
 
-#define log(X)   do { log_((X), 0); } while (0)
-#define i_log(X) do { log_((X), LOG_INFO_); } while (0)
-#define w_log(X) do { log_((X), LOG_WARN_); } while (0)
-#define e_log(X) do { log_((X), LOG_ERR_); exit(EXIT_FAILURE); } while (0)
+#define crl_log(X) do { log_(0, (X)); } while (0)
+#define crl_ilog(X) do { log_(CRL_LOG_INFO_, (X)); } while (0)
+#define crl_wlog(X) do { log_(CRL_LOG_WARN_, (X)); } while (0)
+#define crl_elog(X) do { log_(CRL_LOG_ERR_, (X)); exit(EXIT_FAILURE); } while (0)
 
-/** log: Print a message to stderr with an optional preamble.
- * @param msg {const char *}: Message to print
- * @param flags {int}: Flags indicating preamble */
-void log_(const char *msg, int flags);
+/** log_: Print a message to stderr with an optional preamble.
+ * @param flags {int}: Flags indicating preamble
+ * @param msg {const char *}: Message to print */
+void log_(int flags, const char *msg);
 
 #ifdef CRL_DEFINE
 
-void log_(const char *msg, int flags)
+void log_(int flags, const char *msg)
 {
     switch (flags) {
-        case LOG_INFO_:
+        case CRL_LOG_INFO_:
             fprintf(stderr, "Info: %s\n", msg);
             break;
-        case LOG_WARN_:
+        case CRL_LOG_WARN_:
             fprintf(stderr, "Warning: %s\n", msg);
             break;
-        case LOG_ERR_:
+        case CRL_LOG_ERR_:
             fprintf(stderr, "Error: %s\n", msg);
             break;
         default:
