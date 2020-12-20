@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.7
+ * File Version: 0.1.8
  * Last Updated: 2020-12-20
  *
  * This file is part of the crl library:
@@ -17,9 +17,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LOG_INFO_ 0b1
-#define LOG_WARN_ 0b10
-#define LOG_ERR_  0b100
+#define LOG_INFO_ 0x1
+#define LOG_WARN_ 0x2
+#define LOG_ERR_  0x4
 
 #define log(X)   { log_((X), 0); }
 #define i_log(X) { log_((X), LOG_INFO_); }
