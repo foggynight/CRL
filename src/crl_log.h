@@ -2,7 +2,7 @@
  *
  * Logging and error handling.
  *
- * File Version: 0.1.6
+ * File Version: 0.1.7
  * Last Updated: 2020-12-20
  *
  * This file is part of the crl library:
@@ -15,12 +15,13 @@
 #define CRL_LOG_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 
-#define LOG_INFO_ 1
-#define LOG_WARN_ (1 < 1)
-#define LOG_ERR_  (1 < 2)
+#define LOG_INFO_ 0b1
+#define LOG_WARN_ 0b10
+#define LOG_ERR_  0b100
 
-#define log(X)   { log_((X), NULL); }
+#define log(X)   { log_((X), 0); }
 #define i_log(X) { log_((X), LOG_INFO_); }
 #define w_log(X) { log_((X), LOG_WARN_); }
 #define e_log(X) { log_((X), LOG_ERR_); \
@@ -36,13 +37,13 @@ void log_(const char *msg, int flags);
 void log_(const char *msg, int flags)
 {
     switch (flags) {
-        case INFO:
+        case LOG_INFO_:
             fprintf(stderr, "Info: %s\n", msg);
             break;
-        case WARN:
+        case LOG_WARN_:
             fprintf(stderr, "Warning: %s\n", msg);
             break;
-        case ERR:
+        case LOG_ERR_:
             fprintf(stderr, "Error: %s\n", msg);
             break;
         default:
