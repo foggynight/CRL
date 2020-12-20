@@ -8,12 +8,12 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.2.1
+ * File Version: 0.2.2
  * First Commit: 2020-12-19
  * Last Updated: 2020-12-20
  *
  * Copyright (C) 2020 Robert Coffey
- * Released under the GPLv2 license */
+ * Released under the MIT license */
 
 #ifndef CRL_LOG_H_
 #define CRL_LOG_H_

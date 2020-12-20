@@ -1,6 +1,6 @@
 // Copyright (C) 2020 Robert Coffey
-// Released under the GPLv2 license
-// Target: crl_list.h v0.2.0
+// Released under the MIT license
+// Target: crl_list.h v0.2.x
 
 #include <stdio.h>
 
