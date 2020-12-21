@@ -6,7 +6,7 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.1.5
+ * File Version: 0.1.6
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-21
  *
@@ -16,11 +16,17 @@
 #ifndef CRL_LIST_H_
 #define CRL_LIST_H_
 
-/* sl_node_t: Singly linked list node. */
+/* sl_node_t: Singly linked node. */
 typedef struct sl_node {
     void *val;            // Pointer to the node value
     struct sl_node *next; // Pointer to the next node
 } sl_node_t;
+
+/* sl_list_t: Singly linked list. */
+typedef struct sl_list {
+    sl_node_t *head; // Pointer to the head of the list
+    sl_node_t *tail; // Pointer to the tail of the list
+} sl_list_t;
 
 /* sl_create_node: Create a singly linked list node.
  * @return {sl_node_t *}: Pointer to the new node */
@@ -29,6 +35,14 @@ sl_node_t *sl_create_node(void);
 /* sl_destroy_node: Destroy a singly linked list node.
  * @param node {sl_node_t *}: Pointer to the target node */
 void sl_destroy_node(sl_node_t *node);
+
+/* sl_create_list: Create a singly linked list.
+ * @return {sl_list_t *}: Pointer to the list */
+sl_list_t *sl_create_list(void);
+
+/* sl_destroy_list: Destroy a singly linked list.
+ * @param list {sl_list_t *}: Pointer to the target list */
+void sl_destroy_list(sl_list_t *list);
 
 /* sl_is_empty: Check if a list is empty.
  * @param head {sl_node_t *}: Pointer to the head of the list
@@ -57,7 +71,7 @@ sl_node_t *sl_create_node(void)
 {
     sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
     if (!node) {
-        fputs("list/single_link.h: Error: create_node: calloc returned NULL\n", stderr);
+        fputs("list/single_link.h: Error: sl_create_node: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return node;
@@ -66,10 +80,26 @@ sl_node_t *sl_create_node(void)
 void sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
-        fputs("list/single_link.h: Error: destroy_node: Cannot destroy NULL\n", stderr);
+        fputs("list/single_link.h: Error: sl_destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     free(node);
+}
+
+sl_list_t *sl_create_list(void)
+{
+    sl_list_t *list = (sl_list_t *)calloc(1, sizeof(sl_list_t));
+    if (!list) {
+        fputs("list/single_link.h: Error: sl_create_list: calloc failed\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    return list;
+}
+
+void sl_destroy_list(sl_list_t *list)
+{
+    while (list->head)
+        sl_remove_node(&list->head, &list->tail, list->head);
 }
 
 int sl_is_empty(sl_node_t *head, sl_node_t *tail)
