@@ -6,9 +6,9 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.1.4
+ * File Version: 0.1.5
  * First Commit: 2020-12-16
- * Last Updated: 2020-12-20
+ * Last Updated: 2020-12-21
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -16,36 +16,33 @@
 #ifndef CRL_LIST_H_
 #define CRL_LIST_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-
 /* sl_node_t: Singly linked list node. */
 typedef struct sl_node {
     void *val;            // Pointer to the node value
     struct sl_node *next; // Pointer to the next node
 } sl_node_t;
 
-/** sl_create_node: Create a singly linked list node.
+/* sl_create_node: Create a singly linked list node.
  * @return {sl_node_t *}: Pointer to the new node */
 sl_node_t *sl_create_node(void);
 
-/** sl_destroy_node: Destroy a singly linked list node.
+/* sl_destroy_node: Destroy a singly linked list node.
  * @param node {sl_node_t *}: Pointer to the target node */
 void sl_destroy_node(sl_node_t *node);
 
-/** sl_is_empty: Check if a list is empty.
+/* sl_is_empty: Check if a list is empty.
  * @param head {sl_node_t *}: Pointer to the head of the list
  * @param tail {sl_node_t *}: Pointer to the tail of the list
  * @return {int}: Non-zero if the list is empty */
 int sl_is_empty(sl_node_t *head, sl_node_t *tail);
 
-/** sl_add_node: Add a node to a singly linked list.
+/* sl_add_node: Add a node to a singly linked list.
  * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
  * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
  * @param node {sl_node_t *}:  Pointer to the node to add to the list */
 void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
 
-/** sl_remove_node: Remove a node from a singly linked list.
+/* sl_remove_node: Remove a node from a singly linked list.
  * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
  * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
  * @param node {sl_node_t *}:  Pointer to the node to remove from the list */
@@ -53,9 +50,12 @@ void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
 
 #ifdef CRL_DEFINE
 
+#include <stdio.h>
+#include <stdlib.h>
+
 sl_node_t *sl_create_node(void)
 {
-    sl_node_t *node = calloc(1, sizeof(sl_node_t));
+    sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
     if (!node) {
         fputs("list/single_link.h: Error: create_node: calloc returned NULL\n", stderr);
         exit(EXIT_FAILURE);
@@ -74,8 +74,9 @@ void sl_destroy_node(sl_node_t *node)
 
 int sl_is_empty(sl_node_t *head, sl_node_t *tail)
 {
-    if ((head && !tail)
-     || (!head && tail)) {
+    if (head && !tail
+        || !head && tail)
+    {
         fputs("list/single_link.h: Error: sl_is_empty: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
