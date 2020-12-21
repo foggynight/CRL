@@ -6,7 +6,7 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.1.6
+ * File Version: 0.2.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-21
  *
@@ -29,38 +29,35 @@ typedef struct sl_list {
 } sl_list_t;
 
 /* sl_create_node: Create a singly linked list node.
- * @return {sl_node_t *}: Pointer to the new node */
+ * @return Pointer to the new node */
 sl_node_t *sl_create_node(void);
 
 /* sl_destroy_node: Destroy a singly linked list node.
- * @param node {sl_node_t *}: Pointer to the target node */
+ * @param node Pointer to the target node */
 void sl_destroy_node(sl_node_t *node);
 
 /* sl_create_list: Create a singly linked list.
- * @return {sl_list_t *}: Pointer to the list */
+ * @return Pointer to the new list */
 sl_list_t *sl_create_list(void);
 
 /* sl_destroy_list: Destroy a singly linked list.
- * @param list {sl_list_t *}: Pointer to the target list */
+ * @param list Pointer to the target list */
 void sl_destroy_list(sl_list_t *list);
 
-/* sl_is_empty: Check if a list is empty.
- * @param head {sl_node_t *}: Pointer to the head of the list
- * @param tail {sl_node_t *}: Pointer to the tail of the list
- * @return {int}: Non-zero if the list is empty */
-int sl_is_empty(sl_node_t *head, sl_node_t *tail);
+/* sl_is_empty: Check if a singly linked list is empty.
+ * @param list Pointer to the target list
+ * @return Non-zero if the list is empty */
+int sl_is_empty(sl_list_t *list);
 
 /* sl_add_node: Add a node to a singly linked list.
- * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
- * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
- * @param node {sl_node_t *}:  Pointer to the node to add to the list */
-void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
+ * @param list Pointer to the target list
+ * @param node Pointer to the node to add */
+void sl_add_node(sl_list_t *list, sl_node_t *node);
 
 /* sl_remove_node: Remove a node from a singly linked list.
- * @param head {sl_node_t **}: Pointer to a pointer to the head of the list
- * @param tail {sl_node_t **}: Pointer to a pointer to the tail of the list
- * @param node {sl_node_t *}:  Pointer to the node to remove from the list */
-void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node);
+ * @param list Pointer to the target list
+ * @param node Pointer to the node to remove */
+void sl_remove_node(sl_list_t *list, sl_node_t *node);
 
 #ifdef CRL_DEFINE
 
@@ -98,70 +95,70 @@ sl_list_t *sl_create_list(void)
 
 void sl_destroy_list(sl_list_t *list)
 {
-    while (list->head)
-        sl_remove_node(&list->head, &list->tail, list->head);
+    while (!sl_is_empty(list))
+        sl_remove_node(list, list->head);
 }
 
-int sl_is_empty(sl_node_t *head, sl_node_t *tail)
+int sl_is_empty(sl_list_t *list)
 {
-    if (head && !tail
-        || !head && tail)
+    if (list->head && !list->tail
+        || !list->head && list->tail)
     {
         fputs("list/single_link.h: Error: sl_is_empty: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
-    return !head && !tail;
+    return !list->head && !list->tail;
 }
 
-void sl_add_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+void sl_add_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
         fputs("list/single_link.h: Error: sl_add_node: Cannot add NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
 
-    if (sl_is_empty(*head, *tail)) {
-        *head = *tail = node;
+    if (sl_is_empty(list)) {
+        list->head = list->tail = node;
     }
     else {
-        (*tail)->next = node;
-        *tail = node;
+        list->tail->next = node;
+        list->tail = node;
     }
 }
 
-void sl_remove_node(sl_node_t **head, sl_node_t **tail, sl_node_t *node)
+void sl_remove_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
         fputs("list/single_link.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (sl_is_empty(*head, *tail)) {
+    if (sl_is_empty(list)) {
         fputs("list/single_link.h: Error: sl_remove_node: List is empty\n", stderr);
         exit(EXIT_FAILURE);
     }
 
-    if (node == *head) {
-        sl_node_t *old_head = *head;
+    if (node == list->head) {
+        sl_node_t *old_head = list->head;
 
-        *head = (*head)->next;
-        if (old_head == *tail)
-            *tail = *head;
+        list->head = (list->head)->next;
+        if (old_head == list->tail)
+            list->tail = list->head;
 
         sl_destroy_node(old_head);
     }
-    else if (node == *tail) {
-        sl_node_t *old_tail = *tail;
+    else if (node == list->tail) {
+        sl_node_t *old_tail = list->tail;
 
         sl_node_t *walk;
-        for (walk = *head; walk->next != *tail; walk = walk->next);
-        *tail = walk;
-        (*tail)->next = NULL;
+        for (walk = list->head; walk->next != list->tail; walk = walk->next);
+        list->tail = walk;
+        list->tail->next = NULL;
 
         sl_destroy_node(old_tail);
     }
     else {
         sl_node_t *walk;
-        for (walk = *head; walk->next != node; walk = walk->next);
+        for (walk = list->head; walk->next != node; walk = walk->next);
 
         sl_node_t *new_next = walk->next->next;
         sl_destroy_node(walk->next);
