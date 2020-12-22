@@ -1,12 +1,14 @@
 /* --- crl_list.h ---
  *
- * Generic singly linked list implementation, requires a head and tail
- * pointer which are to be initialized to NULL.
+ * Generic linked list implementations.
+ *
+ * Define the CRL_DEFINE macro before including this file to define these
+ * header functions.
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.2.0
+ * File Version: 0.2.1
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-21
  *
