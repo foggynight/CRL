@@ -2,6 +2,11 @@
 
 C Results Library
 
+## Components
+
+- `crl_list.h`: Linked list implementations
+- `crl_log.h`: Print logging macros
+
 ## License
 
 Copyright (C) 2020 Robert Coffey
