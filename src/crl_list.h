@@ -8,7 +8,7 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.2.1
+ * File Version: 0.2.2
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-21
  *
@@ -103,8 +103,8 @@ void sl_destroy_list(sl_list_t *list)
 
 int sl_is_empty(sl_list_t *list)
 {
-    if (list->head && !list->tail
-        || !list->head && list->tail)
+    if ((list->head && !list->tail)
+        || (!list->head && list->tail))
     {
         fputs("list/single_link.h: Error: sl_is_empty: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
