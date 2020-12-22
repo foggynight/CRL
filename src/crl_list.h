@@ -8,9 +8,9 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.3.1
+ * File Version: 0.3.2
  * First Commit: 2020-12-16
- * Last Updated: 2020-12-21
+ * Last Updated: 2020-12-22
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -48,10 +48,10 @@ sl_list_t *sl_create_list(void);
  * @return Always NULL */
 sl_list_t *sl_destroy_list(sl_list_t *list);
 
-/* sl_is_empty: Check if a singly linked list is empty.
+/* sl_empty_p: Check if a singly linked list is empty.
  * @param list Pointer to the target list
  * @return Non-zero if the list is empty */
-int sl_is_empty(sl_list_t *list);
+int sl_empty_p(sl_list_t *list);
 
 /* sl_add_node: Add a node to a singly linked list.
  * @param list Pointer to the target list
@@ -105,7 +105,7 @@ sl_list_t *sl_destroy_list(sl_list_t *list)
     return NULL;
 }
 
-int sl_is_empty(sl_list_t *list)
+int sl_empty_p(sl_list_t *list)
 {
     if ((list->head && !list->tail)
         || (!list->head && list->tail))
