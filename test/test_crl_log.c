@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 #define CRL_NO_EXIT
-#include "../src/crl_log.h"
+#include "crl_log.h"
 
 int main(void)
 {

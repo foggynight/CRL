@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 #define CRL_DEFINE
-#include "../src/crl_list.h"
+#include "crl_list.h"
 
 #define NODE_COUNT 3
 
