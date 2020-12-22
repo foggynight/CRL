@@ -10,7 +10,7 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.4.1
+ * File Version: 0.4.2
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-22
  *
@@ -163,8 +163,10 @@ sl_list_t *sl_create_list(void)
 
 sl_list_t *sl_destroy_list(sl_list_t *list)
 {
-    while (!sl_empty_p(list))
+    while (!sl_empty_p(list)) {
+        free(list->head->val);
         sl_remove_node(list, list->head);
+    }
     return NULL;
 }
 
