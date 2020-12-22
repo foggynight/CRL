@@ -1,6 +1,6 @@
 /* --- test_crl_list.c ---
  *
- * Target: crl_list.h v0.3.x
+ * Target: crl_list.h v0.4.x
  * First Commit: 2020-12-22
  * Last Updated: 2020-12-22
  *
@@ -46,10 +46,12 @@ int main(void)
     for (sl_node_t *head = list->head; head; head = list->head) {
         int node_value = *(int *)head->val;
         expected_value = *(int *)list->head->val;
+        sl_node_t *expected_head = head->next;
         assert(node_value == expected_value);
 
-        sl_node_t *expected_head = head->next;
+        free(list->head->val);
         sl_remove_node(list, list->head);
+
         assert(list->head == expected_head);
     }
     populate_list(list);
@@ -60,13 +62,27 @@ int main(void)
         expected_value = *(int *)list->tail->val;
         assert(node_value == expected_value);
 
+        sl_node_t *expected_tail;
+        if (list->head == list->tail) {
+            expected_tail = NULL;
+        }
+        else {
+            for (expected_tail = list->head;
+                 expected_tail->next != list->tail;
+                 expected_tail = expected_tail->next);
+         }
+
+        free(list->tail->val);
         sl_remove_node(list, list->tail);
+
+        assert(list->tail == expected_tail);
         if (list->tail)
             assert(list->tail->next == NULL);
     }
     populate_list(list);
 
     /* Remove node in the list body */
+    free(list->head->next->val);
     sl_remove_node(list, list->head->next);
     assert(list->head && list->tail);
     assert(*(int *)list->head->val + 2 == *(int *)list->head->next->val);
