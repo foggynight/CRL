@@ -10,7 +10,7 @@
  * This file is part of the CRL library:
  * https://github.com/foggynight/CRL
  *
- * File Version: 0.4.3
+ * File Version: 0.4.4
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-22
  *
@@ -135,7 +135,7 @@ sl_node_t *sl_create_node(void)
 {
     sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
     if (!node) {
-        fputs("list/single_link.h: Error: sl_create_node: calloc failed\n", stderr);
+        fputs("crl_list.h: Error: sl_create_node: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return node;
@@ -144,7 +144,7 @@ sl_node_t *sl_create_node(void)
 sl_node_t *sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
-        fputs("list/single_link.h: Error: sl_destroy_node: Cannot destroy NULL\n", stderr);
+        fputs("crl_list.h: Error: sl_destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     free(node);
@@ -155,7 +155,7 @@ sl_list_t *sl_create_list(void)
 {
     sl_list_t *list = (sl_list_t *)calloc(1, sizeof(sl_list_t));
     if (!list) {
-        fputs("list/single_link.h: Error: sl_create_list: calloc failed\n", stderr);
+        fputs("crl_list.h: Error: sl_create_list: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return list;
@@ -175,7 +175,7 @@ int sl_empty_p(sl_list_t *list)
     if ((list->head && !list->tail)
         || (!list->head && list->tail))
     {
-        fputs("list/single_link.h: Error: sl_empty_p: Invalid list initialization\n", stderr);
+        fputs("crl_list.h: Error: sl_empty_p: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
     return !list->head && !list->tail;
@@ -184,7 +184,7 @@ int sl_empty_p(sl_list_t *list)
 void sl_add_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
-        fputs("list/single_link.h: Error: sl_add_node: Cannot add NULL\n", stderr);
+        fputs("crl_list.h: Error: sl_add_node: Cannot add NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
 
@@ -200,11 +200,11 @@ void sl_add_node(sl_list_t *list, sl_node_t *node)
 void sl_remove_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
-        fputs("list/single_link.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
+        fputs("crl_list.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if (sl_empty_p(list)) {
-        fputs("list/single_link.h: Error: sl_remove_node: List is empty\n", stderr);
+        fputs("crl_list.h: Error: sl_remove_node: List is empty\n", stderr);
         exit(EXIT_FAILURE);
     }
 
@@ -243,6 +243,56 @@ void sl_remove_node(sl_list_t *list, sl_node_t *node)
 
 /* --------------------------------------------- */
 /* --- BEGIN: DOUBLY LINKED LIST DEFINITIONS --- */
+
+dl_node_t *dl_create_node(void)
+{
+    dl_node_t *node = (dl_node_t *)calloc(1, sizeof(dl_node_t));
+    if (!node) {
+        fputs("crl_list.h: Error: dl_create_node: calloc failed\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    return node;
+}
+
+dl_node_t *dl_destroy_node(dl_node_t *node)
+{
+    if (!node) {
+        fputs("crl_list.h: Error: dl_destroy_node: Cannot destroy NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    free(node);
+    return NULL;
+}
+
+dl_list_t *dl_create_list(void)
+{
+    dl_list_t *list = (dl_list_t *)calloc(1, sizeof(dl_list_t));
+    if (!list) {
+        fputs("crl_list.h: Error: dl_create_list: calloc failed\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    return list;
+}
+
+dl_list_t *dl_destroy_list(dl_list_t *list)
+{
+    while (!dl_empty_p(list)) {
+        free(list->head->val);
+        dl_remove_node(list, list->head);
+    }
+    return NULL;
+}
+
+int dl_empty_p(dl_list_t *list)
+{
+    if ((list->head && !list->tail)
+        || (!list->head && list->tail))
+    {
+        fputs("crl_list.h: Error: dl_empty_p: Invalid list initialization\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    return !list->head && !list->tail;
+}
 
 /* --- ENDOF: DOUBLY LINKED LIST DEFINITIONS --- */
 /* --------------------------------------------- */
