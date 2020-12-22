@@ -1,7 +1,7 @@
 # crl
 
-The **C Results Library** is a zero-dependency catch-all toolkit written for
-C/C++ with a focus on reusability and performance.
+The **C Results Library** is a zero-dependency catch-all toolkit for C/C++
+focusing on reusability and performance.
 
 ## Components
 
