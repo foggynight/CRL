@@ -7,10 +7,10 @@
  *
  * In other compilation units, include the header as normal.
  *
- * This file is part of the crl library:
- * https://github.com/foggynight/crl
+ * This file is part of the CRL library:
+ * https://github.com/foggynight/CRL
  *
- * File Version: 0.4.2
+ * File Version: 0.4.3
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-22
  *
