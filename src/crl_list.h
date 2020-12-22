@@ -8,7 +8,7 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.2.2
+ * File Version: 0.3.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-21
  *
@@ -35,8 +35,9 @@ typedef struct sl_list {
 sl_node_t *sl_create_node(void);
 
 /* sl_destroy_node: Destroy a singly linked list node.
- * @param node Pointer to the target node */
-void sl_destroy_node(sl_node_t *node);
+ * @param node Pointer to the target node
+ * @return Always returns NULL */
+sl_node_t *sl_destroy_node(sl_node_t *node);
 
 /* sl_create_list: Create a singly linked list.
  * @return Pointer to the new list */
@@ -76,13 +77,14 @@ sl_node_t *sl_create_node(void)
     return node;
 }
 
-void sl_destroy_node(sl_node_t *node)
+sl_node_t *sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
         fputs("list/single_link.h: Error: sl_destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     free(node);
+    return NULL;
 }
 
 sl_list_t *sl_create_list(void)
