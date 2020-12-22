@@ -2,6 +2,9 @@
 
 C Results Library
 
+Zero-dependency catch-all toolkit library written for C/C++ with a focus on
+re-usability and performance.
+
 ## Components
 
 - `crl_list.h`: Linked list implementations
