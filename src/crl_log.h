@@ -2,13 +2,13 @@
  *
  * Macros for logging to the stderr stream.
  *
- * Define the CRL_NO_EXIT macro before including this header to prevent the
- * crl_elog functions from causing the program to exit.
+ * Define the CRL_NO_EXIT macro before including this header to prevent
+ * the crl_elog functions from causing the program to exit.
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.2.4
+ * File Version: 0.2.5
  * First Commit: 2020-12-19
  * Last Updated: 2020-12-21
  *

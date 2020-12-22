@@ -2,13 +2,13 @@
  *
  * Generic linked list implementations.
  *
- * Define the CRL_DEFINE macro before including this file to define these
- * header functions.
+ * Define the CRL_DEFINE macro before including this file to define
+ * these header functions.
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.3.0
+ * File Version: 0.3.1
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-21
  *
@@ -36,7 +36,7 @@ sl_node_t *sl_create_node(void);
 
 /* sl_destroy_node: Destroy a singly linked list node.
  * @param node Pointer to the target node
- * @return Always returns NULL */
+ * @return Always NULL */
 sl_node_t *sl_destroy_node(sl_node_t *node);
 
 /* sl_create_list: Create a singly linked list.
@@ -44,8 +44,9 @@ sl_node_t *sl_destroy_node(sl_node_t *node);
 sl_list_t *sl_create_list(void);
 
 /* sl_destroy_list: Destroy a singly linked list.
- * @param list Pointer to the target list */
-void sl_destroy_list(sl_list_t *list);
+ * @param list Pointer to the target list
+ * @return Always NULL */
+sl_list_t *sl_destroy_list(sl_list_t *list);
 
 /* sl_is_empty: Check if a singly linked list is empty.
  * @param list Pointer to the target list
@@ -97,10 +98,11 @@ sl_list_t *sl_create_list(void)
     return list;
 }
 
-void sl_destroy_list(sl_list_t *list)
+sl_list_t *sl_destroy_list(sl_list_t *list)
 {
     while (!sl_is_empty(list))
         sl_remove_node(list, list->head);
+    return NULL;
 }
 
 int sl_is_empty(sl_list_t *list)
