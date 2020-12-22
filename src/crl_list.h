@@ -10,7 +10,7 @@
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.4.0
+ * File Version: 0.4.1
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-22
  *
@@ -163,7 +163,7 @@ sl_list_t *sl_create_list(void)
 
 sl_list_t *sl_destroy_list(sl_list_t *list)
 {
-    while (!sl_is_empty(list))
+    while (!sl_empty_p(list))
         sl_remove_node(list, list->head);
     return NULL;
 }
@@ -173,7 +173,7 @@ int sl_empty_p(sl_list_t *list)
     if ((list->head && !list->tail)
         || (!list->head && list->tail))
     {
-        fputs("list/single_link.h: Error: sl_is_empty: Invalid list initialization\n", stderr);
+        fputs("list/single_link.h: Error: sl_empty_p: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
     return !list->head && !list->tail;
@@ -186,7 +186,7 @@ void sl_add_node(sl_list_t *list, sl_node_t *node)
         exit(EXIT_FAILURE);
     }
 
-    if (sl_is_empty(list)) {
+    if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
     else {
@@ -201,7 +201,7 @@ void sl_remove_node(sl_list_t *list, sl_node_t *node)
         fputs("list/single_link.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (sl_is_empty(list)) {
+    if (sl_empty_p(list)) {
         fputs("list/single_link.h: Error: sl_remove_node: List is empty\n", stderr);
         exit(EXIT_FAILURE);
     }
