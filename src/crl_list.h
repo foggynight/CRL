@@ -2,13 +2,15 @@
  *
  * Generic linked list implementations.
  *
- * Define the CRL_DEFINE macro before including this file to define
- * these header functions.
+ * Define the CRL_DEFINE macro before including this file in just one
+ * compilation unit of your program.
+ *
+ * In other compilation units, include the header as normal.
  *
  * This file is part of the crl library:
  * https://github.com/foggynight/crl
  *
- * File Version: 0.3.2
+ * File Version: 0.4.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-22
  *
@@ -17,6 +19,9 @@
 
 #ifndef CRL_LIST_H_
 #define CRL_LIST_H_
+
+/* ---------------------------------------------- */
+/* --- BEGIN: SINGLY LINKED LIST DECLARATIONS --- */
 
 /* sl_node_t: Singly linked node. */
 typedef struct sl_node {
@@ -63,10 +68,68 @@ void sl_add_node(sl_list_t *list, sl_node_t *node);
  * @param node Pointer to the node to remove */
 void sl_remove_node(sl_list_t *list, sl_node_t *node);
 
+/* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
+/* ---------------------------------------------- */
+
+/* ---------------------------------------------- */
+/* --- BEGIN: DOUBLY LINKED LIST DECLARATIONS --- */
+
+/* dl_node_t: Doubly linked node. */
+typedef struct dl_node {
+    void *val;            // Pointer to the node value
+    struct dl_node *prev; // Pointer to the previous node
+    struct dl_node *next; // Pointer to the next node
+} dl_node_t;
+
+/* dl_list_t: Doubly linked list. */
+typedef struct dl_list {
+    dl_node_t *head; // Pointer to the head of the list
+    dl_node_t *tail; // Pointer to the tail of the list
+} dl_list_t;
+
+/* dl_create_node: Create a doubly linked list node.
+ * @return Pointer to the new node */
+dl_node_t *dl_create_node(void);
+
+/* dl_destroy_node: Destroy a doubly linked list node.
+ * @param node Pointer to the target node
+ * @return Always NULL */
+dl_node_t *dl_destroy_node(dl_node_t *node);
+
+/* dl_create_list: Create a doubly linked list.
+ * @return Pointer to the new list */
+dl_list_t *dl_create_list(void);
+
+/* dl_destroy_list: Destroy a doubly linked list.
+ * @param list Pointer to the target list
+ * @return Always NULL */
+dl_list_t *dl_destroy_list(dl_list_t *list);
+
+/* dl_empty_p: Check if a doubly linked list is empty.
+ * @param list Pointer to the target list
+ * @return Non-zero if the list is empty */
+int dl_empty_p(dl_list_t *list);
+
+/* dl_add_node: Add a node to a doubly linked list.
+ * @param list Pointer to the target list
+ * @param node Pointer to the node to add */
+void dl_add_node(dl_list_t *list, dl_node_t *node);
+
+/* dl_remove_node: Remove a node from a doubly linked list.
+ * @param list Pointer to the target list
+ * @param node Pointer to the node to remove */
+void dl_remove_node(dl_list_t *list, dl_node_t *node);
+
+/* --- ENDOF: DOUBLY LINKED LIST DECLARATIONS --- */
+/* ---------------------------------------------- */
+
 #ifdef CRL_DEFINE
 
 #include <stdio.h>
 #include <stdlib.h>
+
+/* --------------------------------------------- */
+/* --- BEGIN: SINGLY LINKED LIST DEFINITIONS --- */
 
 sl_node_t *sl_create_node(void)
 {
@@ -172,6 +235,15 @@ void sl_remove_node(sl_list_t *list, sl_node_t *node)
         walk->next = new_next;
     }
 }
+
+/* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
+/* --------------------------------------------- */
+
+/* --------------------------------------------- */
+/* --- BEGIN: DOUBLY LINKED LIST DEFINITIONS --- */
+
+/* --- ENDOF: DOUBLY LINKED LIST DEFINITIONS --- */
+/* --------------------------------------------- */
 
 #endif // CRL_DEFINE
 #endif // CRL_LIST_H_
