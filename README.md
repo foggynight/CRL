@@ -1,7 +1,7 @@
 # CRL
 
 The **C Results Library** is a zero-dependency catch-all toolkit for C/C++
-focusing on reusability and performance.
+focused on reusability and performance.
 
 ## Components
 
