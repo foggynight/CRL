@@ -1,0 +1,20 @@
+#+TITLE: rtb: Robert's Tool Box
+#+AUTHOR: Robert Coffey
+
+* Introduction
+
+*rtb* is a zero-dependency catch-all toolkit for C/C++ focused on reusability
+and performance.
+
+This document is intended to serve as an introduction to the library, as well as
+a guide for how to use the documentation.
+
+* Versioning
+
+This library uses semantic versioning: =MAJOR.MINOR.PATCH=
+
+See [[https://semver.org/][Semantic Versioning 2.0.0]] for more information.
+
+* Credits
+
+*rtb* was inspired by [[https://github.com/nothings/stb][stb]].
