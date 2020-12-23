@@ -1,7 +1,13 @@
 # RTB
 
-**Robert's Tool Box** is a zero-dependency catch-all toolkit for C/C++ focused
-on reusability and performance.
+**RTB** is a zero-dependency catch-all toolkit for C/C++ focused on
+reusability and performance.
+
+## Directories
+
+- `doc`: Documentation
+- `src`: Source code
+- `test`: Unit tests
 
 ## Components
 
