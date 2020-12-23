@@ -2,7 +2,7 @@
  *
  * Generic linked list implementations.
  *
- * Define the CRL_DEFINE macro before including this file in just one
+ * Define the CRL_DEFINE macro before including this header in just one
  * compilation unit of your program.
  *
  * In other compilation units, include the header as normal.
@@ -10,9 +10,9 @@
  * This file is part of the CRL library:
  * https://github.com/foggynight/CRL
  *
- * File Version: 0.4.4
+ * File Version: 0.4.5
  * First Commit: 2020-12-16
- * Last Updated: 2020-12-22
+ * Last Updated: 2020-12-23
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -292,6 +292,16 @@ int dl_empty_p(dl_list_t *list)
         exit(EXIT_FAILURE);
     }
     return !list->head && !list->tail;
+}
+
+void dl_add_node(dl_list_t *list, dl_node_t *node)
+{
+
+}
+
+void dl_remove_node(dl_list_t *list, dl_node_t *node)
+{
+
 }
 
 /* --- ENDOF: DOUBLY LINKED LIST DEFINITIONS --- */
