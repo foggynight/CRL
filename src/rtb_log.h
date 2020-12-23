@@ -5,10 +5,10 @@
  * Define the RTB_NO_EXIT macro before including this header to prevent
  * the rtb_elog macros from causing the program to exit.
  *
- * This file is part of the RTB library:
- * https://github.com/foggynight/RTB
+ * This file is part of the rtb library:
+ * https://github.com/foggynight/rtb
  *
- * File Version: 0.3.0
+ * File Version: 0.3.1
  * First Commit: 2020-12-19
  * Last Updated: 2020-12-23
  *

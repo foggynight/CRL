@@ -7,10 +7,10 @@
  *
  * In other compilation units, include the header as normal.
  *
- * This file is part of the RTB library:
- * https://github.com/foggynight/RTB
+ * This file is part of the rtb library:
+ * https://github.com/foggynight/rtb
  *
- * File Version: 0.5.0
+ * File Version: 0.5.1
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-23
  *
