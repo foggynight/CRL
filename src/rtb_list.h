@@ -1,24 +1,24 @@
-/* --- crl_list.h ---
+/* --- rtb_list.h ---
  *
  * Generic linked list implementations.
  *
- * Define the CRL_DEFINE macro before including this header in just one
+ * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
  *
  * In other compilation units, include the header as normal.
  *
- * This file is part of the CRL library:
- * https://github.com/foggynight/CRL
+ * This file is part of the RTB library:
+ * https://github.com/foggynight/RTB
  *
- * File Version: 0.4.5
+ * File Version: 0.5.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-23
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
 
-#ifndef CRL_LIST_H_
-#define CRL_LIST_H_
+#ifndef RTB_LIST_H_
+#define RTB_LIST_H_
 
 /* ---------------------------------------------- */
 /* --- BEGIN: SINGLY LINKED LIST DECLARATIONS --- */
@@ -123,7 +123,7 @@ void dl_remove_node(dl_list_t *list, dl_node_t *node);
 /* --- ENDOF: DOUBLY LINKED LIST DECLARATIONS --- */
 /* ---------------------------------------------- */
 
-#ifdef CRL_DEFINE
+#ifdef RTB_DEFINE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -135,7 +135,7 @@ sl_node_t *sl_create_node(void)
 {
     sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
     if (!node) {
-        fputs("crl_list.h: Error: sl_create_node: calloc failed\n", stderr);
+        fputs("rtb_list.h: Error: sl_create_node: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return node;
@@ -144,7 +144,7 @@ sl_node_t *sl_create_node(void)
 sl_node_t *sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
-        fputs("crl_list.h: Error: sl_destroy_node: Cannot destroy NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     free(node);
@@ -155,7 +155,7 @@ sl_list_t *sl_create_list(void)
 {
     sl_list_t *list = (sl_list_t *)calloc(1, sizeof(sl_list_t));
     if (!list) {
-        fputs("crl_list.h: Error: sl_create_list: calloc failed\n", stderr);
+        fputs("rtb_list.h: Error: sl_create_list: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return list;
@@ -175,7 +175,7 @@ int sl_empty_p(sl_list_t *list)
     if ((list->head && !list->tail)
         || (!list->head && list->tail))
     {
-        fputs("crl_list.h: Error: sl_empty_p: Invalid list initialization\n", stderr);
+        fputs("rtb_list.h: Error: sl_empty_p: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
     return !list->head && !list->tail;
@@ -184,7 +184,7 @@ int sl_empty_p(sl_list_t *list)
 void sl_add_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
-        fputs("crl_list.h: Error: sl_add_node: Cannot add NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_add_node: Cannot add NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
 
@@ -200,11 +200,11 @@ void sl_add_node(sl_list_t *list, sl_node_t *node)
 void sl_remove_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
-        fputs("crl_list.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_remove_node: Cannot remove NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if (sl_empty_p(list)) {
-        fputs("crl_list.h: Error: sl_remove_node: List is empty\n", stderr);
+        fputs("rtb_list.h: Error: sl_remove_node: List is empty\n", stderr);
         exit(EXIT_FAILURE);
     }
 
@@ -248,7 +248,7 @@ dl_node_t *dl_create_node(void)
 {
     dl_node_t *node = (dl_node_t *)calloc(1, sizeof(dl_node_t));
     if (!node) {
-        fputs("crl_list.h: Error: dl_create_node: calloc failed\n", stderr);
+        fputs("rtb_list.h: Error: dl_create_node: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return node;
@@ -257,7 +257,7 @@ dl_node_t *dl_create_node(void)
 dl_node_t *dl_destroy_node(dl_node_t *node)
 {
     if (!node) {
-        fputs("crl_list.h: Error: dl_destroy_node: Cannot destroy NULL\n", stderr);
+        fputs("rtb_list.h: Error: dl_destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     free(node);
@@ -268,7 +268,7 @@ dl_list_t *dl_create_list(void)
 {
     dl_list_t *list = (dl_list_t *)calloc(1, sizeof(dl_list_t));
     if (!list) {
-        fputs("crl_list.h: Error: dl_create_list: calloc failed\n", stderr);
+        fputs("rtb_list.h: Error: dl_create_list: calloc failed\n", stderr);
         exit(EXIT_FAILURE);
     }
     return list;
@@ -288,7 +288,7 @@ int dl_empty_p(dl_list_t *list)
     if ((list->head && !list->tail)
         || (!list->head && list->tail))
     {
-        fputs("crl_list.h: Error: dl_empty_p: Invalid list initialization\n", stderr);
+        fputs("rtb_list.h: Error: dl_empty_p: Invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
     return !list->head && !list->tail;
@@ -307,5 +307,5 @@ void dl_remove_node(dl_list_t *list, dl_node_t *node)
 /* --- ENDOF: DOUBLY LINKED LIST DEFINITIONS --- */
 /* --------------------------------------------- */
 
-#endif // CRL_DEFINE
-#endif // CRL_LIST_H_
+#endif // RTB_DEFINE
+#endif // RTB_LIST_H_

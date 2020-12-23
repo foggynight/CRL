@@ -1,12 +1,12 @@
-# CRL
+# RTB
 
-The **C Results Library** is a zero-dependency catch-all toolkit for C/C++
-focused on reusability and performance.
+**Robert's Tool Box** is a zero-dependency catch-all toolkit for C/C++ focused
+on reusability and performance.
 
 ## Components
 
-- `crl_list.h`: Linked list implementations
-- `crl_log.h`: Print logging macros
+- `rtb_list.h`: Linked list implementations
+- `rtb_log.h`: Print logging macros
 
 ## License
 

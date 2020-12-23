@@ -1,8 +1,8 @@
-/* --- test_crl_list.c ---
+/* --- test_rtb_list.c ---
  *
- * Target: crl_list.h v0.4.x
+ * Target: rtb_list.h v0.5.x
  * First Commit: 2020-12-22
- * Last Updated: 2020-12-22
+ * Last Updated: 2020-12-23
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -11,8 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CRL_DEFINE
-#include "crl_list.h"
+#define RTB_DEFINE
+#include "rtb_list.h"
 
 #define NODE_COUNT 3
 
@@ -96,7 +96,7 @@ int main(void)
     list = sl_destroy_list(list);
     assert(!list);
 
-    puts("test_crl_list.c: All tests passed");
+    puts("test_rtb_list.c: All tests passed");
     return 0;
 }
 
