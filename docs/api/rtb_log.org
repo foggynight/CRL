@@ -1,0 +1,34 @@
+* API: rtb_log.h
+
+** Introduction
+
+Macros for printing to the stderr stream.
+
+** Usage
+
+For default behaviour: Include =rtb_log.h= in each compilation unit that is to
+have access to the logging macros.
+
+#+BEGIN_SRC C
+#include "rtb_log.h"
+#+END_SRC
+
+Define the ~RTB_NO_EXIT~ macro before including =rtb_log.h= to prevent the
+~elog~ macros from calling ~exit~.
+
+#+BEGIN_SRC C
+#define RTB_NO_EXIT
+#include "rtb_log.h"
+#+END_SRC
+
+** Macros
+
+*** rtb_log
+*** rtb_ilog
+*** rtb_wlog
+*** rtb_elog
+
+*** rtb_logf
+*** rtb_ilogf
+*** rtb_wlogf
+*** rtb_elogf

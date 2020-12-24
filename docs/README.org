@@ -1,0 +1,33 @@
+* rtb
+
+** Introduction
+
+*rtb* is a zero-dependency catch-all toolkit for C/C++ focused on reusability
+and performance.
+
+This document is intended to serve as an introduction to the library, as well as
+a guide for using the documentation.
+
+** Components
+
+See the =docs/api/= directory for the API of each component.
+
+- =rtb_list.h=: Generic linked list implementations
+- =rtb_log.h=: Macros for printing to the stderr stream
+
+** Versioning
+
+This library uses semantic versioning: =MAJOR.MINOR.PATCH=
+
+See [[https://semver.org/][Semantic Versioning 2.0.0]] for more information.
+
+** Credits
+
+*rtb* was inspired by [[https://github.com/nothings/stb][stb]].
+
+** License
+
+Copyright (C) 2020 Robert Coffey
+
+Released under the MIT license. You should have received a copy of the license
+along with this library. If not, see [[https://opensource.org/licenses/MIT][MIT license]].
