@@ -1,0 +1,278 @@
+                            ________________
+
+                             API: `RTB_LOG'
+
+                             Robert Coffey
+                            ________________
+
+
+
+
+
+1 Introduction
+==============
+
+  Macros for printing to the stderr stream.
+
+
+2 Include
+=========
+
+  For default behaviour, include `rtb_log.h' in each compilation unit
+  that is to have access to the logging macros.
+  ,----
+  | #include "rtb_log.h"
+  `----
+
+  Define the `RTB_NO_EXIT' macro before including `rtb_log.h' to prevent
+  macros prefixed with `e' exiting the program.
+  ,----
+  | #define RTB_NO_EXIT
+  | #include "rtb_log.h"
+  `----
+
+
+3 Usage
+=======
+
+  Macros with a prefix print an additional preamble.
+  - `i': "Info: "
+  - `w': "Warning: "
+  - `e': "Exit: "
+
+  Macros prefixed with an `e' will exit the program, unless
+  `RTB_NO_EXIT' was defined before including `rtb_log.h'.
+
+  Macros suffixed with an `f' have only a variadic parameter, and pass
+  their variadic arguments directly to `fprintf'.
+
+
+4 Macros
+========
+
+  Print without formatting:
+  - 4.1 `rtb_log'
+  - 4.2 `rtb_ilog'
+  - 4.3 `rtb_wlog'
+  - 4.4 `rtb_elog'
+
+  Print with C-style formatting:
+  - 4.5 `rtb_logf'
+  - 4.6 `rtb_ilogf'
+  - 4.7 `rtb_wlogf'
+  - 4.8 `rtb_elogf'
+
+  ----------------------------------------------------------------------
+
+
+4.1 `rtb_log'
+~~~~~~~~~~~~~
+
+4.1.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_log(X)
+  `----
+
+
+4.1.2 Arguments
+---------------
+
+  - `X': C-style string
+
+
+4.1.3 Description
+-----------------
+
+  Print a string to the stderr stream, ending the current line.
+
+  ----------------------------------------------------------------------
+
+
+4.2 `rtb_ilog'
+~~~~~~~~~~~~~~
+
+4.2.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_ilog(X)
+  `----
+
+
+4.2.2 Arguments
+---------------
+
+  - `X': C-style string
+
+
+4.2.3 Description
+-----------------
+
+  Print a string to the stderr stream with the preamble "Info: ", ending
+  the current line.
+
+  ----------------------------------------------------------------------
+
+
+4.3 `rtb_wlog'
+~~~~~~~~~~~~~~
+
+4.3.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_wlog(X)
+  `----
+
+
+4.3.2 Arguments
+---------------
+
+  - `X': C-style string
+
+
+4.3.3 Description
+-----------------
+
+  Print a string to the stderr stream with the preamble "Warning: ",
+  ending the current line.
+
+  ----------------------------------------------------------------------
+
+
+4.4 `rtb_elog'
+~~~~~~~~~~~~~~
+
+4.4.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_elog(X)
+  `----
+
+
+4.4.2 Arguments
+---------------
+
+  - `X': C-style string
+
+
+4.4.3 Description
+-----------------
+
+  Print a string to the stderr stream with the preamble "Error: ",
+  ending the current line.
+
+  This macro will also exit the program, unless `RTB_NO_EXIT' was
+  defined before including `rtb_log.h'.
+
+  ----------------------------------------------------------------------
+
+
+4.5 `rtb_logf'
+~~~~~~~~~~~~~~
+
+4.5.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_logf(...)
+  `----
+
+
+4.5.2 Arguments
+---------------
+
+  - `...': Variadic argument
+
+
+4.5.3 Description
+-----------------
+
+  Print a formatted string to the stderr stream. Passes the variadic
+  arguments directly to `fprintf'.
+
+  ----------------------------------------------------------------------
+
+
+4.6 `rtb_ilogf'
+~~~~~~~~~~~~~~~
+
+4.6.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_ilogf(...)
+  `----
+
+
+4.6.2 Arguments
+---------------
+
+  - `...': Variadic argument
+
+
+4.6.3 Description
+-----------------
+
+  Print a formatted string to the stderr stream with the preamble "Info:
+  ". Passes the variadic arguments directly to `fprintf'.
+
+  ----------------------------------------------------------------------
+
+
+4.7 `rtb_wlogf'
+~~~~~~~~~~~~~~~
+
+4.7.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_wlogf(...)
+  `----
+
+
+4.7.2 Arguments
+---------------
+
+  - `...': Variadic argument
+
+
+4.7.3 Description
+-----------------
+
+  Print a formatted string to the stderr stream with the preamble
+  "Warning: ". Passes the variadic arguments directly to `fprintf'.
+
+  ----------------------------------------------------------------------
+
+
+4.8 `rtb_elogf'
+~~~~~~~~~~~~~~~
+
+4.8.1 Synopsis
+--------------
+
+  ,----
+  | #define rtb_wlogf(...)
+  `----
+
+
+4.8.2 Arguments
+---------------
+
+  - `...': Variadic argument
+
+
+4.8.3 Description
+-----------------
+
+  Print a formatted string to the stderr stream with the preamble
+  "Error: ". Passes the variadic arguments directly to `fprintf'.
+
+  This macro will also exit the program, unless `RTB_NO_EXIT' was
+  defined before including `rtb_log.h'.
+
+  ----------------------------------------------------------------------
