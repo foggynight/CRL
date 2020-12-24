@@ -9,10 +9,10 @@ and performance.
 - `src`: Library headers
 - `test`: Unit tests
 
-## Components
+## API Components
 
-- `rtb_list.h`: Generic linked list implementations
-- `rtb_log.h`: Macros for printing to the stderr stream
+- `rtb_list`: Generic linked list implementations
+- `rtb_log`: Macros for printing to the stderr stream
 
 ## License
 
