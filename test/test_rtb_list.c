@@ -1,8 +1,8 @@
 /* --- test_rtb_list.c ---
  *
- * Target: rtb_list.h v0.5.x
+ * Target: rtb_list.h v0.6.x
  * First Commit: 2020-12-22
- * Last Updated: 2020-12-23
+ * Last Updated: 2020-12-24
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -79,7 +79,6 @@ int main(void)
          }
 
         sl_remove_node(list, list->tail);
-
         assert(list->tail == expected_tail);
         if (list->tail)
             assert(list->tail->next == NULL);
@@ -90,6 +89,10 @@ int main(void)
     sl_remove_node(list, list->head->next);
     assert(list->head && list->tail);
     assert(*(int *)list->head->val + 2 == *(int *)list->head->next->val);
+
+    /* Get nodes by index */
+    assert(sl_get_node(list, 0) == list->head);
+    assert(sl_get_node(list, 1) == list->tail);
 
     /* Empty the list */
     assert(list);
