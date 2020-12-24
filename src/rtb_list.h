@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.8.0
+ * File Version: 0.8.1
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -103,63 +103,21 @@ void sl_push(sl_list_t *list, sl_node_t *node);
  * @return Popped node */
 sl_node_t *sl_pop(sl_list_t *list);
 
+/* sl_enque: Enqueue a node onto the end of a singly linked list.
+ * @param list List to enqueue to
+ * @param node Node to enqueue */
+void sl_enque(sl_list_t *list, sl_node_t *node);
+
+/* sl_deque: Dequeue a node from the front of a singly linked list.
+ * @param list List to dequeue from
+ * @return Dequeued node */
+sl_node_t *sl_deque(sl_list_t *list);
+
 /* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
 /* ---------------------------------------------- */
 
 /* ---------------------------------------------- */
 /* --- BEGIN: DOUBLY LINKED LIST DECLARATIONS --- */
-
-/* dl_node_t: Doubly linked node. */
-typedef struct dl_node {
-    void *val;            // Pointer to the node value
-    struct dl_node *prev; // Pointer to the previous node
-    struct dl_node *next; // Pointer to the next node
-} dl_node_t;
-
-/* dl_list_t: Doubly linked list. */
-typedef struct dl_list {
-    dl_node_t *head; // Pointer to the head of the list
-    dl_node_t *tail; // Pointer to the tail of the list
-} dl_list_t;
-
-/* dl_create_node: Create a doubly linked list node.
- * @return Pointer to the new node */
-dl_node_t *dl_create_node(void);
-
-/* dl_destroy_node: Destroy a doubly linked list node.
- * @param node Pointer to the target node
- * @return Always NULL */
-dl_node_t *dl_destroy_node(dl_node_t *node);
-
-/* dl_create_list: Create a doubly linked list.
- * @return Pointer to the new list */
-dl_list_t *dl_create_list(void);
-
-/* dl_destroy_list: Destroy a doubly linked list.
- * @param list Pointer to the target list
- * @return Always NULL */
-dl_list_t *dl_destroy_list(dl_list_t *list);
-
-/* dl_is_empty: Check if a doubly linked list is empty.
- * @param list Pointer to the target list
- * @return Non-zero if the list is empty */
-int dl_is_empty(dl_list_t *list);
-
-/* dl_append_node: Append a node to a doubly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to the node to add */
-void dl_append_node(dl_list_t *list, dl_node_t *node);
-
-/* dl_insert_node: Insert a node in a doubly linked list.
- * @param list  Pointer to the target list
- * @param node  Pointer to the node to add
- * @param index Position to insert the node */
-void dl_insert_node(dl_list_t *list, dl_node_t *node, int index);
-
-/* dl_remove_node: Remove a node from a doubly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to the node to remove */
-void dl_remove_node(dl_list_t *list, dl_node_t *node);
 
 /* --- ENDOF: DOUBLY LINKED LIST DECLARATIONS --- */
 /* ---------------------------------------------- */
@@ -383,76 +341,21 @@ sl_node_t *sl_pop(sl_list_t *list)
     return node;
 }
 
+void sl_enque(sl_list_t *list, sl_node_t *node)
+{
+
+}
+
+sl_node_t *sl_deque(sl_list_t *list)
+{
+
+}
+
 /* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
 /* --------------------------------------------- */
 
 /* --------------------------------------------- */
 /* --- BEGIN: DOUBLY LINKED LIST DEFINITIONS --- */
-
-dl_node_t *dl_create_node(void)
-{
-    dl_node_t *node = (dl_node_t *)calloc(1, sizeof(dl_node_t));
-    if (!node) {
-        fputs("rtb_list.h: Error: dl_create_node: calloc failed\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    return node;
-}
-
-dl_node_t *dl_destroy_node(dl_node_t *node)
-{
-    if (!node) {
-        fputs("rtb_list.h: Error: dl_destroy_node: Cannot destroy NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    free(node->val);
-    free(node);
-    return NULL;
-}
-
-dl_list_t *dl_create_list(void)
-{
-    dl_list_t *list = (dl_list_t *)calloc(1, sizeof(dl_list_t));
-    if (!list) {
-        fputs("rtb_list.h: Error: dl_create_list: calloc failed\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    return list;
-}
-
-dl_list_t *dl_destroy_list(dl_list_t *list)
-{
-    while (!dl_is_empty(list)) {
-        dl_remove_node(list, list->head);
-    }
-    return NULL;
-}
-
-int dl_is_empty(dl_list_t *list)
-{
-    if ((list->head && !list->tail)
-        || (!list->head && list->tail))
-    {
-        fputs("rtb_list.h: Error: dl_is_empty: Invalid list initialization\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    return !list->head && !list->tail;
-}
-
-void dl_append_node(dl_list_t *list, dl_node_t *node)
-{
-
-}
-
-void dl_insert_node(dl_list_t *list, dl_node_t *node, int index)
-{
-
-}
-
-void dl_remove_node(dl_list_t *list, dl_node_t *node)
-{
-
-}
 
 /* --- ENDOF: DOUBLY LINKED LIST DEFINITIONS --- */
 /* --------------------------------------------- */
