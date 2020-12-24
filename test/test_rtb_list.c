@@ -1,6 +1,6 @@
 /* --- test_rtb_list.c ---
  *
- * Target: rtb_list.h v0.6.x
+ * Target: rtb_list.h v0.7.x
  * First Commit: 2020-12-22
  * Last Updated: 2020-12-24
  *
@@ -57,7 +57,7 @@ int main(void)
         assert(node_value == expected_value);
 
         sl_node_t *expected_head = head->next;
-        sl_remove_node(list, list->head);
+        sl_remove(list, list->head);
         assert(list->head == expected_head);
     }
     populate_list(list);
@@ -78,7 +78,7 @@ int main(void)
                  expected_tail = expected_tail->next);
          }
 
-        sl_remove_node(list, list->tail);
+        sl_remove(list, list->tail);
         assert(list->tail == expected_tail);
         if (list->tail)
             assert(list->tail->next == NULL);
@@ -86,13 +86,13 @@ int main(void)
     populate_list(list);
 
     /* Remove a node in the list body */
-    sl_remove_node(list, list->head->next);
+    sl_remove(list, list->head->next);
     assert(list->head && list->tail);
     assert(*(int *)list->head->val + 2 == *(int *)list->head->next->val);
 
     /* Get nodes by index */
-    assert(sl_get_node(list, 0) == list->head);
-    assert(sl_get_node(list, 1) == list->tail);
+    assert(sl_get(list, 0) == list->head);
+    assert(sl_get(list, 1) == list->tail);
 
     /* Empty the list */
     assert(list);
@@ -113,11 +113,11 @@ int main(void)
         node->val = val;
 
         switch(i) {
-            case 0: sl_insert_node(list, node, 1); break; // Insert at index greater than size of list
-            case 1: sl_insert_node(list, node, 0); break; // Insert at the beginning of the list
-            case 2: sl_insert_node(list, node, 1); break; // Insert in the list body
-            case 3: sl_insert_node(list, node, 3); break; // Insert at the end of list
-            case 4: sl_insert_node(list, node, 3); break; // Insert in the list body
+            case 0: sl_insert(list, node, 1); break; // Insert at index greater than size of list
+            case 1: sl_insert(list, node, 0); break; // Insert at the beginning of the list
+            case 2: sl_insert(list, node, 1); break; // Insert in the list body
+            case 3: sl_insert(list, node, 3); break; // Insert at the end of list
+            case 4: sl_insert(list, node, 3); break; // Insert in the list body
         }
 
         /* Test list values */
@@ -127,7 +127,7 @@ int main(void)
     /* Replace the first node in the list */
     sl_node_t *replacement_node = sl_create_node();
     sl_node_t *second_node = list->head->next;
-    sl_replace_node(list, replacement_node, 0);
+    sl_replace(list, replacement_node, 0);
     assert(list->head == replacement_node);
     assert(list->head->next == second_node);
 
@@ -144,6 +144,7 @@ static void populate_list(sl_list_t *list)
 {
     assert(list);
     assert(!list->head && !list->tail);
+    assert(sl_length(list) == 0);
 
     sl_node_t *original_head = NULL;
     for (int i = 0; i < NODE_COUNT; ++i) {
@@ -157,12 +158,13 @@ static void populate_list(sl_list_t *list)
         *val = i;
 
         node->val = val;
-        sl_append_node(list, node);
+        sl_append(list, node);
 
         assert(list->head == original_head);
         assert(list->tail == node);
     }
 
+    assert(sl_length(list) == NODE_COUNT);
     if (NODE_COUNT > 0)
         assert(list->head && list->tail);
 }
