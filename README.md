@@ -5,14 +5,14 @@ reusability and performance.
 
 ## Directories
 
-- `doc`: Documentation
+- `docs`: Documentation
 - `src`: Source code
 - `test`: Unit tests
 
 ## Components
 
-- `rtb_list.h`: Linked list implementations
-- `rtb_log.h`: Print logging macros
+- `rtb_list.h`: Generic linked list implementations
+- `rtb_log.h`: Macros for printing to the stderr stream
 
 ## License
 
