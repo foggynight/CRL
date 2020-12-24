@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.6.2
+ * File Version: 0.6.3
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -159,7 +159,8 @@ sl_node_t *sl_destroy_node(sl_node_t *node)
         fputs("rtb_list.h: Error: sl_destroy_node: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    free(node->val);
+    if (node->val)
+        free(node->val);
     free(node);
     return NULL;
 }
