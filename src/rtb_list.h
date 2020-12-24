@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.6.4
+ * File Version: 0.6.5
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -58,27 +58,33 @@ sl_list_t *sl_destroy_list(sl_list_t *list);
  * @return Non-zero if the list is empty */
 int sl_is_empty(sl_list_t *list);
 
+/* sl_get_node: Get a node from a singly linked list using its index.
+ * @param list  List of nodes
+ * @param index Position of the node
+ * @return Node at index */
+sl_node_t *sl_get_node(sl_list_t *list, int index);
+
 /* sl_append_node: Append a node to a singly linked list.
  * @param list Pointer to the target list
  * @param node Pointer to the node to add */
 void sl_append_node(sl_list_t *list, sl_node_t *node);
 
 /* sl_insert_node: Insert a node in a singly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to the node to add
- * @param pos  Position to insert the node */
-void sl_insert_node(sl_list_t *list, sl_node_t *node, int pos);
+ * @param list  Pointer to the target list
+ * @param node  Pointer to the node to add
+ * @param index Position to insert the node */
+void sl_insert_node(sl_list_t *list, sl_node_t *node, int index);
 
 /* sl_remove_node: Remove a node from a singly linked list.
  * @param list Pointer to the target list
  * @param node Pointer to the node to remove */
 void sl_remove_node(sl_list_t *list, sl_node_t *node);
 
-/* sl_get_node: Get a node from a singly linked list using its index.
- * @param list  List of nodes
- * @param index Index of the node
- * @return Node at index */
-sl_node_t *sl_get_node(sl_list_t *list, int index);
+/* sl_replace_node: Replace a node in a singly linked list.
+ * @param list  Pointer to the target list
+ * @param node  Pointer to the node to add
+ * @param index Position of node to replace */
+void sl_replace_node(sl_list_t *list, sl_node_t *node, int index);
 
 /* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
 /* ---------------------------------------------- */
@@ -128,10 +134,10 @@ int dl_is_empty(dl_list_t *list);
 void dl_append_node(dl_list_t *list, dl_node_t *node);
 
 /* dl_insert_node: Insert a node in a doubly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to the node to add
- * @param pos  Position to insert the node */
-void dl_insert_node(dl_list_t *list, dl_node_t *node, int pos);
+ * @param list  Pointer to the target list
+ * @param node  Pointer to the node to add
+ * @param index Position to insert the node */
+void dl_insert_node(dl_list_t *list, dl_node_t *node, int index);
 
 /* dl_remove_node: Remove a node from a doubly linked list.
  * @param list Pointer to the target list
@@ -207,6 +213,14 @@ int sl_is_empty(sl_list_t *list)
     return !list->head && !list->tail;
 }
 
+sl_node_t *sl_get_node(sl_list_t *list, int index)
+{
+    sl_node_t *walk = list->head;
+    for (int i = 0; walk && i < index; ++i)
+        walk = walk->next;
+    return walk;
+}
+
 void sl_append_node(sl_list_t *list, sl_node_t *node)
 {
     if (!list) {
@@ -226,7 +240,7 @@ void sl_append_node(sl_list_t *list, sl_node_t *node)
     }
 }
 
-void sl_insert_node(sl_list_t *list, sl_node_t *node, int pos)
+void sl_insert_node(sl_list_t *list, sl_node_t *node, int index)
 {
     if (!list) {
         fputs("rtb_list.h: Error: sl_insert_node: list is NULL\n", stderr);
@@ -236,24 +250,24 @@ void sl_insert_node(sl_list_t *list, sl_node_t *node, int pos)
         fputs("rtb_list.h: Error: sl_insert_node: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (pos < 0) {
-        fputs("rtb_list.h: Error: sl_insert_node: invalid pos\n", stderr);
+    if (index < 0) {
+        fputs("rtb_list.h: Error: sl_insert_node: invalid index\n", stderr);
         exit(EXIT_FAILURE);
     }
     else if (sl_is_empty(list)) {
         list->head = list->tail = node;
     }
-    else if (pos == 0) {
+    else if (index == 0) {
         node->next = list->head;
         list->head = node;
     }
     else {
-        int index = 0;
+        int i = 0;
         sl_node_t *last = NULL, *walk = list->head;
-        while (index < pos && walk) {
+        while (i < index && walk) {
             last = walk;
             walk = walk->next;
-            ++index;
+            ++i;
         }
         last->next = node;
         node->next = walk;
@@ -304,12 +318,15 @@ void sl_remove_node(sl_list_t *list, sl_node_t *node)
     }
 }
 
-sl_node_t *sl_get_node(sl_list_t *list, int index)
+void sl_replace_node(sl_list_t *list, sl_node_t *node, int index)
 {
-    sl_node_t *walk = list->head;
-    for (int i = 0; walk && i < index; ++i)
-        walk = walk->next;
-    return walk;
+    if (sl_is_empty(list)) {
+        list->head = list->tail = node;
+    }
+    else {
+        sl_insert_node(list, node, index);
+        sl_remove_node(list, node->next);
+    }
 }
 
 /* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
@@ -373,7 +390,7 @@ void dl_append_node(dl_list_t *list, dl_node_t *node)
 
 }
 
-void dl_insert_node(dl_list_t *list, dl_node_t *node, int pos)
+void dl_insert_node(dl_list_t *list, dl_node_t *node, int index)
 {
 
 }
