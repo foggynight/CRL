@@ -124,6 +124,13 @@ int main(void)
         assert(list_is_sorted(list));
     }
 
+    /* Replace the first node in the list */
+    sl_node_t *replacement_node = sl_create_node();
+    sl_node_t *second_node = list->head->next;
+    sl_replace_node(list, replacement_node, 0);
+    assert(list->head == replacement_node);
+    assert(list->head->next == second_node);
+
     /* Destroy the list */
     assert(list);
     list = sl_destroy_list(list);
