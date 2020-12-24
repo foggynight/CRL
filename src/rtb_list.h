@@ -335,6 +335,10 @@ void sl_push(sl_list_t *list, sl_node_t *node)
 
 sl_node_t *sl_pop(sl_list_t *list)
 {
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_pop: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
     sl_node_t *node = list->tail;
     if (node)
         sl_remove(list, node, 0);
@@ -343,12 +347,24 @@ sl_node_t *sl_pop(sl_list_t *list)
 
 void sl_enque(sl_list_t *list, sl_node_t *node)
 {
-
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_enque: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    if (!node) {
+        fputs("rtb_list.h: Error: sl_enque: node is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    sl_insert(list, node, 0);
 }
 
 sl_node_t *sl_deque(sl_list_t *list)
 {
-
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_deque: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    return sl_pop(list);
 }
 
 /* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
