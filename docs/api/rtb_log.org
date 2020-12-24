@@ -8,14 +8,27 @@ Macros for printing to the stderr stream.
 
 ** Usage
 
+Macros with a prefix print an additional preamble.
+- ~i~: "Info: "
+- ~w~: "Warning: "
+- ~e~: "Exit: "
+
+Macros prefixed with an ~e~ will exit the program, unless ~RTB_NO_EXIT~ was
+defined before including =rtb_log.h=.
+
+Macros suffixed with an ~f~ have only a variadic parameter, and pass their
+variadic arguments directly to ~fprintf~.
+
+** Include
+
 For default behaviour, include =rtb_log.h= in each compilation unit that is to
 have access to the logging macros.
 #+BEGIN_SRC C
 #include "rtb_log.h"
 #+END_SRC
 
-Define the ~RTB_NO_EXIT~ macro before including =rtb_log.h= to prevent the
-~elog~ macros from calling ~exit~.
+Define the ~RTB_NO_EXIT~ macro before including =rtb_log.h= to prevent macros
+prefixed with ~e~ exiting the program.
 #+BEGIN_SRC C
 #define RTB_NO_EXIT
 #include "rtb_log.h"
@@ -114,7 +127,7 @@ including =rtb_log.h=.
 - ~...~: Variadic argument
 
 **** Description
-Print a formatted string to the stderr stream. Passes the variadic argument
+Print a formatted string to the stderr stream. Passes the variadic arguments
 directly to ~fprintf~.
 
 -----
@@ -131,7 +144,7 @@ directly to ~fprintf~.
 
 **** Description
 Print a formatted string to the stderr stream with the preamble "Info: ". Passes
-the variadic argument directly to ~fprintf~.
+the variadic arguments directly to ~fprintf~.
 
 -----
 
@@ -147,7 +160,7 @@ the variadic argument directly to ~fprintf~.
 
 **** Description
 Print a formatted string to the stderr stream with the preamble
-"Warning: ". Passes the variadic argument directly to ~fprintf~.
+"Warning: ". Passes the variadic arguments directly to ~fprintf~.
 
 -----
 
@@ -163,7 +176,7 @@ Print a formatted string to the stderr stream with the preamble
 
 **** Description
 Print a formatted string to the stderr stream with the preamble
-"Error: ". Passes the variadic argument directly to ~fprintf~.
+"Error: ". Passes the variadic arguments directly to ~fprintf~.
 
 This macro will also exit the program, unless ~RTB_NO_EXIT~ was defined before
 including =rtb_log.h=.
