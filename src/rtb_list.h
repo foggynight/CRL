@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.8.1
+ * File Version: 0.8.2
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -67,8 +67,14 @@ int sl_length(sl_list_t *list);
 /* sl_get: Get a node from a singly linked list using its index.
  * @param list  List of nodes
  * @param index Position of the node
- * @return Node at index */
+ * @return If list contains index: node at index, else: NULL */
 sl_node_t *sl_get(sl_list_t *list, int index);
+
+/* sl_index: Get the index of a node in a singly linked list.
+ * @param list List to search through
+ * @param node Node to search for
+ * @return If list contains node: index of node, else: -1 */
+int sl_index(sl_list_t *list, sl_node_t *node);
 
 /* sl_append: Append a node to a singly linked list.
  * @param list Pointer to the target list
@@ -190,6 +196,10 @@ int sl_empty(sl_list_t *list)
 
 int sl_length(sl_list_t *list)
 {
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_get: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
     int count = 0;
     for (sl_node_t *walk = list->head; walk; walk = walk->next)
         ++count;
@@ -198,10 +208,37 @@ int sl_length(sl_list_t *list)
 
 sl_node_t *sl_get(sl_list_t *list, int index)
 {
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_get: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    if (index < 0) {
+        fputs("rtb_list.h: Error: sl_get: invalid index\n", stderr);
+        exit(EXIT_FAILURE);
+    }
     sl_node_t *walk = list->head;
     for (int i = 0; walk && i < index; ++i)
         walk = walk->next;
     return walk;
+}
+
+int sl_index(sl_list_t *list, sl_node_t *node)
+{
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_index: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    if (!node) {
+        fputs("rtb_list.h: Error: sl_index: node is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    sl_node_t *walk = list->head;
+    for (int i = 0; walk; ++i) {
+        if (walk == node)
+            return i;
+        walk = walk->next;
+    }
+    return -1;
 }
 
 void sl_append(sl_list_t *list, sl_node_t *node)
