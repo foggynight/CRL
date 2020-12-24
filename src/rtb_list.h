@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.6.1
+ * File Version: 0.6.2
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -180,10 +180,8 @@ sl_list_t *sl_destroy_list(sl_list_t *list)
         fputs("rtb_list.h: Error: sl_destroy_list: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    while (!sl_is_empty(list)) {
-        free(list->head->val);
+    while (!sl_is_empty(list))
         sl_remove_node(list, list->head);
-    }
     return NULL;
 }
 
@@ -321,6 +319,7 @@ dl_node_t *dl_destroy_node(dl_node_t *node)
         fputs("rtb_list.h: Error: dl_destroy_node: Cannot destroy NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
+    free(node->val);
     free(node);
     return NULL;
 }
@@ -338,7 +337,6 @@ dl_list_t *dl_create_list(void)
 dl_list_t *dl_destroy_list(dl_list_t *list)
 {
     while (!dl_is_empty(list)) {
-        free(list->head->val);
         dl_remove_node(list, list->head);
     }
     return NULL;
