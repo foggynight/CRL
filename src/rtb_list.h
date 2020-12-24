@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.7.0
+ * File Version: 0.8.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -40,9 +40,10 @@ typedef struct sl_list {
 sl_node_t *sl_create_node(void);
 
 /* sl_destroy_node: Destroy a singly linked list node.
- * @param node Pointer to the target node
+ * @param node    Pointer to the target node
+ * @param release If non-zero free val member
  * @return Always NULL */
-sl_node_t *sl_destroy_node(sl_node_t *node);
+sl_node_t *sl_destroy_node(sl_node_t *node, int release);
 
 /* sl_create_list: Create a singly linked list.
  * @return Pointer to the new list */
@@ -82,14 +83,25 @@ void sl_insert(sl_list_t *list, sl_node_t *node, int index);
 
 /* sl_remove: Remove a node from a singly linked list.
  * @param list Pointer to the target list
- * @param node Pointer to the node to remove */
-void sl_remove(sl_list_t *list, sl_node_t *node);
+ * @param node Pointer to the node to remove
+ * @param release If non-zero free val member */
+void sl_remove(sl_list_t *list, sl_node_t *node, int release);
 
 /* sl_replace: Replace a node in a singly linked list.
  * @param list  Pointer to the target list
  * @param node  Pointer to the node to add
  * @param index Position of node to replace */
 void sl_replace(sl_list_t *list, sl_node_t *node, int index);
+
+/* sl_push: Push a node onto the end of a singly linked list.
+ * @param list List to push onto
+ * @param node Node to push */
+void sl_push(sl_list_t *list, sl_node_t *node);
+
+/* sl_pop: Pop a node from the end of a singly linked list.
+ * @param list List to pop from
+ * @return Popped node */
+sl_node_t *sl_pop(sl_list_t *list);
 
 /* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
 /* ---------------------------------------------- */
@@ -170,13 +182,13 @@ sl_node_t *sl_create_node(void)
     return node;
 }
 
-sl_node_t *sl_destroy_node(sl_node_t *node)
+sl_node_t *sl_destroy_node(sl_node_t *node, int release)
 {
     if (!node) {
         fputs("rtb_list.h: Error: sl_destroy_node: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (node->val)
+    if (release && node->val)
         free(node->val);
     free(node);
     return NULL;
@@ -199,7 +211,7 @@ sl_list_t *sl_destroy_list(sl_list_t *list)
         exit(EXIT_FAILURE);
     }
     while (!sl_empty(list))
-        sl_remove(list, list->head);
+        sl_remove(list, list->head, 1);
     return NULL;
 }
 
@@ -289,7 +301,7 @@ void sl_insert(sl_list_t *list, sl_node_t *node, int index)
     }
 }
 
-void sl_remove(sl_list_t *list, sl_node_t *node)
+void sl_remove(sl_list_t *list, sl_node_t *node, int release)
 {
     if (!list) {
         fputs("rtb_list.h: Error: sl_remove: list is NULL\n", stderr);
@@ -308,7 +320,7 @@ void sl_remove(sl_list_t *list, sl_node_t *node)
         list->head = (list->head)->next;
         if (old_head == list->tail)
             list->tail = list->head;
-        sl_destroy_node(old_head);
+        sl_destroy_node(old_head, release);
     }
     else if (node == list->tail) {
         sl_node_t *old_tail = list->tail;
@@ -318,7 +330,7 @@ void sl_remove(sl_list_t *list, sl_node_t *node)
              walk = walk->next);
         list->tail = walk;
         list->tail->next = NULL;
-        sl_destroy_node(old_tail);
+        sl_destroy_node(old_tail, release);
     }
     else {
         sl_node_t *walk;
@@ -326,7 +338,7 @@ void sl_remove(sl_list_t *list, sl_node_t *node)
              walk->next != node;
              walk = walk->next);
         sl_node_t *new_next = walk->next->next;
-        sl_destroy_node(walk->next);
+        sl_destroy_node(walk->next, release);
         walk->next = new_next;
     }
 }
@@ -346,8 +358,29 @@ void sl_replace(sl_list_t *list, sl_node_t *node, int index)
     }
     else {
         sl_insert(list, node, index);
-        sl_remove(list, node->next);
+        sl_remove(list, node->next, 1);
     }
+}
+
+void sl_push(sl_list_t *list, sl_node_t *node)
+{
+    if (!list) {
+        fputs("rtb_list.h: Error: sl_push: list is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    if (!node) {
+        fputs("rtb_list.h: Error: sl_push: node is NULL\n", stderr);
+        exit(EXIT_FAILURE);
+    }
+    sl_append(list, node);
+}
+
+sl_node_t *sl_pop(sl_list_t *list)
+{
+    sl_node_t *node = list->tail;
+    if (node)
+        sl_remove(list, node, 0);
+    return node;
 }
 
 /* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
