@@ -1,12 +1,12 @@
 # rtb
 
-**rtb** is a zero-dependency catch-all toolkit for C/C++ focused on
-reusability and performance.
+**rtb** is a zero-dependency catch-all toolkit for C/C++ focused on reusability
+and performance.
 
 ## Directories
 
 - `docs`: Documentation
-- `src`: Source code
+- `src`: Library headers
 - `test`: Unit tests
 
 ## Components
@@ -19,4 +19,4 @@ reusability and performance.
 Copyright (C) 2020 Robert Coffey
 
 Released under the MIT license. You should have received a copy of the license
-along with this library. If not, see <https://opensource.org/licenses/MIT>.
+along with this library. If not, see [MIT license](https://opensource.org/licenses/MIT).
