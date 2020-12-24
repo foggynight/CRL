@@ -10,9 +10,9 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.5.1
+ * File Version: 0.6.0
  * First Commit: 2020-12-16
- * Last Updated: 2020-12-23
+ * Last Updated: 2020-12-24
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -58,10 +58,17 @@ sl_list_t *sl_destroy_list(sl_list_t *list);
  * @return Non-zero if the list is empty */
 int sl_empty_p(sl_list_t *list);
 
-/* sl_add_node: Add a node to a singly linked list.
+/* sl_append_node: Append a node to a singly linked list.
  * @param list Pointer to the target list
  * @param node Pointer to the node to add */
-void sl_add_node(sl_list_t *list, sl_node_t *node);
+void sl_append_node(sl_list_t *list, sl_node_t *node);
+
+/* sl_insert_node: Insert a node in a singly linked list.
+ * @param list Pointer to the target list
+ * @param node Pointer to the node to add
+ * @param pos  Position to insert the node
+ * @return Non-zero if invalid pos */
+int sl_insert_node(sl_list_t *list, sl_node_t *node, int pos);
 
 /* sl_remove_node: Remove a node from a singly linked list.
  * @param list Pointer to the target list
@@ -110,10 +117,17 @@ dl_list_t *dl_destroy_list(dl_list_t *list);
  * @return Non-zero if the list is empty */
 int dl_empty_p(dl_list_t *list);
 
-/* dl_add_node: Add a node to a doubly linked list.
+/* dl_append_node: Append a node to a doubly linked list.
  * @param list Pointer to the target list
  * @param node Pointer to the node to add */
-void dl_add_node(dl_list_t *list, dl_node_t *node);
+void dl_append_node(dl_list_t *list, dl_node_t *node);
+
+/* dl_insert_node: Insert a node in a doubly linked list.
+ * @param list Pointer to the target list
+ * @param node Pointer to the node to add
+ * @param pos  Position to insert the node
+ * @return Non-zero if invalid pos */
+int dl_insert_node(dl_list_t *list, dl_node_t *node, int pos);
 
 /* dl_remove_node: Remove a node from a doubly linked list.
  * @param list Pointer to the target list
@@ -181,7 +195,7 @@ int sl_empty_p(sl_list_t *list)
     return !list->head && !list->tail;
 }
 
-void sl_add_node(sl_list_t *list, sl_node_t *node)
+void sl_append_node(sl_list_t *list, sl_node_t *node)
 {
     if (!node) {
         fputs("rtb_list.h: Error: sl_add_node: Cannot add NULL\n", stderr);
@@ -195,6 +209,11 @@ void sl_add_node(sl_list_t *list, sl_node_t *node)
         list->tail->next = node;
         list->tail = node;
     }
+}
+
+int sl_insert_node(sl_list_t *list, sl_node_t *node, int pos)
+{
+
 }
 
 void sl_remove_node(sl_list_t *list, sl_node_t *node)
@@ -294,7 +313,12 @@ int dl_empty_p(dl_list_t *list)
     return !list->head && !list->tail;
 }
 
-void dl_add_node(dl_list_t *list, dl_node_t *node)
+void dl_append_node(dl_list_t *list, dl_node_t *node)
+{
+
+}
+
+int dl_insert_node(dl_list_t *list, dl_node_t *node, int pos)
 {
 
 }
