@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.6.3
+ * File Version: 0.6.4
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-24
  *
@@ -73,6 +73,12 @@ void sl_insert_node(sl_list_t *list, sl_node_t *node, int pos);
  * @param list Pointer to the target list
  * @param node Pointer to the node to remove */
 void sl_remove_node(sl_list_t *list, sl_node_t *node);
+
+/* sl_get_node: Get a node from a singly linked list using its index.
+ * @param list  List of nodes
+ * @param index Index of the node
+ * @return Node at index */
+sl_node_t *sl_get_node(sl_list_t *list, int index);
 
 /* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
 /* ---------------------------------------------- */
@@ -296,6 +302,14 @@ void sl_remove_node(sl_list_t *list, sl_node_t *node)
         sl_destroy_node(walk->next);
         walk->next = new_next;
     }
+}
+
+sl_node_t *sl_get_node(sl_list_t *list, int index)
+{
+    sl_node_t *walk = list->head;
+    for (int i = 0; walk && i < index; ++i)
+        walk = walk->next;
+    return walk;
 }
 
 /* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
