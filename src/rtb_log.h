@@ -1,16 +1,16 @@
 /* --- rtb_log.h ---
  *
- * Macros for print logging to the stderr stream.
+ * Macros for printing to the stderr stream.
  *
  * Define the RTB_NO_EXIT macro before including this header to prevent
- * the rtb_elog macros from causing the program to exit.
+ * the elog macros from calling exit.
  *
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.3.1
+ * File Version: 0.3.2
  * First Commit: 2020-12-19
- * Last Updated: 2020-12-23
+ * Last Updated: 2020-12-24
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -20,10 +20,6 @@
 
 #include <stdarg.h>
 #include <stdio.h>
-
-#define RTB_LOG_INFO_ 0x1
-#define RTB_LOG_WARN_ 0x2
-#define RTB_LOG_ERR_  0x4
 
 #define rtb_log(X)  do { fprintf(stderr, "%s\n", (X)); } while (0)
 #define rtb_ilog(X) do { fprintf(stderr, "Info: %s\n", (X)); } while (0)
