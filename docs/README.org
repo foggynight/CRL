@@ -1,12 +1,11 @@
-* rtb
+#+TITLE: rtb
+#+AUTHOR: Robert Coffey
+#+OPTIONS: toc:nil
 
 ** Introduction
 
 *rtb* is a zero-dependency catch-all toolkit for C/C++ focused on reusability
 and performance.
-
-This document is intended to serve as an introduction to the library, as well as
-a guide for using the documentation.
 
 ** Components
 
