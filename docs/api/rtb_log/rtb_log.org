@@ -15,7 +15,7 @@ have access to the logging macros.
 #+END_SRC
 
 Define the ~RTB_NO_EXIT~ macro before including =rtb_log.h= to prevent macros
-prefixed with ~e~ exiting the program.
+prefixed with ~e~ from exiting the program.
 #+BEGIN_SRC C
 #define RTB_NO_EXIT
 #include "rtb_log.h"
@@ -37,16 +37,16 @@ variadic arguments directly to ~fprintf~.
 ** Macros
 
 Print without formatting:
-- [[*=rtb_log=]] =rtb_log=
-- [[*=rtb_ilog=]] =rtb_ilog=
-- [[*=rtb_wlog=]] =rtb_wlog=
-- [[*=rtb_elog=]] =rtb_elog=
+- [[*=rtb_log=][=rtb_log=]]
+- [[*=rtb_ilog=][=rtb_ilog=]]
+- [[*=rtb_wlog=][=rtb_wlog=]]
+- [[*=rtb_elog=][=rtb_elog=]]
 
 Print with C-style formatting:
-- [[*=rtb_logf=]] =rtb_logf=
-- [[*=rtb_ilogf=]] =rtb_ilogf=
-- [[*=rtb_wlogf=]] =rtb_wlogf=
-- [[*=rtb_elogf=]] =rtb_elogf=
+- [[*=rtb_logf=][=rtb_logf=]]
+- [[*=rtb_ilogf=][=rtb_ilogf=]]
+- [[*=rtb_wlogf=][=rtb_wlogf=]]
+- [[*=rtb_elogf=][=rtb_elogf=]]
 
 -----
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-12-24 Thu 11:39 -->
+<!-- 2020-12-25 Fri 05:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>API: <code>rtb_log</code></title>
@@ -231,8 +231,8 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">API: <code>rtb_log</code></h1>
 
-<div id="outline-container-org0f8a93f" class="outline-2">
-<h2 id="org0f8a93f"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org044cec1" class="outline-2">
+<h2 id="org044cec1"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Macros for printing to the stderr stream.
@@ -240,8 +240,8 @@ Macros for printing to the stderr stream.
 </div>
 </div>
 
-<div id="outline-container-orgd9e990b" class="outline-2">
-<h2 id="orgd9e990b"><span class="section-number-2">2</span> Include</h2>
+<div id="outline-container-org62fba6a" class="outline-2">
+<h2 id="org62fba6a"><span class="section-number-2">2</span> Include</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For default behaviour, include <code>rtb_log.h</code> in each compilation unit that is to
@@ -254,7 +254,7 @@ have access to the logging macros.
 
 <p>
 Define the <code>RTB_NO_EXIT</code> macro before including <code>rtb_log.h</code> to prevent macros
-prefixed with <code>e</code> exiting the program.
+prefixed with <code>e</code> from exiting the program.
 </p>
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #83a598;">RTB_NO_EXIT</span>
@@ -264,8 +264,8 @@ prefixed with <code>e</code> exiting the program.
 </div>
 </div>
 
-<div id="outline-container-org5f89915" class="outline-2">
-<h2 id="org5f89915"><span class="section-number-2">3</span> Usage</h2>
+<div id="outline-container-org3e4b83a" class="outline-2">
+<h2 id="org3e4b83a"><span class="section-number-2">3</span> Usage</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Macros with a prefix print an additional preamble.
@@ -288,38 +288,38 @@ variadic arguments directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-orgda72ada" class="outline-2">
-<h2 id="orgda72ada"><span class="section-number-2">4</span> Macros</h2>
+<div id="outline-container-orgee42ac8" class="outline-2">
+<h2 id="orgee42ac8"><span class="section-number-2">4</span> Macros</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Print without formatting:
 </p>
 <ul class="org-ul">
-<li><a href="#orgec98f1e">4.1</a> <code>rtb_log</code></li>
-<li><a href="#org0f9fe4e">4.2</a> <code>rtb_ilog</code></li>
-<li><a href="#org0090b16">4.3</a> <code>rtb_wlog</code></li>
-<li><a href="#orgecbe08b">4.4</a> <code>rtb_elog</code></li>
+<li><a href="#org547cf9e"><code>rtb_log</code></a></li>
+<li><a href="#org620a6b0"><code>rtb_ilog</code></a></li>
+<li><a href="#org48b8a58"><code>rtb_wlog</code></a></li>
+<li><a href="#org5212fc6"><code>rtb_elog</code></a></li>
 </ul>
 
 <p>
 Print with C-style formatting:
 </p>
 <ul class="org-ul">
-<li><a href="#org8fb1572">4.5</a> <code>rtb_logf</code></li>
-<li><a href="#org5034caf">4.6</a> <code>rtb_ilogf</code></li>
-<li><a href="#orgd6d6266">4.7</a> <code>rtb_wlogf</code></li>
-<li><a href="#orge5d39e7">4.8</a> <code>rtb_elogf</code></li>
+<li><a href="#org3beae2e"><code>rtb_logf</code></a></li>
+<li><a href="#org2f9af59"><code>rtb_ilogf</code></a></li>
+<li><a href="#org13e5b89"><code>rtb_wlogf</code></a></li>
+<li><a href="#org1227413"><code>rtb_elogf</code></a></li>
 </ul>
 
 <hr />
 </div>
 
-<div id="outline-container-orgec98f1e" class="outline-3">
-<h3 id="orgec98f1e"><span class="section-number-3">4.1</span> <code>rtb_log</code></h3>
+<div id="outline-container-org547cf9e" class="outline-3">
+<h3 id="org547cf9e"><span class="section-number-3">4.1</span> <code>rtb_log</code></h3>
 <div class="outline-text-3" id="text-4-1">
 </div>
-<div id="outline-container-org4bd5670" class="outline-4">
-<h4 id="org4bd5670"><span class="section-number-4">4.1.1</span> Synopsis</h4>
+<div id="outline-container-orgfc00405" class="outline-4">
+<h4 id="orgfc00405"><span class="section-number-4">4.1.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_log</span>(<span style="color: #83a598;">X</span>)
@@ -328,8 +328,8 @@ Print with C-style formatting:
 </div>
 </div>
 
-<div id="outline-container-orgfc045ae" class="outline-4">
-<h4 id="orgfc045ae"><span class="section-number-4">4.1.2</span> Arguments</h4>
+<div id="outline-container-org6a6166c" class="outline-4">
+<h4 id="org6a6166c"><span class="section-number-4">4.1.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <ul class="org-ul">
 <li><code>X</code>: C-style string</li>
@@ -337,8 +337,8 @@ Print with C-style formatting:
 </div>
 </div>
 
-<div id="outline-container-org45dc3a4" class="outline-4">
-<h4 id="org45dc3a4"><span class="section-number-4">4.1.3</span> Description</h4>
+<div id="outline-container-org973dc50" class="outline-4">
+<h4 id="org973dc50"><span class="section-number-4">4.1.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <p>
 Print a string to the stderr stream, ending the current line.
@@ -349,12 +349,12 @@ Print a string to the stderr stream, ending the current line.
 </div>
 </div>
 
-<div id="outline-container-org0f9fe4e" class="outline-3">
-<h3 id="org0f9fe4e"><span class="section-number-3">4.2</span> <code>rtb_ilog</code></h3>
+<div id="outline-container-org620a6b0" class="outline-3">
+<h3 id="org620a6b0"><span class="section-number-3">4.2</span> <code>rtb_ilog</code></h3>
 <div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-org13523b2" class="outline-4">
-<h4 id="org13523b2"><span class="section-number-4">4.2.1</span> Synopsis</h4>
+<div id="outline-container-orgd56c2a6" class="outline-4">
+<h4 id="orgd56c2a6"><span class="section-number-4">4.2.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_ilog</span>(<span style="color: #83a598;">X</span>)
@@ -363,8 +363,8 @@ Print a string to the stderr stream, ending the current line.
 </div>
 </div>
 
-<div id="outline-container-org9f640a1" class="outline-4">
-<h4 id="org9f640a1"><span class="section-number-4">4.2.2</span> Arguments</h4>
+<div id="outline-container-org3a8aae2" class="outline-4">
+<h4 id="org3a8aae2"><span class="section-number-4">4.2.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-2-2">
 <ul class="org-ul">
 <li><code>X</code>: C-style string</li>
@@ -372,8 +372,8 @@ Print a string to the stderr stream, ending the current line.
 </div>
 </div>
 
-<div id="outline-container-org864b8d6" class="outline-4">
-<h4 id="org864b8d6"><span class="section-number-4">4.2.3</span> Description</h4>
+<div id="outline-container-org573acf4" class="outline-4">
+<h4 id="org573acf4"><span class="section-number-4">4.2.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-2-3">
 <p>
 Print a string to the stderr stream with the preamble "Info: ", ending the
@@ -385,12 +385,12 @@ current line.
 </div>
 </div>
 
-<div id="outline-container-org0090b16" class="outline-3">
-<h3 id="org0090b16"><span class="section-number-3">4.3</span> <code>rtb_wlog</code></h3>
+<div id="outline-container-org48b8a58" class="outline-3">
+<h3 id="org48b8a58"><span class="section-number-3">4.3</span> <code>rtb_wlog</code></h3>
 <div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-org1b7e7d2" class="outline-4">
-<h4 id="org1b7e7d2"><span class="section-number-4">4.3.1</span> Synopsis</h4>
+<div id="outline-container-orgc494caa" class="outline-4">
+<h4 id="orgc494caa"><span class="section-number-4">4.3.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_wlog</span>(<span style="color: #83a598;">X</span>)
@@ -399,8 +399,8 @@ current line.
 </div>
 </div>
 
-<div id="outline-container-org7bd3819" class="outline-4">
-<h4 id="org7bd3819"><span class="section-number-4">4.3.2</span> Arguments</h4>
+<div id="outline-container-org39b14c5" class="outline-4">
+<h4 id="org39b14c5"><span class="section-number-4">4.3.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-3-2">
 <ul class="org-ul">
 <li><code>X</code>: C-style string</li>
@@ -408,8 +408,8 @@ current line.
 </div>
 </div>
 
-<div id="outline-container-org31ebfc6" class="outline-4">
-<h4 id="org31ebfc6"><span class="section-number-4">4.3.3</span> Description</h4>
+<div id="outline-container-org96baa5e" class="outline-4">
+<h4 id="org96baa5e"><span class="section-number-4">4.3.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-3-3">
 <p>
 Print a string to the stderr stream with the preamble "Warning: ", ending the
@@ -421,12 +421,12 @@ current line.
 </div>
 </div>
 
-<div id="outline-container-orgecbe08b" class="outline-3">
-<h3 id="orgecbe08b"><span class="section-number-3">4.4</span> <code>rtb_elog</code></h3>
+<div id="outline-container-org5212fc6" class="outline-3">
+<h3 id="org5212fc6"><span class="section-number-3">4.4</span> <code>rtb_elog</code></h3>
 <div class="outline-text-3" id="text-4-4">
 </div>
-<div id="outline-container-orgc1ea3dc" class="outline-4">
-<h4 id="orgc1ea3dc"><span class="section-number-4">4.4.1</span> Synopsis</h4>
+<div id="outline-container-org2c20cf1" class="outline-4">
+<h4 id="org2c20cf1"><span class="section-number-4">4.4.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-4-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_elog</span>(<span style="color: #83a598;">X</span>)
@@ -435,8 +435,8 @@ current line.
 </div>
 </div>
 
-<div id="outline-container-org6d150dd" class="outline-4">
-<h4 id="org6d150dd"><span class="section-number-4">4.4.2</span> Arguments</h4>
+<div id="outline-container-org3a7ef97" class="outline-4">
+<h4 id="org3a7ef97"><span class="section-number-4">4.4.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-4-2">
 <ul class="org-ul">
 <li><code>X</code>: C-style string</li>
@@ -444,8 +444,8 @@ current line.
 </div>
 </div>
 
-<div id="outline-container-org233c803" class="outline-4">
-<h4 id="org233c803"><span class="section-number-4">4.4.3</span> Description</h4>
+<div id="outline-container-orge44ceba" class="outline-4">
+<h4 id="orge44ceba"><span class="section-number-4">4.4.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-4-3">
 <p>
 Print a string to the stderr stream with the preamble "Error: ", ending the
@@ -462,12 +462,12 @@ including <code>rtb_log.h</code>.
 </div>
 </div>
 
-<div id="outline-container-org8fb1572" class="outline-3">
-<h3 id="org8fb1572"><span class="section-number-3">4.5</span> <code>rtb_logf</code></h3>
+<div id="outline-container-org3beae2e" class="outline-3">
+<h3 id="org3beae2e"><span class="section-number-3">4.5</span> <code>rtb_logf</code></h3>
 <div class="outline-text-3" id="text-4-5">
 </div>
-<div id="outline-container-orgafb0f08" class="outline-4">
-<h4 id="orgafb0f08"><span class="section-number-4">4.5.1</span> Synopsis</h4>
+<div id="outline-container-orgb55adf6" class="outline-4">
+<h4 id="orgb55adf6"><span class="section-number-4">4.5.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_logf</span>(...)
@@ -476,8 +476,8 @@ including <code>rtb_log.h</code>.
 </div>
 </div>
 
-<div id="outline-container-orgfad23e9" class="outline-4">
-<h4 id="orgfad23e9"><span class="section-number-4">4.5.2</span> Arguments</h4>
+<div id="outline-container-org4c31d24" class="outline-4">
+<h4 id="org4c31d24"><span class="section-number-4">4.5.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-5-2">
 <ul class="org-ul">
 <li><code>...</code>: Variadic argument</li>
@@ -485,8 +485,8 @@ including <code>rtb_log.h</code>.
 </div>
 </div>
 
-<div id="outline-container-org04a12f6" class="outline-4">
-<h4 id="org04a12f6"><span class="section-number-4">4.5.3</span> Description</h4>
+<div id="outline-container-org2760827" class="outline-4">
+<h4 id="org2760827"><span class="section-number-4">4.5.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-5-3">
 <p>
 Print a formatted string to the stderr stream. Passes the variadic arguments
@@ -498,12 +498,12 @@ directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-org5034caf" class="outline-3">
-<h3 id="org5034caf"><span class="section-number-3">4.6</span> <code>rtb_ilogf</code></h3>
+<div id="outline-container-org2f9af59" class="outline-3">
+<h3 id="org2f9af59"><span class="section-number-3">4.6</span> <code>rtb_ilogf</code></h3>
 <div class="outline-text-3" id="text-4-6">
 </div>
-<div id="outline-container-org963d01e" class="outline-4">
-<h4 id="org963d01e"><span class="section-number-4">4.6.1</span> Synopsis</h4>
+<div id="outline-container-orgb0915ce" class="outline-4">
+<h4 id="orgb0915ce"><span class="section-number-4">4.6.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-6-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_ilogf</span>(...)
@@ -512,8 +512,8 @@ directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-orgcc689e5" class="outline-4">
-<h4 id="orgcc689e5"><span class="section-number-4">4.6.2</span> Arguments</h4>
+<div id="outline-container-org7c1554e" class="outline-4">
+<h4 id="org7c1554e"><span class="section-number-4">4.6.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-6-2">
 <ul class="org-ul">
 <li><code>...</code>: Variadic argument</li>
@@ -521,8 +521,8 @@ directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-org5997b44" class="outline-4">
-<h4 id="org5997b44"><span class="section-number-4">4.6.3</span> Description</h4>
+<div id="outline-container-org8165bcd" class="outline-4">
+<h4 id="org8165bcd"><span class="section-number-4">4.6.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-6-3">
 <p>
 Print a formatted string to the stderr stream with the preamble "Info: ". Passes
@@ -534,12 +534,12 @@ the variadic arguments directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-orgd6d6266" class="outline-3">
-<h3 id="orgd6d6266"><span class="section-number-3">4.7</span> <code>rtb_wlogf</code></h3>
+<div id="outline-container-org13e5b89" class="outline-3">
+<h3 id="org13e5b89"><span class="section-number-3">4.7</span> <code>rtb_wlogf</code></h3>
 <div class="outline-text-3" id="text-4-7">
 </div>
-<div id="outline-container-org5c0b8a6" class="outline-4">
-<h4 id="org5c0b8a6"><span class="section-number-4">4.7.1</span> Synopsis</h4>
+<div id="outline-container-orge764a5e" class="outline-4">
+<h4 id="orge764a5e"><span class="section-number-4">4.7.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-7-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_wlogf</span>(...)
@@ -548,8 +548,8 @@ the variadic arguments directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-org41e29de" class="outline-4">
-<h4 id="org41e29de"><span class="section-number-4">4.7.2</span> Arguments</h4>
+<div id="outline-container-org6827f30" class="outline-4">
+<h4 id="org6827f30"><span class="section-number-4">4.7.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-7-2">
 <ul class="org-ul">
 <li><code>...</code>: Variadic argument</li>
@@ -557,8 +557,8 @@ the variadic arguments directly to <code>fprintf</code>.
 </div>
 </div>
 
-<div id="outline-container-org7799574" class="outline-4">
-<h4 id="org7799574"><span class="section-number-4">4.7.3</span> Description</h4>
+<div id="outline-container-org2e4175b" class="outline-4">
+<h4 id="org2e4175b"><span class="section-number-4">4.7.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-7-3">
 <p>
 Print a formatted string to the stderr stream with the preamble
@@ -570,12 +570,12 @@ Print a formatted string to the stderr stream with the preamble
 </div>
 </div>
 
-<div id="outline-container-orge5d39e7" class="outline-3">
-<h3 id="orge5d39e7"><span class="section-number-3">4.8</span> <code>rtb_elogf</code></h3>
+<div id="outline-container-org1227413" class="outline-3">
+<h3 id="org1227413"><span class="section-number-3">4.8</span> <code>rtb_elogf</code></h3>
 <div class="outline-text-3" id="text-4-8">
 </div>
-<div id="outline-container-orgc1993a7" class="outline-4">
-<h4 id="orgc1993a7"><span class="section-number-4">4.8.1</span> Synopsis</h4>
+<div id="outline-container-org1f2a445" class="outline-4">
+<h4 id="org1f2a445"><span class="section-number-4">4.8.1</span> Synopsis</h4>
 <div class="outline-text-4" id="text-4-8-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #fe8019;">#define</span> <span style="color: #fabd2f;">rtb_wlogf</span>(...)
@@ -584,8 +584,8 @@ Print a formatted string to the stderr stream with the preamble
 </div>
 </div>
 
-<div id="outline-container-orga8e8135" class="outline-4">
-<h4 id="orga8e8135"><span class="section-number-4">4.8.2</span> Arguments</h4>
+<div id="outline-container-orge174d81" class="outline-4">
+<h4 id="orge174d81"><span class="section-number-4">4.8.2</span> Arguments</h4>
 <div class="outline-text-4" id="text-4-8-2">
 <ul class="org-ul">
 <li><code>...</code>: Variadic argument</li>
@@ -593,8 +593,8 @@ Print a formatted string to the stderr stream with the preamble
 </div>
 </div>
 
-<div id="outline-container-org61fc184" class="outline-4">
-<h4 id="org61fc184"><span class="section-number-4">4.8.3</span> Description</h4>
+<div id="outline-container-org350ec8e" class="outline-4">
+<h4 id="org350ec8e"><span class="section-number-4">4.8.3</span> Description</h4>
 <div class="outline-text-4" id="text-4-8-3">
 <p>
 Print a formatted string to the stderr stream with the preamble
@@ -614,7 +614,7 @@ including <code>rtb_log.h</code>.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Robert Coffey</p>
-<p class="date">Created: 2020-12-24 Thu 11:39</p>
+<p class="date">Created: 2020-12-25 Fri 05:26</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
