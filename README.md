@@ -1,8 +1,5 @@
 # rtb
 
-**rtb** is a zero-dependency catch-all toolkit for C/C++ focused on reusability
-and performance.
-
 ## Directories
 
 - `docs`: Documentation

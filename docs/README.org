@@ -2,10 +2,11 @@
 #+AUTHOR: Robert Coffey
 #+OPTIONS: toc:nil
 
-*rtb* is a zero-dependency catch-all toolkit for C/C++ focused on reusability
-and performance.
+** Introduction
 
-** API Components
+The *rtb* library is my personal toolkit.
+
+** Components
 
 - =rtb_list=: Generic linked list implementations
 - =rtb_log=: Macros for printing to the stderr stream
