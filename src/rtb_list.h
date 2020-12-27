@@ -10,9 +10,9 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.8.2
+ * File Version: 0.8.3
  * First Commit: 2020-12-16
- * Last Updated: 2020-12-24
+ * Last Updated: 2020-12-27
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -40,10 +40,9 @@ typedef struct sl_list {
 sl_node_t *sl_create_node(void);
 
 /* sl_destroy_node: Destroy a singly linked list node.
- * @param node    Pointer to the target node
- * @param release If non-zero free val member
+ * @param node Pointer to the target node
  * @return Always NULL */
-sl_node_t *sl_destroy_node(sl_node_t *node, int release);
+sl_node_t *sl_destroy_node(sl_node_t *node);
 
 /* sl_create_list: Create a singly linked list.
  * @return Pointer to the new list */
@@ -146,13 +145,13 @@ sl_node_t *sl_create_node(void)
     return node;
 }
 
-sl_node_t *sl_destroy_node(sl_node_t *node, int release)
+sl_node_t *sl_destroy_node(sl_node_t *node)
 {
     if (!node) {
         fputs("rtb_list.h: Error: sl_destroy_node: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (release && node->val)
+    if (node->val)
         free(node->val);
     free(node);
     return NULL;
@@ -315,7 +314,8 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
         list->head = (list->head)->next;
         if (old_head == list->tail)
             list->tail = list->head;
-        sl_destroy_node(old_head, release);
+        if (release)
+            sl_destroy_node(old_head);
     }
     else if (node == list->tail) {
         sl_node_t *old_tail = list->tail;
@@ -325,7 +325,8 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
              walk = walk->next);
         list->tail = walk;
         list->tail->next = NULL;
-        sl_destroy_node(old_tail, release);
+        if (release)
+            sl_destroy_node(old_tail);
     }
     else {
         sl_node_t *walk;
@@ -333,7 +334,8 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
              walk->next != node;
              walk = walk->next);
         sl_node_t *new_next = walk->next->next;
-        sl_destroy_node(walk->next, release);
+        if (release)
+            sl_destroy_node(walk->next);
         walk->next = new_next;
     }
 }
