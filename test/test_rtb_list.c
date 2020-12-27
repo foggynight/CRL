@@ -1,8 +1,8 @@
 /* --- test_rtb_list.c ---
  *
- * Target: rtb_list.h v0.8.x
+ * Target: rtb_list.h v0.9.x
  * First Commit: 2020-12-22
- * Last Updated: 2020-12-24
+ * Last Updated: 2020-12-27
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -90,7 +90,7 @@ static void test_sl_node(void)
     sl_node_t *node = sl_create_node();
     assert(node);
     assert(!node->val && !node->next);
-    node = sl_destroy_node(node, 1);
+    node = sl_destroy_node(node);
     assert(!node);
 
     puts("test_rtb_list.c: Singly linked node tests passed");
@@ -166,10 +166,9 @@ static void test_sl_list(void)
     sl_append(list, node);
     assert(sl_index(list, node) == NODE_COUNT-1);
 
-    /* Empty the list */
-    assert(list);
-    sl_destroy_list(list);
-    assert(list);
+    /* Destroy the list */
+    while (list->head)
+        sl_remove(list, list->head, 1);
     assert(!list->head && !list->tail);
 
     /* Insert values out of order: [0, 1, 2, 3, 4] */
@@ -204,9 +203,7 @@ static void test_sl_list(void)
     /* Destroy the list */
     assert(list);
     assert(!sl_empty(list));
-    sl_destroy_list(list);
-    assert(sl_empty(list));
-    list = sl_destroy_list(list);
+    sl_destroy_list(&list);
     assert(!list);
 
     puts("test_rtb_list.c: Singly linked list tests passed");
@@ -240,13 +237,54 @@ static void test_sl_stack(void)
 
     sl_push(list, node);
     assert(!sl_sorted(list)); // Test list values
+
     assert(sl_pop(list) == node);
-    sl_destroy_node(node, 1);
+    assert(sl_sorted(list)); // Test list values
+
+    sl_destroy_node(node);
+
+    /* Destroy the list */
+    sl_destroy_list(&list);
+    assert(!list);
 
     puts("test_rtb_list.c: Singly linked stack tests passed");
 }
 
 static void test_sl_queue(void)
 {
+    sl_list_t *list = sl_create_list();
+    assert(list);
+
+    for (int i = NODE_COUNT-1; i >= 0; --i) {
+        sl_node_t *node = sl_create_node();
+        assert(node);
+
+        int *val = (int *)malloc(sizeof(int));
+        assert(val);
+        *val = i;
+        node->val = val;
+
+        sl_enque(list, node);
+        assert(sl_sorted(list)); // Test list values
+    }
+
+    sl_node_t *node = sl_create_node();
+    assert(node);
+
+    int *val = (int *)malloc(sizeof(int));
+    assert(val);
+    *val = NODE_COUNT;
+    node->val = val;
+
+    sl_enque(list, node);
+    assert(!sl_sorted(list)); // Test list values
+
+    sl_deque(list);
+    assert(!sl_sorted(list)); // Test list values
+
+    /* Destroy the list */
+    sl_destroy_list(&list);
+    assert(!list);
+
     puts("test_rtb_list.c: Singly linked queue tests passed");
 }
