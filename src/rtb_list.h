@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.8.3
+ * File Version: 0.9.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-27
  *
@@ -49,9 +49,8 @@ sl_node_t *sl_destroy_node(sl_node_t *node);
 sl_list_t *sl_create_list(void);
 
 /* sl_destroy_list: Destroy a singly linked list.
- * @param list Pointer to the target list
- * @return Always NULL */
-sl_list_t *sl_destroy_list(sl_list_t *list);
+ * @param list Pointer to a pointer to the target list */
+void sl_destroy_list(sl_list_t **list);
 
 /* sl_empty: Check if a singly linked list is empty.
  * @param list Pointer to the target list
@@ -167,15 +166,16 @@ sl_list_t *sl_create_list(void)
     return list;
 }
 
-sl_list_t *sl_destroy_list(sl_list_t *list)
+void sl_destroy_list(sl_list_t **list)
 {
-    if (!list) {
+    if (!list || !*list) {
         fputs("rtb_list.h: Error: sl_destroy_list: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    while (!sl_empty(list))
-        sl_remove(list, list->head, 1);
-    return NULL;
+    while (!sl_empty(*list))
+        sl_remove(*list, (*list)->head, 1);
+    free(*list);
+    *list = NULL;
 }
 
 int sl_empty(sl_list_t *list)
