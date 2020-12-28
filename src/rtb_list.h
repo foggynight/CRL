@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.8.4
+ * File Version: 0.9.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-27
  *
@@ -52,27 +52,27 @@ sl_list_t *sl_create_list(void);
  * @param list Pointer to a pointer to the target list */
 void sl_destroy_list(sl_list_t **list);
 
-/* sl_empty: Check if a singly linked list is empty.
+/* sl_empty_p: Check if a singly linked list is empty.
  * @param list Pointer to the target list
  * @return Non-zero if the list is empty */
-int sl_empty(sl_list_t *list);
+int sl_empty_p(sl_list_t *list);
 
-/* sl_length: Get the number of nodes in a singly linked list.
- * @param list List to count
+/* sl_node_c: Get the number of nodes in a singly linked list.
+ * @param list Target list to count
  * @return Number of nodes in the list */
-int sl_length(sl_list_t *list);
+int sl_node_c(sl_list_t *list);
 
-/* sl_get: Get a node from a singly linked list using its index.
+/* sl_get_node: Get a node from a singly linked list using its index.
  * @param list  List of nodes
  * @param index Position of the node
  * @return If list contains index: node at index, else: NULL */
-sl_node_t *sl_get(sl_list_t *list, int index);
+sl_node_t *sl_get_node(sl_list_t *list, int index);
 
-/* sl_index: Get the index of a node in a singly linked list.
+/* sl_get_index: Get the index of a node in a singly linked list.
  * @param list List to search through
  * @param node Node to search for
  * @return If list contains node: index of node, else: -1 */
-int sl_index(sl_list_t *list, sl_node_t *node);
+int sl_get_index(sl_list_t *list, sl_node_t *node);
 
 /* sl_append: Append a node to a singly linked list.
  * @param list Pointer to the target list
@@ -172,31 +172,31 @@ void sl_destroy_list(sl_list_t **list)
         fputs("rtb_list.h: Error: sl_destroy_list: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    while (!sl_empty(*list))
+    while (!sl_empty_p(*list))
         sl_remove(*list, (*list)->head, 1);
     free(*list);
     *list = NULL;
 }
 
-int sl_empty(sl_list_t *list)
+int sl_empty_p(sl_list_t *list)
 {
     if (!list) {
-        fputs("rtb_list.h: Error: sl_empty: list is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_empty_p: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if ((list->head && !list->tail)
         || (!list->head && list->tail))
     {
-        fputs("rtb_list.h: Error: sl_empty: invalid list initialization\n", stderr);
+        fputs("rtb_list.h: Error: sl_empty_p: invalid list initialization\n", stderr);
         exit(EXIT_FAILURE);
     }
     return !list->head && !list->tail;
 }
 
-int sl_length(sl_list_t *list)
+int sl_node_c(sl_list_t *list)
 {
     if (!list) {
-        fputs("rtb_list.h: Error: sl_get: list is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_get_node: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     int count = 0;
@@ -205,14 +205,14 @@ int sl_length(sl_list_t *list)
     return count;
 }
 
-sl_node_t *sl_get(sl_list_t *list, int index)
+sl_node_t *sl_get_node(sl_list_t *list, int index)
 {
     if (!list) {
-        fputs("rtb_list.h: Error: sl_get: list is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_get_node: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if (index < 0) {
-        fputs("rtb_list.h: Error: sl_get: invalid index\n", stderr);
+        fputs("rtb_list.h: Error: sl_get_node: invalid index\n", stderr);
         exit(EXIT_FAILURE);
     }
     sl_node_t *walk = list->head;
@@ -221,14 +221,14 @@ sl_node_t *sl_get(sl_list_t *list, int index)
     return walk;
 }
 
-int sl_index(sl_list_t *list, sl_node_t *node)
+int sl_get_index(sl_list_t *list, sl_node_t *node)
 {
     if (!list) {
-        fputs("rtb_list.h: Error: sl_index: list is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_get_index: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if (!node) {
-        fputs("rtb_list.h: Error: sl_index: node is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_get_index: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     sl_node_t *walk = list->head;
@@ -250,7 +250,7 @@ void sl_append(sl_list_t *list, sl_node_t *node)
         fputs("rtb_list.h: Error: sl_append: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (sl_empty(list)) {
+    if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
     else {
@@ -273,7 +273,7 @@ void sl_insert(sl_list_t *list, sl_node_t *node, int index)
         fputs("rtb_list.h: Error: sl_insert: invalid index\n", stderr);
         exit(EXIT_FAILURE);
     }
-    else if (sl_empty(list)) {
+    else if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
     else if (index == 0) {
@@ -305,7 +305,7 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
         fputs("rtb_list.h: Error: sl_remove: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (sl_empty(list)) {
+    if (sl_empty_p(list)) {
         fputs("rtb_list.h: Error: sl_remove: list is empty\n", stderr);
         exit(EXIT_FAILURE);
     }
@@ -350,7 +350,7 @@ void sl_replace(sl_list_t *list, sl_node_t *node, int index)
         fputs("rtb_list.h: Error: sl_replace: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
-    if (sl_empty(list)) {
+    if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
     else {

@@ -48,7 +48,7 @@ static void sl_populate(sl_list_t *list)
 {
     assert(list);
     assert(!list->head && !list->tail);
-    assert(sl_length(list) == 0);
+    assert(sl_node_c(list) == 0);
 
     sl_node_t *original_head = NULL;
     for (int i = 0; i < NODE_COUNT; ++i) {
@@ -68,7 +68,7 @@ static void sl_populate(sl_list_t *list)
         assert(list->tail == node);
     }
 
-    assert(sl_length(list) == NODE_COUNT);
+    assert(sl_node_c(list) == NODE_COUNT);
     if (NODE_COUNT > 0)
         assert(list->head && list->tail);
 }
@@ -101,9 +101,9 @@ static void test_sl_list(void)
     /* Create and populate list */
     sl_list_t *list = sl_create_list();
     assert(list);
-    assert(sl_empty(list));
+    assert(sl_empty_p(list));
     sl_populate(list);
-    assert(!sl_empty(list));
+    assert(!sl_empty_p(list));
 
     /* Test list values */
     sl_node_t *walk = list->head;
@@ -154,17 +154,17 @@ static void test_sl_list(void)
     assert(*(int *)list->head->val + 2 == *(int *)list->head->next->val);
 
     /* Get nodes by index */
-    assert(sl_get(list, 0) == list->head);
-    assert(sl_get(list, 1) == list->head->next);
-    assert(sl_get(list, NODE_COUNT) == NULL);
+    assert(sl_get_node(list, 0) == list->head);
+    assert(sl_get_node(list, 1) == list->head->next);
+    assert(sl_get_node(list, NODE_COUNT) == NULL);
 
     /* Get indices of nodes */
-    assert(sl_index(list, list->head) == 0);
-    assert(sl_index(list, list->tail) == NODE_COUNT-2);
+    assert(sl_get_index(list, list->head) == 0);
+    assert(sl_get_index(list, list->tail) == NODE_COUNT-2);
     sl_node_t *node = sl_create_node();
-    assert(sl_index(list, node) == -1);
+    assert(sl_get_index(list, node) == -1);
     sl_append(list, node);
-    assert(sl_index(list, node) == NODE_COUNT-1);
+    assert(sl_get_index(list, node) == NODE_COUNT-1);
 
     /* Destroy the list */
     while (list->head)
@@ -202,7 +202,7 @@ static void test_sl_list(void)
 
     /* Destroy the list */
     assert(list);
-    assert(!sl_empty(list));
+    assert(!sl_empty_p(list));
     sl_destroy_list(&list);
     assert(!list);
 
