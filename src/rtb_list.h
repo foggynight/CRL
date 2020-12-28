@@ -10,9 +10,9 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.10.0
+ * File Version: 0.10.1
  * First Commit: 2020-12-16
- * Last Updated: 2020-12-27
+ * Last Updated: 2020-12-28
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -145,25 +145,23 @@ sl_node_t *sl_deque(sl_list_t *list);
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "rtb_log.h"
+
 /* --------------------------------------------- */
 /* --- BEGIN: SINGLY LINKED LIST DEFINITIONS --- */
 
 sl_node_t *sl_create_node(void)
 {
     sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_create_node: calloc failed\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!node)
+        rtb_elog("sl_create_node: calloc failed");
     return node;
 }
 
 sl_node_t *sl_destroy_node(sl_node_t *node)
 {
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_destroy_node: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!node)
+        rtb_elog("sl_destroy_node: node is NULL");
     if (node->val)
         free(node->val);
     free(node);
@@ -173,19 +171,15 @@ sl_node_t *sl_destroy_node(sl_node_t *node)
 sl_list_t *sl_create_list(void)
 {
     sl_list_t *list = (sl_list_t *)calloc(1, sizeof(sl_list_t));
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_create_list: calloc failed\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_create_list: calloc failed");
     return list;
 }
 
 void sl_destroy_list(sl_list_t **list)
 {
-    if (!list || !*list) {
-        fputs("rtb_list.h: Error: sl_destroy_list: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list || !*list)
+        rtb_elog("sl_destroy_list: list is NULL");
     while (!sl_empty_p(*list))
         sl_remove(*list, (*list)->head, 1);
     free(*list);
@@ -194,25 +188,18 @@ void sl_destroy_list(sl_list_t **list)
 
 int sl_empty_p(sl_list_t *list)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_empty_p: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_empty_p: list is NULL");
     if ((list->head && !list->tail)
-        || (!list->head && list->tail))
-    {
-        fputs("rtb_list.h: Error: sl_empty_p: invalid list initialization\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+            || (!list->head && list->tail))
+        rtb_elog("sl_empty_p: invalid list initialization");
     return !list->head && !list->tail;
 }
 
 int sl_node_c(sl_list_t *list)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_get_node: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_get_node: list is NULL");
     int count = 0;
     for (sl_node_t *walk = list->head; walk; walk = walk->next)
         ++count;
@@ -221,14 +208,10 @@ int sl_node_c(sl_list_t *list)
 
 sl_node_t *sl_get_node(sl_list_t *list, int index)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_get_node: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (index < 0) {
-        fputs("rtb_list.h: Error: sl_get_node: invalid index\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_get_node: list is NULL");
+    if (index < 0)
+        rtb_elog("sl_get_node: invalid index");
     sl_node_t *walk = list->head;
     for (int i = 0; walk && i < index; ++i)
         walk = walk->next;
@@ -237,14 +220,10 @@ sl_node_t *sl_get_node(sl_list_t *list, int index)
 
 int sl_get_index(sl_list_t *list, sl_node_t *node)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_get_index: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_get_index: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_get_index: list is NULL");
+    if (!node)
+        rtb_elog("sl_get_index: node is NULL");
     sl_node_t *walk = list->head;
     for (int i = 0; walk; ++i) {
         if (walk == node)
@@ -256,14 +235,10 @@ int sl_get_index(sl_list_t *list, sl_node_t *node)
 
 void sl_append(sl_list_t *list, sl_node_t *node)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_append: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_append: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_append: list is NULL");
+    if (!node)
+        rtb_elog("sl_append: node is NULL");
     if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
@@ -275,18 +250,12 @@ void sl_append(sl_list_t *list, sl_node_t *node)
 
 void sl_insert(sl_list_t *list, sl_node_t *node, int index)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_insert: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_insert: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (index < 0) {
-        fputs("rtb_list.h: Error: sl_insert: invalid index\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_insert: list is NULL");
+    if (!node)
+        rtb_elog("sl_insert: node is NULL");
+    if (index < 0)
+        rtb_elog("sl_insert: invalid index");
     else if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
@@ -311,18 +280,12 @@ void sl_insert(sl_list_t *list, sl_node_t *node, int index)
 
 void sl_remove(sl_list_t *list, sl_node_t *node, int release)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_remove: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_remove: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (sl_empty_p(list)) {
-        fputs("rtb_list.h: Error: sl_remove: list is empty\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_remove: list is NULL");
+    if (!node)
+        rtb_elog("sl_remove: node is NULL");
+    if (sl_empty_p(list))
+        rtb_elog("sl_remove: list is empty");
     if (node == list->head) {
         sl_node_t *old_head = list->head;
         list->head = (list->head)->next;
@@ -354,16 +317,22 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
     }
 }
 
+void sl_remove_at(sl_list_t *list, int index, int release)
+{
+
+}
+
+void sl_replace(sl_list_t *list, sl_node_t *targ, sl_node_t *node)
+{
+
+}
+
 void sl_replace_at(sl_list_t *list, int index, sl_node_t *node)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_replace_at: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_replace_at: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_replace_at: list is NULL");
+    if (!node)
+        rtb_elog("sl_replace_at: node is NULL");
     if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
@@ -375,23 +344,17 @@ void sl_replace_at(sl_list_t *list, int index, sl_node_t *node)
 
 void sl_push(sl_list_t *list, sl_node_t *node)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_push: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_push: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_push: list is NULL");
+    if (!node)
+        rtb_elog("sl_push: node is NULL");
     sl_append(list, node);
 }
 
 sl_node_t *sl_pop(sl_list_t *list)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_pop: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_pop: list is NULL");
     sl_node_t *node = list->tail;
     if (node)
         sl_remove(list, node, 0);
@@ -400,23 +363,17 @@ sl_node_t *sl_pop(sl_list_t *list)
 
 void sl_enque(sl_list_t *list, sl_node_t *node)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_enque: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
-    if (!node) {
-        fputs("rtb_list.h: Error: sl_enque: node is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_enque: list is NULL");
+    if (!node)
+        rtb_elog("sl_enque: node is NULL");
     sl_insert(list, node, 0);
 }
 
 sl_node_t *sl_deque(sl_list_t *list)
 {
-    if (!list) {
-        fputs("rtb_list.h: Error: sl_deque: list is NULL\n", stderr);
-        exit(EXIT_FAILURE);
-    }
+    if (!list)
+        rtb_elog("sl_deque: list is NULL");
     return sl_pop(list);
 }
 
