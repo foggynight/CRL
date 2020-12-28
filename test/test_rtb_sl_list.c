@@ -90,7 +90,7 @@ static void test_sl_node(void)
     node = sl_destroy_node(node);
     assert(!node);
 
-    puts("test_rtb_list.c: Singly linked node tests passed");
+    puts("test_rtb_sl_list.c: Singly linked node tests passed");
 }
 
 static void test_sl_list(void)
@@ -216,7 +216,7 @@ static void test_sl_list(void)
     sl_destroy_list(&list);
     assert(!list);
 
-    puts("test_rtb_list.c: Singly linked list tests passed");
+    puts("test_rtb_sl_list.c: Singly linked list tests passed");
 }
 
 static void test_sl_stack(void)
@@ -257,7 +257,7 @@ static void test_sl_stack(void)
     sl_destroy_list(&list);
     assert(!list);
 
-    puts("test_rtb_list.c: Singly linked stack tests passed");
+    puts("test_rtb_sl_list.c: Singly linked stack tests passed");
 }
 
 static void test_sl_queue(void)
@@ -296,5 +296,5 @@ static void test_sl_queue(void)
     sl_destroy_list(&list);
     assert(!list);
 
-    puts("test_rtb_list.c: Singly linked queue tests passed");
+    puts("test_rtb_sl_list.c: Singly linked queue tests passed");
 }
