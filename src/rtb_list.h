@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.10.3
+ * File Version: 0.10.4
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-28
  *
@@ -337,17 +337,7 @@ int sl_remove_at(sl_list_t *list, int index, int release)
 
 void sl_replace(sl_list_t *list, sl_node_t *targ, sl_node_t *node)
 {
-    if (!list)
-        rtb_elog("sl_replace: list is NULL");
-    if (!node)
-        rtb_elog("sl_replace: node is NULL");
-    if (sl_empty_p(list)) {
-        list->head = list->tail = node;
-    }
-    else {
-        targ->next = node;
-        sl_remove(list, targ, 1);
-    }
+    sl_replace_at(list, sl_get_index(list, targ), node);
 }
 
 void sl_replace_at(sl_list_t *list, int index, sl_node_t *node)
