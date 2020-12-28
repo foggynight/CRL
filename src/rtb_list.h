@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.10.1
+ * File Version: 0.10.2
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-28
  *
@@ -95,8 +95,9 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release);
  *     index.
  * @param list    Pointer to the target list
  * @param index   Position of the target node
- * @param release If non-zero free val member */
-void sl_remove_at(sl_list_t *list, int index, int release);
+ * @param release If non-zero free val member
+ * @return Non-zero if node was removed */
+int sl_remove_at(sl_list_t *list, int index, int release);
 
 /* sl_replace: Replace a node in a singly linked list.
  * @param list Pointer to the target list
@@ -256,7 +257,7 @@ void sl_insert(sl_list_t *list, sl_node_t *node, int index)
         rtb_elog("sl_insert: node is NULL");
     if (index < 0)
         rtb_elog("sl_insert: invalid index");
-    else if (sl_empty_p(list)) {
+    if (sl_empty_p(list)) {
         list->head = list->tail = node;
     }
     else if (index == 0) {
@@ -317,14 +318,36 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
     }
 }
 
-void sl_remove_at(sl_list_t *list, int index, int release)
+int sl_remove_at(sl_list_t *list, int index, int release)
 {
-
+    if (!list)
+        rtb_elog("sl_remove_at: list is NULL");
+    if (!node)
+        rtb_elog("sl_remove_at: node is NULL");
+    if (sl_empty_p(list))
+        rtb_elog("sl_remove_at: list is empty");
+    int count = 0;
+    sl_node_t *targ = list->head;
+    while (targ && count < index)
+        targ = targ->next;
+    if (targ)
+        sl_remove(list, targ, release);
+    return targ ? 1 : 0;
 }
 
 void sl_replace(sl_list_t *list, sl_node_t *targ, sl_node_t *node)
 {
-
+    if (!list)
+        rtb_elog("sl_replace: list is NULL");
+    if (!node)
+        rtb_elog("sl_replace: node is NULL");
+    if (sl_empty_p(list)) {
+        list->head = list->tail = node;
+    }
+    else {
+        targ->next = node;
+        sl_remove(list, targ, 1);
+    }
 }
 
 void sl_replace_at(sl_list_t *list, int index, sl_node_t *node)
