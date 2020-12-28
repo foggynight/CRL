@@ -1,16 +1,16 @@
 /* --- rtb_list.h ---
  *
- * Generic linked list implementations.
+ * Generic linked list implementations, list types also support stack
+ * and queue operations.
  *
  * Define the RTB_DEFINE macro before including this header in just one
- * compilation unit of your program.
- *
- * In other compilation units, include the header as normal.
+ * compilation unit of your program. In other compilation units, include
+ * this header as normal.
  *
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.9.0
+ * File Version: 0.10.0
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-27
  *
@@ -35,11 +35,11 @@ typedef struct sl_list {
     sl_node_t *tail; // Pointer to the tail of the list
 } sl_list_t;
 
-/* sl_create_node: Create a singly linked list node.
+/* sl_create_node: Create a singly linked node.
  * @return Pointer to the new node */
 sl_node_t *sl_create_node(void);
 
-/* sl_destroy_node: Destroy a singly linked list node.
+/* sl_destroy_node: Destroy a singly linked node.
  * @param node Pointer to the target node
  * @return Always NULL */
 sl_node_t *sl_destroy_node(sl_node_t *node);
@@ -52,69 +52,83 @@ sl_list_t *sl_create_list(void);
  * @param list Pointer to a pointer to the target list */
 void sl_destroy_list(sl_list_t **list);
 
-/* sl_empty_p: Check if a singly linked list is empty.
+/* sl_empty_p: Predicate: Is a singly linked list is empty.
  * @param list Pointer to the target list
  * @return Non-zero if the list is empty */
 int sl_empty_p(sl_list_t *list);
 
-/* sl_node_c: Get the number of nodes in a singly linked list.
- * @param list Target list to count
+/* sl_node_c: Count: Get the number of nodes in a singly linked list.
+ * @param list Pointer to the target list
  * @return Number of nodes in the list */
 int sl_node_c(sl_list_t *list);
 
-/* sl_get_node: Get a node from a singly linked list using its index.
- * @param list  List of nodes
- * @param index Position of the node
+/* sl_get_node: Get a node using its index in a singly linked list.
+ * @param list  Pointer to the target list
+ * @param index Position of the target node
  * @return If list contains index: node at index, else: NULL */
 sl_node_t *sl_get_node(sl_list_t *list, int index);
 
 /* sl_get_index: Get the index of a node in a singly linked list.
- * @param list List to search through
- * @param node Node to search for
+ * @param list Pointer to the target list
+ * @param node Pointer to the target node
  * @return If list contains node: index of node, else: -1 */
 int sl_get_index(sl_list_t *list, sl_node_t *node);
 
 /* sl_append: Append a node to a singly linked list.
  * @param list Pointer to the target list
- * @param node Pointer to the node to add */
+ * @param node Pointer to the target node */
 void sl_append(sl_list_t *list, sl_node_t *node);
 
 /* sl_insert: Insert a node in a singly linked list.
  * @param list  Pointer to the target list
- * @param node  Pointer to the node to add
+ * @param node  Pointer to the target node
  * @param index Position to insert the node */
 void sl_insert(sl_list_t *list, sl_node_t *node, int index);
 
 /* sl_remove: Remove a node from a singly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to the node to remove
+ * @param list    Pointer to the target list
+ * @param node    Pointer to the target node
  * @param release If non-zero free val member */
 void sl_remove(sl_list_t *list, sl_node_t *node, int release);
 
+/* sl_remove_at: Remove a node from a singly linked list using its
+ *     index.
+ * @param list    Pointer to the target list
+ * @param index   Position of the target node
+ * @param release If non-zero free val member */
+void sl_remove_at(sl_list_t *list, int index, int release);
+
 /* sl_replace: Replace a node in a singly linked list.
+ * @param list Pointer to the target list
+ * @param targ Pointer to the target node
+ * @param node Pointer to the new node */
+void sl_replace(sl_list_t *list, sl_node_t *targ, sl_node_t *node);
+
+/* sl_replace_at: Replace a node in a singly linked list using its
+ *     index.
  * @param list  Pointer to the target list
- * @param node  Pointer to the node to add
- * @param index Position of node to replace */
-void sl_replace(sl_list_t *list, sl_node_t *node, int index);
+ * @param index Position of the target node
+ * @param node  Pointer to the new node */
+void sl_replace_at(sl_list_t *list, int index, sl_node_t *node);
 
 /* sl_push: Push a node onto the end of a singly linked list.
- * @param list List to push onto
- * @param node Node to push */
+ * @param list Pointer to the target list
+ * @param node Pointer to the target node */
 void sl_push(sl_list_t *list, sl_node_t *node);
 
 /* sl_pop: Pop a node from the end of a singly linked list.
- * @param list List to pop from
- * @return Popped node */
+ * @param list Pointer to the target list
+ * @return Pointer to the popped node */
 sl_node_t *sl_pop(sl_list_t *list);
 
 /* sl_enque: Enqueue a node onto the end of a singly linked list.
- * @param list List to enqueue to
- * @param node Node to enqueue */
+ * @param list Pointer to the target list
+ * @param node Pointer to target node */
 void sl_enque(sl_list_t *list, sl_node_t *node);
 
 /* sl_deque: Dequeue a node from the front of a singly linked list.
- * @param list List to dequeue from
- * @return Dequeued node */
+ * @param list Pointer to the target list
+ * @return Pointer to the dequeued node */
 sl_node_t *sl_deque(sl_list_t *list);
 
 /* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
@@ -340,14 +354,14 @@ void sl_remove(sl_list_t *list, sl_node_t *node, int release)
     }
 }
 
-void sl_replace(sl_list_t *list, sl_node_t *node, int index)
+void sl_replace_at(sl_list_t *list, int index, sl_node_t *node)
 {
     if (!list) {
-        fputs("rtb_list.h: Error: sl_replace: list is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_replace_at: list is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if (!node) {
-        fputs("rtb_list.h: Error: sl_replace: node is NULL\n", stderr);
+        fputs("rtb_list.h: Error: sl_replace_at: node is NULL\n", stderr);
         exit(EXIT_FAILURE);
     }
     if (sl_empty_p(list)) {
