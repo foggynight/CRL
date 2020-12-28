@@ -6,7 +6,7 @@
 - `src`: Library headers
 - `test`: Unit tests
 
-## API Components
+## Components
 
 - `rtb_list`: Generic linked list implementations
 - `rtb_log`: Macros for printing to the stderr stream
