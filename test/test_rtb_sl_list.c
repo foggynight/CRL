@@ -1,8 +1,8 @@
-/* --- test_rtb_list.c ---
+/* --- test_rtb_sl_list.c ---
  *
- * Target: rtb_list.h v0.9.x
+ * Target: rtb_list.h v0.10.x
  * First Commit: 2020-12-22
- * Last Updated: 2020-12-27
+ * Last Updated: 2020-12-28
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -16,16 +16,17 @@
 
 #define NODE_COUNT 3
 
-/* sl_populate: Fill the list with values: [0, ... NODE_COUNT-1]
+/* test_sl_fill: Fill the list with values: [0, ... NODE_COUNT-1]
  * @param list List to fill */
-static void sl_populate(sl_list_t *list);
+static void test_sl_fill(sl_list_t *list);
 
-/* sl_sorted: Check if a singly linked list is sorted in
+/* test_sl_sorted_p: Check if a singly linked list is sorted in
  *     ascending order.
  * @param list List to check
  * @return Non-zero if list is sorted */
-static int sl_sorted(sl_list_t *list);
+static int test_sl_sorted_p(sl_list_t *list);
 
+/* Test procedures */
 static void test_sl_node(void);
 static void test_sl_list(void);
 static void test_sl_stack(void);
@@ -40,22 +41,18 @@ int main(void)
     test_sl_stack();
     test_sl_queue();
 
-    puts("test_rtb_list.c: All tests passed");
+    puts("test_rtb_sl_list.c: All tests passed");
     return 0;
 }
 
-static void sl_populate(sl_list_t *list)
+static void test_sl_fill(sl_list_t *list)
 {
-    assert(list);
-    assert(!list->head && !list->tail);
+    assert(list && !list->head && !list->tail);
     assert(sl_node_c(list) == 0);
 
     sl_node_t *original_head = NULL;
     for (int i = 0; i < NODE_COUNT; ++i) {
         sl_node_t *node = sl_create_node();
-
-        if (!list->head)
-            original_head = node;
 
         int *val = (int *)malloc(sizeof(int));
         assert(val);
@@ -64,16 +61,17 @@ static void sl_populate(sl_list_t *list)
         node->val = val;
         sl_append(list, node);
 
+        if (!original_head)
+            original_head = node;
         assert(list->head == original_head);
         assert(list->tail == node);
     }
 
+    assert(list && list->head && list->tail);
     assert(sl_node_c(list) == NODE_COUNT);
-    if (NODE_COUNT > 0)
-        assert(list->head && list->tail);
 }
 
-static int sl_sorted(sl_list_t *list)
+static int test_sl_sorted_p(sl_list_t *list)
 {
     for (sl_node_t *walk = list->head; walk; walk = walk->next) {
         if (!walk->next)
@@ -86,10 +84,9 @@ static int sl_sorted(sl_list_t *list)
 
 static void test_sl_node(void)
 {
-    /* Test node functions */
     sl_node_t *node = sl_create_node();
-    assert(node);
-    assert(!node->val && !node->next);
+    assert(node && !node->val && !node->next);
+
     node = sl_destroy_node(node);
     assert(!node);
 
@@ -98,60 +95,60 @@ static void test_sl_node(void)
 
 static void test_sl_list(void)
 {
-    /* Create and populate list */
+    /* Create list */
     sl_list_t *list = sl_create_list();
-    assert(list);
-    assert(sl_empty_p(list));
-    sl_populate(list);
+    assert(list && sl_empty_p(list));
+
+    /* Fill the list using a test function */
+    test_sl_fill(list);
     assert(!sl_empty_p(list));
 
     /* Test list values */
     sl_node_t *walk = list->head;
     for (int i = 0; i < NODE_COUNT; ++i) {
-        assert(walk);
-        assert(*(int *)walk->val == i);
+        assert(walk && *(int *)walk->val == i);
         walk = walk->next;
     }
 
     /* Consume the list head-first */
     for (sl_node_t *head = list->head; head; head = list->head) {
-        int node_value = *(int *)head->val;
-        int expected_value = *(int *)list->head->val;
-        assert(node_value == expected_value);
-
+        assert(*(int *)head->val == *(int *)list->head->val);
         sl_node_t *expected_head = head->next;
         sl_remove(list, list->head, 1);
         assert(list->head == expected_head);
     }
-    sl_populate(list);
+    test_sl_fill(list);
 
     /* Consume the list tail-first */
     for (sl_node_t *tail = list->tail; tail; tail = list->tail) {
-        int node_value = *(int *)tail->val;
-        int expected_value = *(int *)list->tail->val;
-        assert(node_value == expected_value);
-
         sl_node_t *expected_tail;
-        if (list->head == list->tail) {
+        if (list->head == list->tail)
             expected_tail = NULL;
-        }
-        else {
+        else
             for (expected_tail = list->head;
                  expected_tail->next != list->tail;
                  expected_tail = expected_tail->next);
-        }
-
         sl_remove(list, list->tail, 1);
         assert(list->tail == expected_tail);
         if (list->tail)
             assert(list->tail->next == NULL);
     }
-    sl_populate(list);
+    test_sl_fill(list);
 
     /* Remove a node in the list body */
     sl_remove(list, list->head->next, 1);
     assert(list->head && list->tail);
     assert(*(int *)list->head->val + 2 == *(int *)list->head->next->val);
+
+    /* Remove a node using its index */
+    sl_node_t *new_head = list->head->next;
+    sl_remove_at(list, 0, 1);
+    assert(list->head == new_head);
+
+    /* Empty the list */
+    while (!sl_empty_p(list))
+        sl_remove(list, list->head, 1);
+    test_sl_fill(list);
 
     /* Get nodes by index */
     assert(sl_get_node(list, 0) == list->head);
@@ -160,16 +157,18 @@ static void test_sl_list(void)
 
     /* Get indices of nodes */
     assert(sl_get_index(list, list->head) == 0);
-    assert(sl_get_index(list, list->tail) == NODE_COUNT-2);
+    assert(sl_get_index(list, list->tail) == NODE_COUNT-1);
     sl_node_t *node = sl_create_node();
     assert(sl_get_index(list, node) == -1);
     sl_append(list, node);
-    assert(sl_get_index(list, node) == NODE_COUNT-1);
+    assert(sl_get_index(list, node) == NODE_COUNT);
+    assert(sl_get_index(list, list->tail) == NODE_COUNT);
 
-    /* Destroy the list */
-    while (list->head)
-        sl_remove(list, list->head, 1);
-    assert(!list->head && !list->tail);
+    /* Reset the list */
+    sl_destroy_list(&list);
+    assert(!list);
+    list = sl_create_list();
+    assert(list);
 
     /* Insert values out of order: [0, 1, 2, 3, 4] */
     int list_values[] = {2, 0, 1, 5, 4};
@@ -190,13 +189,24 @@ static void test_sl_list(void)
             case 4: sl_insert(list, node, 3); break; // Insert in list body
         }
 
-        assert(sl_sorted(list)); // Test list values
+        assert(test_sl_sorted_p(list)); // Test list values
     }
 
-    /* Replace the first node in the list */
-    sl_node_t *replacement_node = sl_create_node();
-    sl_node_t *second_node = list->head->next;
-    sl_replace(list, replacement_node, 0);
+    assert(sl_node_c(list) > 1);
+    sl_node_t *replacement_node;
+    sl_node_t *second_node;
+
+    /* Replace a node using a pointer to it */
+    replacement_node = sl_create_node();
+    second_node = list->head->next;
+    sl_replace(list, list->head, replacement_node);
+    assert(list->head == replacement_node);
+    assert(list->head->next == second_node);
+
+    /* Replace a node using its index */
+    replacement_node = sl_create_node();
+    second_node = list->head->next;
+    sl_replace_at(list, 0, replacement_node);
     assert(list->head == replacement_node);
     assert(list->head->next == second_node);
 
@@ -224,7 +234,7 @@ static void test_sl_stack(void)
         node->val = val;
 
         sl_push(list, node);
-        assert(sl_sorted(list)); // Test list values
+        assert(test_sl_sorted_p(list)); // Test list values
     }
 
     sl_node_t *node = sl_create_node();
@@ -236,10 +246,10 @@ static void test_sl_stack(void)
     node->val = val;
 
     sl_push(list, node);
-    assert(!sl_sorted(list)); // Test list values
+    assert(!test_sl_sorted_p(list)); // Test list values
 
     assert(sl_pop(list) == node);
-    assert(sl_sorted(list)); // Test list values
+    assert(test_sl_sorted_p(list)); // Test list values
 
     sl_destroy_node(node);
 
@@ -265,7 +275,7 @@ static void test_sl_queue(void)
         node->val = val;
 
         sl_enque(list, node);
-        assert(sl_sorted(list)); // Test list values
+        assert(test_sl_sorted_p(list)); // Test list values
     }
 
     sl_node_t *node = sl_create_node();
@@ -277,10 +287,10 @@ static void test_sl_queue(void)
     node->val = val;
 
     sl_enque(list, node);
-    assert(!sl_sorted(list)); // Test list values
+    assert(!test_sl_sorted_p(list)); // Test list values
 
     sl_deque(list);
-    assert(!sl_sorted(list)); // Test list values
+    assert(!test_sl_sorted_p(list)); // Test list values
 
     /* Destroy the list */
     sl_destroy_list(&list);
