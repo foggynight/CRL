@@ -8,6 +8,7 @@
 
 ## Components
 
+- `rtb_buf`: Generic variable sized buffer
 - `rtb_list`: Generic linked list implementations
 - `rtb_log`: Macros for printing to the stderr stream
 
