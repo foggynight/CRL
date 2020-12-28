@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.9.0
+ * File Version: 0.8.4
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-27
  *
