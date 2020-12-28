@@ -10,7 +10,7 @@
  * This file is part of the rtb library:
  * https://github.com/foggynight/rtb
  *
- * File Version: 0.10.2
+ * File Version: 0.10.3
  * First Commit: 2020-12-16
  * Last Updated: 2020-12-28
  *
@@ -200,7 +200,7 @@ int sl_empty_p(sl_list_t *list)
 int sl_node_c(sl_list_t *list)
 {
     if (!list)
-        rtb_elog("sl_get_node: list is NULL");
+        rtb_elog("sl_node_c: list is NULL");
     int count = 0;
     for (sl_node_t *walk = list->head; walk; walk = walk->next)
         ++count;
@@ -322,8 +322,8 @@ int sl_remove_at(sl_list_t *list, int index, int release)
 {
     if (!list)
         rtb_elog("sl_remove_at: list is NULL");
-    if (!node)
-        rtb_elog("sl_remove_at: node is NULL");
+    if (index < 0)
+        rtb_elog("sl_remove_at: invalid inbex");
     if (sl_empty_p(list))
         rtb_elog("sl_remove_at: list is empty");
     int count = 0;
