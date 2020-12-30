@@ -1,10 +1,9 @@
-/* --- rtb_buf.h ---
+/* rtb_buf.h - v0.0.0 - Variable sized generic buffer
  *
- * Generic variable sized buffer.
+ * Define the RTB_DEFINE macro before including this header in just one
+ * compilation unit of your program.
  *
- * File Version: 0.1.0
- * First Commit: 2020-12-28
- * Last Updated: 2020-12-28
+ * This file is part of the rtb library: http://foggynight.ca/git/rtb
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
@@ -23,10 +22,14 @@ typedef struct rtb_buf {
 } rtb_buf_t;
 
 /* rtb_buf: Create a buffer
- * @param size Initial size of the buffer */
+ * @param size Initial size of the buffer
+ * @return New buffer */
 rtb_buf_t *rtb_buf(size_t size);
 
-/* rtb_buf_destroy: Destroy a buffer. */
+/* rtb_buf_destroy: Destroy a buffer
+ * @param buf Target buffer
+ * @return Always NULL */
+rtb_buf_t *rtb_buf_destroy(rtb_buf_t *buf);
 
 /* rtb_buf_get: Get an element in the buffer */
 
@@ -38,8 +41,12 @@ rtb_buf_t *rtb_buf(size_t size);
 
 #ifdef RTB_DEFINE
 
+#include "rtb_log.h"
+
 rtb_buf_t *rtb_buf(size_t size)
 {
+    if (size < 0)
+        rtb_elog("rtb_buf: invalid size");
     rtb_buf_t *buf = (rtb_buf_t *)malloc(sizeof(rtb_buf_t));
     if (!buf)
         rtb_elog("rtb_buf: malloc failed");
@@ -51,7 +58,16 @@ rtb_buf_t *rtb_buf(size_t size)
     return buf;
 }
 
+rtb_buf_t *rtb_buf_destroy(rtb_buf_t *buf)
+{
+    if
+    return NULL;
+}
+
 /* rtb_buf_resize: Resize the data buffer */
 
 #endif // RTB_DEFINE
 #endif // RTB_BUF_H_
+
+/* Version History
+ * 0.0.0 - 2020-12-28 - First commit */

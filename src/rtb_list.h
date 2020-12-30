@@ -1,27 +1,15 @@
-/* --- rtb_list.h ---
- *
- * Generic linked list implementations, list types also support stack
- * and queue operations.
+/* rtb_list.h - v0.0.0 - Generic linked list implementations
  *
  * Define the RTB_DEFINE macro before including this header in just one
- * compilation unit of your program. In other compilation units, include
- * this header as normal.
+ * compilation unit of your program.
  *
- * This file is part of the rtb library:
- * https://github.com/foggynight/rtb
- *
- * File Version: 0.10.4
- * First Commit: 2020-12-16
- * Last Updated: 2020-12-28
+ * This file is part of the rtb library: http://foggynight.ca/git/rtb
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
 
 #ifndef RTB_LIST_H_
 #define RTB_LIST_H_
-
-/* ---------------------------------------------- */
-/* --- BEGIN: SINGLY LINKED LIST DECLARATIONS --- */
 
 /* sl_node_t: Singly linked node. */
 typedef struct sl_node {
@@ -132,24 +120,12 @@ void sl_enque(sl_list_t *list, sl_node_t *node);
  * @return Pointer to the dequeued node */
 sl_node_t *sl_deque(sl_list_t *list);
 
-/* --- ENDOF: SINGLY LINKED LIST DECLARATIONS --- */
-/* ---------------------------------------------- */
-
-/* ---------------------------------------------- */
-/* --- BEGIN: DOUBLY LINKED LIST DECLARATIONS --- */
-
-/* --- ENDOF: DOUBLY LINKED LIST DECLARATIONS --- */
-/* ---------------------------------------------- */
-
 #ifdef RTB_DEFINE
 
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "rtb_log.h"
-
-/* --------------------------------------------- */
-/* --- BEGIN: SINGLY LINKED LIST DEFINITIONS --- */
 
 sl_node_t *sl_create_node(void)
 {
@@ -390,14 +366,8 @@ sl_node_t *sl_deque(sl_list_t *list)
     return sl_pop(list);
 }
 
-/* --- ENDOF: SINGLY LINKED LIST DEFINITIONS --- */
-/* --------------------------------------------- */
-
-/* --------------------------------------------- */
-/* --- BEGIN: DOUBLY LINKED LIST DEFINITIONS --- */
-
-/* --- ENDOF: DOUBLY LINKED LIST DEFINITIONS --- */
-/* --------------------------------------------- */
-
 #endif // RTB_DEFINE
 #endif // RTB_LIST_H_
+
+/* Version History
+ * 0.0.0 - 2020-12-16 - First commit */
