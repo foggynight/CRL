@@ -1,8 +1,8 @@
 /* --- test_rtb_sl_list.c ---
  *
- * Target: rtb_list.h v0.10.x
+ * Target: rtb_list.h v0.0.0
  * First Commit: 2020-12-22
- * Last Updated: 2020-12-28
+ * Last Updated: 2020-12-29
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */

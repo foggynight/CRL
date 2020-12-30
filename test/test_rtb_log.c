@@ -1,8 +1,8 @@
 /* --- test_rtb_log.c ---
  *
- * Target: rtb_log.h v0.3.x
+ * Target: rtb_log.h v0.1.0
  * First Commit: 2020-12-20
- * Last Updated: 2020-12-23
+ * Last Updated: 2020-12-29
  *
  * Copyright (C) 2020 Robert Coffey
  * Released under the MIT license */
