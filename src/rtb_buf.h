@@ -5,7 +5,7 @@
  *
  * This file is part of the rtb library: http://foggynight.ca/git/rtb
  *
- * Copyright (C) 2020 Robert Coffey
+ * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license */
 
 #ifndef RTB_BUF_H_

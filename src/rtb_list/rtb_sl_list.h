@@ -1,11 +1,11 @@
-/* rtb_sl_list.h - v0.1.0 - Generic singly linked list
+/* rtb_sl_list.h - v0.1.1 - Generic singly linked list
  *
  * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
  *
  * This file is part of the rtb library: http://foggynight.ca/git/rtb
  *
- * Copyright (C) 2020 Robert Coffey
+ * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license */
 
 #ifndef RTB_SL_LIST_H_
@@ -370,5 +370,6 @@ sl_node_t *sl_deque(sl_list_t *list)
 #endif // RTB_SL_LIST_H_
 
 /* Version History
+ * 0.1.1 - 2021-01-01 - Update copyright notice
  * 0.1.0 - 2020-12-30 - Initial release
  *                    - Split from rtb_list.h */
