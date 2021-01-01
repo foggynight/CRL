@@ -1,4 +1,4 @@
-/* list_sl.h - v0.1.1 - Generic singly linked list
+/* list.h - v0.0.0 - Generic linked list
  *
  * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
@@ -8,29 +8,16 @@
  * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license */
 
-#ifndef RTB_DS_LIST_SL_H_
-#define RTB_DS_LIST_SL_H_
+#ifndef RTB_DS_LIST_H_
+#define RTB_DS_LIST_H_
 
-/* sl_node_t: Singly linked node. */
-typedef struct sl_node {
-    void *val;            // Pointer to the node value
-    struct sl_node *next; // Pointer to the next node
-} sl_node_t;
+#include "node.h"
 
 /* sl_list_t: Singly linked list. */
 typedef struct sl_list {
     sl_node_t *head; // Pointer to the head of the list
     sl_node_t *tail; // Pointer to the tail of the list
 } sl_list_t;
-
-/* sl_create_node: Create a singly linked node.
- * @return Pointer to the new node */
-sl_node_t *sl_create_node(void);
-
-/* sl_destroy_node: Destroy a singly linked node.
- * @param node Pointer to the target node
- * @return Always NULL */
-sl_node_t *sl_destroy_node(sl_node_t *node);
 
 /* sl_create_list: Create a singly linked list.
  * @return Pointer to the new list */
@@ -100,50 +87,11 @@ void sl_replace(sl_list_t *list, sl_node_t *targ, sl_node_t *node);
  * @param node  Pointer to the new node */
 void sl_replace_at(sl_list_t *list, int index, sl_node_t *node);
 
-/* sl_push: Push a node onto the end of a singly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to the target node */
-void sl_push(sl_list_t *list, sl_node_t *node);
-
-/* sl_pop: Pop a node from the end of a singly linked list.
- * @param list Pointer to the target list
- * @return Pointer to the popped node */
-sl_node_t *sl_pop(sl_list_t *list);
-
-/* sl_enque: Enqueue a node onto the end of a singly linked list.
- * @param list Pointer to the target list
- * @param node Pointer to target node */
-void sl_enque(sl_list_t *list, sl_node_t *node);
-
-/* sl_deque: Dequeue a node from the front of a singly linked list.
- * @param list Pointer to the target list
- * @return Pointer to the dequeued node */
-sl_node_t *sl_deque(sl_list_t *list);
-
 #ifdef RTB_DEFINE
 
-#include <stdio.h>
 #include <stdlib.h>
 
-#include "rtb_log.h"
-
-sl_node_t *sl_create_node(void)
-{
-    sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
-    if (!node)
-        rtb_elog("sl_create_node: calloc failed");
-    return node;
-}
-
-sl_node_t *sl_destroy_node(sl_node_t *node)
-{
-    if (!node)
-        rtb_elog("sl_destroy_node: node is NULL");
-    if (node->val)
-        free(node->val);
-    free(node);
-    return NULL;
-}
+#include "../rtb_log.h"
 
 sl_list_t *sl_create_list(void)
 {
@@ -331,45 +279,8 @@ void sl_replace_at(sl_list_t *list, int index, sl_node_t *node)
     }
 }
 
-void sl_push(sl_list_t *list, sl_node_t *node)
-{
-    if (!list)
-        rtb_elog("sl_push: list is NULL");
-    if (!node)
-        rtb_elog("sl_push: node is NULL");
-    sl_append(list, node);
-}
-
-sl_node_t *sl_pop(sl_list_t *list)
-{
-    if (!list)
-        rtb_elog("sl_pop: list is NULL");
-    sl_node_t *node = list->tail;
-    if (node)
-        sl_remove(list, node, 0);
-    return node;
-}
-
-void sl_enque(sl_list_t *list, sl_node_t *node)
-{
-    if (!list)
-        rtb_elog("sl_enque: list is NULL");
-    if (!node)
-        rtb_elog("sl_enque: node is NULL");
-    sl_insert(list, node, 0);
-}
-
-sl_node_t *sl_deque(sl_list_t *list)
-{
-    if (!list)
-        rtb_elog("sl_deque: list is NULL");
-    return sl_pop(list);
-}
-
 #endif // RTB_DEFINE
-#endif // RTB_DS_LIST_SL_H_
+#endif // RTB_DS_LIST_H_
 
 /* Version History
- * 0.1.1 - 2021-01-01 - Update copyright notice
- * 0.1.0 - 2020-12-30 - Initial release
- *                    - Split from rtb_list.h */
+ * 0.0.0 - 2020-12-16 - First commit */
