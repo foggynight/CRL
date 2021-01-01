@@ -1,4 +1,4 @@
-/* rtb_buf.h - v0.0.0 - Variable sized generic buffer
+/* buf.h - v0.0.0 - Variable sized generic buffer
  *
  * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
@@ -8,8 +8,8 @@
  * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license */
 
-#ifndef RTB_BUF_H_
-#define RTB_BUF_H_
+#ifndef RTB_DS_BUF_H_
+#define RTB_DS_BUF_H_
 
 #include <stdlib.h>
 
@@ -67,7 +67,7 @@ rtb_buf_t *rtb_buf_destroy(rtb_buf_t *buf)
 /* rtb_buf_resize: Resize the data buffer */
 
 #endif // RTB_DEFINE
-#endif // RTB_BUF_H_
+#endif // RTB_DS_BUF_H_
 
 /* Version History
  * 0.0.0 - 2020-12-28 - First commit */

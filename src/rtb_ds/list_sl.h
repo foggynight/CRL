@@ -1,4 +1,4 @@
-/* rtb_sl_list.h - v0.1.1 - Generic singly linked list
+/* list_sl.h - v0.1.1 - Generic singly linked list
  *
  * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
@@ -8,8 +8,8 @@
  * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license */
 
-#ifndef RTB_SL_LIST_H_
-#define RTB_SL_LIST_H_
+#ifndef RTB_DS_LIST_SL_H_
+#define RTB_DS_LIST_SL_H_
 
 /* sl_node_t: Singly linked node. */
 typedef struct sl_node {
@@ -367,7 +367,7 @@ sl_node_t *sl_deque(sl_list_t *list)
 }
 
 #endif // RTB_DEFINE
-#endif // RTB_SL_LIST_H_
+#endif // RTB_DS_LIST_SL_H_
 
 /* Version History
  * 0.1.1 - 2021-01-01 - Update copyright notice

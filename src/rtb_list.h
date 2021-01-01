@@ -11,7 +11,7 @@
 #ifndef RTB_LIST_H_
 #define RTB_LIST_H_
 
-#include "rtb_list/rtb_sl_list.h"
+#include "rtb_ds/list_sl.h"
 
 #endif // RTB_LIST_H_
 
