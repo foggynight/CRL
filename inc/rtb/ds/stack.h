@@ -25,6 +25,8 @@ sl_node_t *sl_pop(sl_list_t *list);
 
 #ifdef RTB_DEFINE
 
+#include "../log.h"
+
 void sl_push(sl_list_t *list, sl_node_t *node)
 {
     if (!list)

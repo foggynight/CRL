@@ -91,7 +91,7 @@ void sl_replace_at(sl_list_t *list, int index, sl_node_t *node);
 
 #include <stdlib.h>
 
-#include "../rtb_log.h"
+#include "../log.h"
 
 sl_list_t *sl_create_list(void)
 {

@@ -13,8 +13,6 @@
 
 #include <stdlib.h>
 
-#include "rtb_log.h"
-
 typedef struct rtb_buf {
     size_t last; // Index of last element
     size_t size; // Size of the buffer
@@ -41,7 +39,7 @@ rtb_buf_t *rtb_buf_destroy(rtb_buf_t *buf);
 
 #ifdef RTB_DEFINE
 
-#include "rtb_log.h"
+#include "../log.h"
 
 rtb_buf_t *rtb_buf(size_t size)
 {

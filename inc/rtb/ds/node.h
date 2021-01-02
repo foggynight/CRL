@@ -30,7 +30,7 @@ sl_node_t *sl_destroy_node(sl_node_t *node);
 
 #include <stdlib.h>
 
-#include "../rtb_log.h"
+#include "../log.h"
 
 sl_node_t *sl_create_node(void)
 {
