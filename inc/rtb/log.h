@@ -1,4 +1,5 @@
-/* log.h - v0.1.2 - Macros for printing to the stderr stream
+/**
+ * log.h - v0.1.3 - Macros for printing to the stderr stream
  *
  * Define the RTB_NO_EXIT macro before including this header to prevent
  * the elog macros from calling exit.
@@ -6,7 +7,8 @@
  * This file is part of the rtb library: http://foggynight.ca/git/rtb
  *
  * Copyright (C) 2020-2021 Robert Coffey
- * Released under the MIT license */
+ * Released under the MIT license
+ */
 
 #ifndef RTB_LOG_H_
 #define RTB_LOG_H_
@@ -35,8 +37,11 @@
 
 #endif // RTB_LOG_H_
 
-/* Version History
+/**
+ * Version History
+ * 0.1.3 - 2021-01-04 - Refactor comments
  * 0.1.2 - 2021-01-02 - Remove rtb from header filename
  * 0.1.1 - 2021-01-01 - Update copyright notice
  * 0.1.0 - 2020-12-29 - Initial release
- * 0.0.0 - 2020-12-19 - First commit */
+ * 0.0.0 - 2020-12-19 - First commit
+ */

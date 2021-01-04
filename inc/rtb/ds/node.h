@@ -1,4 +1,5 @@
-/* node.h - v0.0.0 - Generic node
+/**
+ * node.h - v0.0.0 - Generic node
  *
  * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
@@ -6,7 +7,8 @@
  * This file is part of the rtb library: http://foggynight.ca/git/rtb
  *
  * Copyright (C) 2020-2021 Robert Coffey
- * Released under the MIT license */
+ * Released under the MIT license
+ */
 
 #ifndef RTB_DS_NODE_H_
 #define RTB_DS_NODE_H_
@@ -17,13 +19,17 @@ typedef struct sl_node {
     struct sl_node *next; // Pointer to the next node
 } sl_node_t;
 
-/* sl_create_node: Create a singly linked node.
- * @return Pointer to the new node */
+/**
+ * sl_create_node: Create a singly linked node.
+ * @return Pointer to the new node
+ */
 sl_node_t *sl_create_node(void);
 
-/* sl_destroy_node: Destroy a singly linked node.
+/**
+ * sl_destroy_node: Destroy a singly linked node.
  * @param node Pointer to the target node
- * @return Always NULL */
+ * @return Always NULL
+ */
 sl_node_t *sl_destroy_node(sl_node_t *node);
 
 #ifdef RTB_DEFINE
@@ -53,5 +59,7 @@ sl_node_t *sl_destroy_node(sl_node_t *node)
 #endif // RTB_DEFINE
 #endif // RTB_DS_NODE_H_
 
-/* Version History
- * 0.0.0 - 2021-01-01 - First commit */
+/**
+ * Version History
+ * 0.0.0 - 2021-01-01 - First commit
+ */
