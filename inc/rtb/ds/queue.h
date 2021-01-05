@@ -8,7 +8,7 @@
  *
  * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license
- */
+ **/
 
 #ifndef RTB_DS_QUEUE_H_
 #define RTB_DS_QUEUE_H_
@@ -19,14 +19,14 @@
  * sl_enque: Enqueue a node onto the end of a singly linked list.
  * @param list Pointer to the target list
  * @param node Pointer to target node
- */
+ **/
 void sl_enque(sl_list_t *list, sl_node_t *node);
 
 /**
  * sl_deque: Dequeue a node from the front of a singly linked list.
  * @param list Pointer to the target list
  * @return Pointer to the dequeued node
- */
+ **/
 sl_node_t *sl_deque(sl_list_t *list);
 
 #ifdef RTB_DEFINE
@@ -55,4 +55,4 @@ sl_node_t *sl_deque(sl_list_t *list)
 /**
  * Version History
  * 0.0.0 - 2021-01-01 - First commit
- */
+ **/

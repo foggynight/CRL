@@ -8,7 +8,7 @@
  *
  * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license
- */
+ **/
 
 #ifndef RTB_DS_NODE_H_
 #define RTB_DS_NODE_H_
@@ -22,14 +22,14 @@ typedef struct sl_node {
 /**
  * sl_create_node: Create a singly linked node.
  * @return Pointer to the new node
- */
+ **/
 sl_node_t *sl_create_node(void);
 
 /**
  * sl_destroy_node: Destroy a singly linked node.
  * @param node Pointer to the target node
  * @return Always NULL
- */
+ **/
 sl_node_t *sl_destroy_node(sl_node_t *node);
 
 #ifdef RTB_DEFINE
@@ -62,4 +62,4 @@ sl_node_t *sl_destroy_node(sl_node_t *node)
 /**
  * Version History
  * 0.0.0 - 2021-01-01 - First commit
- */
+ **/

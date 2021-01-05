@@ -8,7 +8,7 @@
  *
  * Copyright (C) 2020-2021 Robert Coffey
  * Released under the MIT license
- */
+ **/
 
 #ifndef RTB_DS_STACK_H_
 #define RTB_DS_STACK_H_
@@ -19,14 +19,14 @@
  * sl_push: Push a node onto the end of a singly linked list.
  * @param list Pointer to the target list
  * @param node Pointer to the target node
- */
+ **/
 void sl_push(sl_list_t *list, sl_node_t *node);
 
 /**
  * sl_pop: Pop a node from the end of a singly linked list.
  * @param list Pointer to the target list
  * @return Pointer to the popped node
- */
+ **/
 sl_node_t *sl_pop(sl_list_t *list);
 
 #ifdef RTB_DEFINE
@@ -58,4 +58,4 @@ sl_node_t *sl_pop(sl_list_t *list)
 /**
  * Version History
  * 0.0.0 - 2021-01-01 - First commit
- */
+ **/
