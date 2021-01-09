@@ -298,26 +298,26 @@ void rtb_list1_remove(rtb_list1_t *list, rtb_node1_t *node, int release)
     }
 }
 
-int rtb_list1_remove_at(rtb_list1_t *list, int index, int release)
+void rtb_list1_remove_at(rtb_list1_t *list, int index, int release)
 {
     if (!list)
         rtb_elog("rtb_list1_remove_at: list is NULL");
-    if (index < 0)
-        rtb_elog("rtb_list1_remove_at: Invalid index");
     if (rtb_list1_empty_p(list))
         rtb_elog("rtb_list1_remove_at: list is empty");
+    if (index < 0 || index >= rtb_list1_node_c(list))
+        rtb_elog("rtb_list1_remove_at: Invalid index");
 
     int count = 0;
-    rtb_node1_t *targ = list->head;
-    while (targ && count < index) {
-        targ = targ->next;
+    rtb_node1_t *walk = list->head;
+    while (walk && count < index) {
+        walk = walk->next;
         ++count;
     }
 
-    if (targ)
-        rtb_list1_remove(list, targ, release);
+    if (!walk)
+        rtb_elog("rtb_list1_remove_at: walk is NULL");
 
-    return targ ? 1 : 0;
+    rtb_list1_remove(list, walk, release);
 }
 
 void rtb_list1_replace(rtb_list1_t *list, rtb_node1_t *targ, rtb_node1_t *node)
