@@ -196,9 +196,6 @@ rtb_node1_t *rtb_list1_get_node(rtb_list1_t *list, int index)
     for (int i = 0; walk && i < index; ++i)
         walk = walk->next;
 
-    if (!walk)
-        rtb_elog("rtb_list1_get_node: Invalid index");
-
     return walk;
 }
 
