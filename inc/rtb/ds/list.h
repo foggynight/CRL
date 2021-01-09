@@ -166,9 +166,6 @@ int rtb_list1_empty_p(rtb_list1_t *list)
 {
     if (!list)
         rtb_elog("rtb_list1_empty_p: list is NULL");
-    if ((list->head && !list->tail)
-     || (!list->head && list->tail))
-        rtb_elog("rtb_list1_empty_p: Invalid list initialization");
 
     return !list->head && !list->tail;
 }
