@@ -144,15 +144,20 @@ rtb_list1_t *rtb_list1_create(void)
     rtb_list1_t *list = (rtb_list1_t *)calloc(1, sizeof(rtb_list1_t));
     if (!list)
         rtb_elog("rtb_list1_create: calloc failed");
+
     return list;
 }
 
 void rtb_list1_destroy(rtb_list1_t **list)
 {
-    if (!list || !*list)
+    if (!list)
         rtb_elog("rtb_list1_destroy: list is NULL");
+    if (!*list)
+        rtb_elog("rtb_list1_destroy: *list is NULL");
+
     while (!rtb_list1_empty_p(*list))
         rtb_list1_remove(*list, (*list)->head, 1);
+
     free(*list);
     *list = NULL;
 }
@@ -162,8 +167,9 @@ int rtb_list1_empty_p(rtb_list1_t *list)
     if (!list)
         rtb_elog("rtb_list1_empty_p: list is NULL");
     if ((list->head && !list->tail)
-            || (!list->head && list->tail))
+     || (!list->head && list->tail))
         rtb_elog("rtb_list1_empty_p: invalid list initialization");
+
     return !list->head && !list->tail;
 }
 
@@ -171,9 +177,11 @@ int rtb_list1_node_c(rtb_list1_t *list)
 {
     if (!list)
         rtb_elog("rtb_list1_node_c: list is NULL");
+
     int count = 0;
     for (rtb_node1_t *walk = list->head; walk; walk = walk->next)
         ++count;
+
     return count;
 }
 
@@ -183,9 +191,11 @@ rtb_node1_t *rtb_list1_get_node(rtb_list1_t *list, int index)
         rtb_elog("rtb_list1_get_node: list is NULL");
     if (index < 0)
         rtb_elog("rtb_list1_get_node: invalid index");
+
     rtb_node1_t *walk = list->head;
     for (int i = 0; walk && i < index; ++i)
         walk = walk->next;
+
     return walk;
 }
 
@@ -195,12 +205,14 @@ int rtb_list1_get_index(rtb_list1_t *list, rtb_node1_t *node)
         rtb_elog("rtb_list1_get_index: list is NULL");
     if (!node)
         rtb_elog("rtb_list1_get_index: node is NULL");
+
     rtb_node1_t *walk = list->head;
     for (int i = 0; walk; ++i) {
         if (walk == node)
             return i;
         walk = walk->next;
     }
+
     return -1;
 }
 
@@ -212,6 +224,7 @@ void rtb_list1_insert_at(rtb_list1_t *list, rtb_node1_t *node, int index)
         rtb_elog("rtb_list1_insert_at: node is NULL");
     if (index < 0)
         rtb_elog("rtb_list1_insert_at: invalid index");
+
     if (rtb_list1_empty_p(list)) {
         list->head = list->tail = node;
     }
@@ -242,6 +255,7 @@ void rtb_list1_remove(rtb_list1_t *list, rtb_node1_t *node, int release)
         rtb_elog("rtb_list1_remove: node is NULL");
     if (rtb_list1_empty_p(list))
         rtb_elog("rtb_list1_remove: list is empty");
+
     if (node == list->head) {
         rtb_node1_t *old_head = list->head;
         list->head = (list->head)->next;
@@ -281,14 +295,17 @@ int rtb_list1_remove_at(rtb_list1_t *list, int index, int release)
         rtb_elog("rtb_list1_remove_at: invalid inbex");
     if (rtb_list1_empty_p(list))
         rtb_elog("rtb_list1_remove_at: list is empty");
+
     int count = 0;
     rtb_node1_t *targ = list->head;
     while (targ && count < index) {
         targ = targ->next;
         ++count;
     }
+
     if (targ)
         rtb_list1_remove(list, targ, release);
+
     return targ ? 1 : 0;
 }
 
@@ -303,6 +320,7 @@ void rtb_list1_replace_at(rtb_list1_t *list, int index, rtb_node1_t *node)
         rtb_elog("rtb_list1_replace_at: list is NULL");
     if (!node)
         rtb_elog("rtb_list1_replace_at: node is NULL");
+
     if (rtb_list1_empty_p(list)) {
         list->head = list->tail = node;
     }
