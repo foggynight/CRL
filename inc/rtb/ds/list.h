@@ -216,6 +216,16 @@ int rtb_list1_get_index(rtb_list1_t *list, rtb_node1_t *node)
     return -1;
 }
 
+void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *next)
+{
+
+}
+
+void rtb_list1_insert_after(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *prev)
+{
+
+}
+
 void rtb_list1_insert_at(rtb_list1_t *list, rtb_node1_t *node, int index)
 {
     if (!list)
