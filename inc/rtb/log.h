@@ -41,8 +41,8 @@
  * Version History
  * 0.1.4 - 2021-01-05 - Refactor comments
  * 0.1.3 - 2021-01-04 - Refactor comments
- * 0.1.2 - 2021-01-02 - Remove rtb from header filename
+ * 0.1.2 - 2021-01-02 - Remove rtb from filename
  * 0.1.1 - 2021-01-01 - Update copyright notice
- * 0.1.0 - 2020-12-29 - Initial release
+ * 0.1.0 - 2020-12-29 - Initial prerelease
  * 0.0.0 - 2020-12-19 - First commit
  **/
