@@ -1,5 +1,5 @@
 /**
- * node.h - v0.0.0 - Generic node
+ * node.h - v0.0.0 - Generic node types and associated functions
  *
  * Define the RTB_DEFINE macro before including this header in just one
  * compilation unit of your program.
@@ -13,22 +13,29 @@
 #ifndef RTB_DS_NODE_H_
 #define RTB_DS_NODE_H_
 
-/* sl_node_t: Singly linked node. */
+/**
+ * sl_node_t: Generic singly linked node
+ * @member val  Pointer to the node value
+ * @member next Pointer to the next node
+ **/
 typedef struct sl_node {
-    void *val;            // Pointer to the node value
-    struct sl_node *next; // Pointer to the next node
+    void *val;
+    struct sl_node *next;
 } sl_node_t;
 
 /**
- * sl_create_node: Create a singly linked node.
+ * sl_create_node: Create a singly linked node
  * @return Pointer to the new node
+ * @note All node members are initialized to zero
  **/
 sl_node_t *sl_create_node(void);
 
 /**
- * sl_destroy_node: Destroy a singly linked node.
+ * sl_destroy_node: Destroy a singly linked node
  * @param node Pointer to the target node
  * @return Always NULL
+ * @note node must not be NULL
+ * @note node->val will be freed if not-NULL
  **/
 sl_node_t *sl_destroy_node(sl_node_t *node);
 
