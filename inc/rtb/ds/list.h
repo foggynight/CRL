@@ -15,40 +15,49 @@
 
 #include "node.h"
 
-/* sl_list_t: Singly linked list. */
+/**
+ * sl_list_t: Singly linked list
+ * @member head Pointer to the head of the list
+ * @member tail Pointer to the tail of the list
+ **/
 typedef struct sl_list {
-    sl_node_t *head; // Pointer to the head of the list
-    sl_node_t *tail; // Pointer to the tail of the list
+    sl_node_t *head;
+    sl_node_t *tail;
 } sl_list_t;
 
 /**
- * sl_create_list: Create a singly linked list.
+ * sl_create_list: Create a singly linked list
  * @return Pointer to the new list
+ * @note All list members are initialized to zero
  **/
 sl_list_t *sl_create_list(void);
 
 /**
- * sl_destroy_list: Destroy a singly linked list.
- * @param list Pointer to a pointer to the target list
+ * sl_destroy_list: Destroy a singly linked list
+ * @param list Double pointer to the target list
+ * @note list and *list must not be NULL
+ * @note Side effects:
+ *  - Call: sl_destroy_node on all list nodes
+ *  - Assign: *list = NULL
  **/
 void sl_destroy_list(sl_list_t **list);
 
 /**
- * sl_empty_p: Is a singly linked list empty?
+ * sl_empty_p: Empty list predicate
  * @param list Pointer to the target list
  * @return Non-zero if the list is empty
  **/
 int sl_empty_p(sl_list_t *list);
 
 /**
- * sl_node_c: Count: Get the number of nodes in a singly linked list.
+ * sl_node_c: Count the number of nodes in a list
  * @param list Pointer to the target list
  * @return Number of nodes in the list
  **/
 int sl_node_c(sl_list_t *list);
 
 /**
- * sl_get_node: Get a node using its index in a singly linked list.
+ * sl_get_node: Get a node using its index in a singly linked list
  * @param list  Pointer to the target list
  * @param index Position of the target node
  * @return If list contains index: node at index, else: NULL
@@ -56,7 +65,7 @@ int sl_node_c(sl_list_t *list);
 sl_node_t *sl_get_node(sl_list_t *list, int index);
 
 /**
- * sl_get_index: Get the index of a node in a singly linked list.
+ * sl_get_index: Get the index of a node in a singly linked list
  * @param list Pointer to the target list
  * @param node Pointer to the target node
  * @return If list contains node: index of node, else: -1
@@ -64,14 +73,14 @@ sl_node_t *sl_get_node(sl_list_t *list, int index);
 int sl_get_index(sl_list_t *list, sl_node_t *node);
 
 /**
- * sl_append: Append a node to a singly linked list.
+ * sl_append: Append a node to a singly linked list
  * @param list Pointer to the target list
  * @param node Pointer to the target node
  **/
 void sl_append(sl_list_t *list, sl_node_t *node);
 
 /**
- * sl_insert: Insert a node in a singly linked list.
+ * sl_insert: Insert a node in a singly linked list
  * @param list  Pointer to the target list
  * @param node  Pointer to the target node
  * @param index Position to insert the node
@@ -79,7 +88,7 @@ void sl_append(sl_list_t *list, sl_node_t *node);
 void sl_insert(sl_list_t *list, sl_node_t *node, int index);
 
 /**
- * sl_remove: Remove a node from a singly linked list.
+ * sl_remove: Remove a node from a singly linked list
  * @param list    Pointer to the target list
  * @param node    Pointer to the target node
  * @param release If non-zero free val member
@@ -87,17 +96,16 @@ void sl_insert(sl_list_t *list, sl_node_t *node, int index);
 void sl_remove(sl_list_t *list, sl_node_t *node, int release);
 
 /**
- * sl_remove_at: Remove a node from a singly linked list using its
- *     index.
+ * sl_remove_at: Remove a node from a singly linked list using its index
  * @param list    Pointer to the target list
  * @param index   Position of the target node
  * @param release If non-zero free val member
- * @return Non-zero if node was removed
+ * @return Non-zero if a node was removed
  **/
 int sl_remove_at(sl_list_t *list, int index, int release);
 
 /**
- * sl_replace: Replace a node in a singly linked list.
+ * sl_replace: Replace a node in a singly linked list
  * @param list Pointer to the target list
  * @param targ Pointer to the target node
  * @param node Pointer to the new node
@@ -105,8 +113,7 @@ int sl_remove_at(sl_list_t *list, int index, int release);
 void sl_replace(sl_list_t *list, sl_node_t *targ, sl_node_t *node);
 
 /**
- * sl_replace_at: Replace a node in a singly linked list using its
- *     index.
+ * sl_replace_at: Replace a node in a singly linked list using its index
  * @param list  Pointer to the target list
  * @param index Position of the target node
  * @param node  Pointer to the new node
