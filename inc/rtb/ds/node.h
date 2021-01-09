@@ -14,30 +14,30 @@
 #define RTB_DS_NODE_H_
 
 /**
- * sl_node_t: Generic singly linked node
+ * rtb_node1_t: Generic singly linked node
  * @member val  Pointer to the node value
  * @member next Pointer to the next node
  **/
-typedef struct sl_node {
+typedef struct rtb_node1 {
     void *val;
-    struct sl_node *next;
-} sl_node_t;
+    struct rtb_node1 *next;
+} rtb_node1_t;
 
 /**
- * sl_create_node: Create a singly linked node
+ * rtb_node1_create: Create a singly linked node
  * @return Pointer to the new node
  * @note All node members are initialized to zero
  **/
-sl_node_t *sl_create_node(void);
+rtb_node1_t *rtb_node1_create(void);
 
 /**
- * sl_destroy_node: Destroy a singly linked node
+ * rtb_node1_destroy: Destroy a singly linked node
  * @param node Pointer to the target node
  * @return Always NULL
  * @note node must not be NULL
  * @note node->val will be freed if not-NULL
  **/
-sl_node_t *sl_destroy_node(sl_node_t *node);
+rtb_node1_t *rtb_node1_destroy(rtb_node1_t *node);
 
 #ifdef RTB_DEFINE
 
@@ -45,18 +45,18 @@ sl_node_t *sl_destroy_node(sl_node_t *node);
 
 #include "../log.h"
 
-sl_node_t *sl_create_node(void)
+rtb_node1_t *rtb_node1_create(void)
 {
-    sl_node_t *node = (sl_node_t *)calloc(1, sizeof(sl_node_t));
+    rtb_node1_t *node = (rtb_node1_t *)calloc(1, sizeof(rtb_node1_t));
     if (!node)
-        rtb_elog("sl_create_node: calloc failed");
+        rtb_elog("rtb_node1_create: calloc failed");
     return node;
 }
 
-sl_node_t *sl_destroy_node(sl_node_t *node)
+rtb_node1_t *rtb_node1_destroy(rtb_node1_t *node)
 {
     if (!node)
-        rtb_elog("sl_destroy_node: node is NULL");
+        rtb_elog("rtb_node1_destroy: node is NULL");
     if (node->val)
         free(node->val);
     free(node);
