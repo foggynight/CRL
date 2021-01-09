@@ -283,8 +283,10 @@ int rtb_list1_remove_at(rtb_list1_t *list, int index, int release)
         rtb_elog("rtb_list1_remove_at: list is empty");
     int count = 0;
     rtb_node1_t *targ = list->head;
-    while (targ && count < index)
+    while (targ && count < index) {
         targ = targ->next;
+        ++count;
+    }
     if (targ)
         rtb_list1_remove(list, targ, release);
     return targ ? 1 : 0;
