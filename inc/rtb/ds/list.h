@@ -244,13 +244,14 @@ void rtb_list1_insert_at(rtb_list1_t *list, rtb_node1_t *node, int index)
     }
     else {
         int i = 0;
-        rtb_node1_t *last = NULL, *walk = list->head;
-        while (i < index && walk) {
+        rtb_node1_t *walk = list->head, last = NULL;
+        while (walk && i < index) {
             last = walk;
             walk = walk->next;
             ++i;
         }
-        last->next = node;
+        if (last)
+            last->next = node;
         node->next = walk;
         if (!walk)
             list->tail = node;
