@@ -50,6 +50,7 @@ rtb_node1_t *rtb_node1_create(void)
     rtb_node1_t *node = (rtb_node1_t *)calloc(1, sizeof(rtb_node1_t));
     if (!node)
         rtb_elog("rtb_node1_create: calloc failed");
+
     return node;
 }
 
@@ -57,9 +58,11 @@ rtb_node1_t *rtb_node1_destroy(rtb_node1_t *node)
 {
     if (!node)
         rtb_elog("rtb_node1_destroy: node is NULL");
+
     if (node->val)
         free(node->val);
     free(node);
+
     return NULL;
 }
 
