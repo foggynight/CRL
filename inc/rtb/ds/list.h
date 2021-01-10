@@ -33,13 +33,12 @@ rtb_list1_t *rtb_list1_create(void);
 
 /**
  * rtb_list1_destroy: Destroy a singly linked list
- * @param list Double pointer to the target list
- * @note list and *list must not be NULL
+ * @param list Pointer to the target list
+ * @note list must not be NULL
  * @note Side effects:
  *  - Call: rtb_node1_destroy on all list nodes
- *  - Assign: *list = NULL
  **/
-void rtb_list1_destroy(rtb_list1_t **list);
+void rtb_list1_destroy(rtb_list1_t *list);
 
 /**
  * rtb_list1_empty_p: Empty list predicate
@@ -148,18 +147,16 @@ rtb_list1_t *rtb_list1_create(void)
     return list;
 }
 
-void rtb_list1_destroy(rtb_list1_t **list)
+void rtb_list1_destroy(rtb_list1_t *list)
 {
     if (!list)
         rtb_elog("rtb_list1_destroy: list is NULL");
-    if (!*list)
-        rtb_elog("rtb_list1_destroy: *list is NULL");
 
-    while (!rtb_list1_empty_p(*list))
-        rtb_list1_remove(*list, (*list)->head, 1);
+    while (!rtb_list1_empty_p(list))
+        rtb_list1_remove(list, list->head, 1);
+    free(list);
 
-    free(*list);
-    *list = NULL;
+    return NULL;
 }
 
 int rtb_list1_empty_p(rtb_list1_t *list)
