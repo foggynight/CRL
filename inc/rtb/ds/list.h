@@ -253,7 +253,24 @@ void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *
 
 void rtb_list1_insert_after(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *prev)
 {
+    if (!list)
+        rtb_elog("rtb_list1_insert_after: list is NULL");
+    if (!node)
+        rtb_elog("rtb_list1_insert_after: node is NULL");
+    if (!prev)
+        rtb_elog("rtb_list1_insert_after: prev is NULL");
 
+    if (!prev) { // Insert at the start of the list
+        node->next = list->head;
+        list->head = node;
+    }
+    else {
+        node->next = prev->next;
+        prev->next = node;
+    }
+
+    if (prev == list->tail)
+        list->tail = node;
 }
 
 void rtb_list1_insert_at(rtb_list1_t *list, rtb_node1_t *node, int index)
