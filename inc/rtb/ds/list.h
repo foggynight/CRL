@@ -164,7 +164,7 @@ int rtb_list1_empty_p(rtb_list1_t *list)
     if (!list)
         rtb_elog("rtb_list1_empty_p: list is NULL");
 
-    return !list->head && !list->tail;
+    return !list->head;
 }
 
 int rtb_list1_node_c(rtb_list1_t *list)
