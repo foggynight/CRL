@@ -36,7 +36,7 @@ rtb_list1_t *rtb_list1_create(void);
  * @param list Pointer to the target list
  * @note list must not be NULL
  * @note Side effects:
- *  - Call: rtb_node1_destroy on all list nodes
+ *  - Destroys all nodes contained in the list
  **/
 void rtb_list1_destroy(rtb_list1_t *list);
 
@@ -44,6 +44,7 @@ void rtb_list1_destroy(rtb_list1_t *list);
  * rtb_list1_empty_p: Empty list predicate
  * @param list Pointer to the target list
  * @return Non-zero if the list is empty
+ * @note list must not be NULL
  **/
 int rtb_list1_empty_p(rtb_list1_t *list);
 
@@ -51,6 +52,7 @@ int rtb_list1_empty_p(rtb_list1_t *list);
  * rtb_list1_node_c: Count the number of nodes in a list
  * @param list Pointer to the target list
  * @return Number of nodes in the list
+ * @note list must not be NULL
  **/
 int rtb_list1_node_c(rtb_list1_t *list);
 
@@ -60,6 +62,8 @@ int rtb_list1_node_c(rtb_list1_t *list);
  * @param list  Pointer to the target list
  * @param index Position of the target node
  * @return If list contains index: node at index, else: NULL
+ * @note list must not be NULL
+ * @note index must be greater than zero
  **/
 rtb_node1_t *rtb_list1_get_node(rtb_list1_t *list, int index);
 
@@ -77,6 +81,7 @@ int rtb_list1_get_index(rtb_list1_t *list, rtb_node1_t *node);
  * @param list Pointer to the target list
  * @param node Pointer to the target node
  * @param next Pointer to the node to insert before
+ * @note If next is NULL, inserts at the end of the list
  **/
 void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *next);
 
@@ -86,6 +91,7 @@ void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *
  * @param list Pointer to the target list
  * @param node Pointer to the target node
  * @param prev Pointer to the node to insert after
+ * @note If prev is NULL, inserts at the beginning of the list
  **/
 void rtb_list1_insert_after(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *prev);
 
