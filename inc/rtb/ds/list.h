@@ -367,7 +367,34 @@ void rtb_list1_remove_at(rtb_list1_t *list, int index, int release)
 
 void rtb_list1_replace(rtb_list1_t *list, rtb_node1_t *targ, rtb_node1_t *node)
 {
-    rtb_list1_replace_at(list, rtb_list1_get_index(list, targ), node);
+    if (!list)
+        rtb_elog("rtb_list1_replace: list is NULL");
+    if (!targ)
+        rtb_elog("rtb_list1_replace: targ is NULL");
+    if (!node)
+        rtb_elog("rtb_list1_replace: node is NULL");
+    if (rtb_list1_empty_p(list))
+        rtb_elog("rtb_list1_replace: list is empty");
+
+    if (targ == list->head) { // Replace list head
+        rtb_list1_remove(list, list->head, 1);
+        rtb_list1_insert_after(list, node, NULL);
+    }
+    else if (targ == list->tail) { // Replace list tail
+        rtb_list1_remove(list, list->tail, 1);
+        rtb_list1_insert_before(list, node, NULL);
+    }
+    else { // Replace node in list body
+        rtb_node1_t *walk = list->head;
+        while (walk && walk->next != targ)
+            walk = walk->next;
+
+        if (!walk)
+            rtb_elog("rtb_list1_replace: walk is NULL");
+
+        rtb_list1_remove(list, walk->next, 1);
+        rtb_list1_insert_after(list, walk, node);
+    }
 }
 
 void rtb_list1_replace_at(rtb_list1_t *list, int index, rtb_node1_t *node)
