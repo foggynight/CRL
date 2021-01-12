@@ -237,7 +237,7 @@ void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *
         list->tail->next = node;
         list->tail = node;
     }
-    else if (next == list->head) { // Insert before list head
+    else if (next == list->head) { // Insert at the start of the list
         node->next = list->head;
         list->head = node;
     }
@@ -262,7 +262,7 @@ void rtb_list1_insert_after(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *p
         node->next = list->head;
         list->head = node;
     }
-    else {
+    else { // Insert in the body or at the end of the list
         node->next = prev->next;
         prev->next = node;
     }
@@ -283,11 +283,11 @@ void rtb_list1_insert_at(rtb_list1_t *list, rtb_node1_t *node, int index)
     if (rtb_list1_empty_p(list)) {
         list->head = list->tail = node;
     }
-    else if (index == 0) {
+    else if (index == 0) { // Insert at the start of the list
         node->next = list->head;
         list->head = node;
     }
-    else {
+    else { // Insert in the body or at the end of the list
         int i = 0;
         rtb_node1_t *walk = list->head, last = NULL;
         while (walk && i < index) {
@@ -331,7 +331,7 @@ void rtb_list1_remove(rtb_list1_t *list, rtb_node1_t *node, int release)
         if (release)
             rtb_node1_destroy(old_tail);
     }
-    else {
+    else { // Insert in the body of the list
         rtb_node1_t *walk;
         for (walk = list->head;
              walk->next != node;
