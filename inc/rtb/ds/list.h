@@ -230,23 +230,19 @@ void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *
         rtb_elog("rtb_list1_insert_before: next is NULL");
 
     rtb_node1_t *walk = list->head;
-
     if (!walk) { // List is empty
         if (next)
             rtb_elog("rtb_list1_insert_before: list does not contain next");
         list->head = list->tail = node;
     }
-
     else if (!next) { // Insert at the end of the list
         list->tail->next = node;
         list->tail = node;
     }
-
     else if (next == list->head) { // Insert before list head
         node->next = list->head;
         list->head = node;
     }
-
     else { // Insert within list body
         while (walk && walk->next != next)
             walk = walk->next;
