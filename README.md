@@ -1,11 +1,11 @@
 # rtb
 
-Programmer's toolbox for C/C++
+Programmer's toolbox for C
 
 ## Directories
 
 - `doc`: Documentation
-- `inc`: Library headers
+- `inc`: Include directory
 - `test`: Unit tests
 
 ## License
