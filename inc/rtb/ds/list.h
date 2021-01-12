@@ -226,8 +226,6 @@ void rtb_list1_insert_before(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *
         rtb_elog("rtb_list1_insert_before: list is NULL");
     if (!node)
         rtb_elog("rtb_list1_insert_before: node is NULL");
-    if (!next)
-        rtb_elog("rtb_list1_insert_before: next is NULL");
 
     rtb_node1_t *walk = list->head;
     if (!walk) { // List is empty
@@ -259,8 +257,6 @@ void rtb_list1_insert_after(rtb_list1_t *list, rtb_node1_t *node, rtb_node1_t *p
         rtb_elog("rtb_list1_insert_after: list is NULL");
     if (!node)
         rtb_elog("rtb_list1_insert_after: node is NULL");
-    if (!prev)
-        rtb_elog("rtb_list1_insert_after: prev is NULL");
 
     if (!prev) { // Insert at the start of the list
         node->next = list->head;
