@@ -280,9 +280,8 @@ void rtb_list1_insert_at(rtb_list1_t *list, rtb_node1_t *node, int index)
     if (index < 0)
         rtb_elog("rtb_list1_insert_at: Invalid index");
 
-    if (rtb_list1_empty_p(list)) {
+    if (rtb_list1_empty_p(list))
         list->head = list->tail = node;
-    }
     else if (index == 0) { // Insert at the start of the list
         node->next = list->head;
         list->head = node;
@@ -401,16 +400,15 @@ void rtb_list1_replace_at(rtb_list1_t *list, int index, rtb_node1_t *node)
 {
     if (!list)
         rtb_elog("rtb_list1_replace_at: list is NULL");
+    if (index < 0)
+        rtb_elog("rtb_list1_replace_at: Invalid index");
     if (!node)
         rtb_elog("rtb_list1_replace_at: node is NULL");
+    if (rtb_list1_empty_p(list))
+        rtb_elog("rtb_list1_replace: list is empty");
 
-    if (rtb_list1_empty_p(list)) {
-        list->head = list->tail = node;
-    }
-    else {
-        rtb_list1_insert_at(list, node, index);
-        rtb_list1_remove(list, node->next, 1);
-    }
+    rtb_list1_insert_at(list, node, index);
+    rtb_list1_remove(list, node->next, 1);
 }
 
 #endif // RTB_DEFINE
