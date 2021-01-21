@@ -54,8 +54,3 @@ sl_node_t *sl_pop(sl_list_t *list)
 
 #endif // RTB_DEFINE
 #endif // RTB_DS_STACK_H_
-
-/**
- * Version History
- * 0.0.0 - 2021-01-01 - First commit
- **/

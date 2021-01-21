@@ -68,8 +68,3 @@ rtb_node1_t *rtb_node1_destroy(rtb_node1_t *node)
 
 #endif // RTB_DEFINE
 #endif // RTB_DS_NODE_H_
-
-/**
- * Version History
- * 0.0.0 - 2021-01-01 - First commit
- **/

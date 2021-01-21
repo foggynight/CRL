@@ -1,5 +1,5 @@
 /**
- * log.h - v0.1.4 - Macros for printing to the stderr stream
+ * log.h - v0.1.5 - Macros for printing to the stderr stream
  *
  * Define the RTB_NO_EXIT macro before including this header to prevent
  * the elog macros from calling exit.
@@ -36,13 +36,3 @@
 #endif // RTB_NO_EXIT
 
 #endif // RTB_LOG_H_
-
-/**
- * Version History
- * 0.1.4 - 2021-01-05 - Refactor comments
- * 0.1.3 - 2021-01-04 - Refactor comments
- * 0.1.2 - 2021-01-02 - Remove rtb from filename
- * 0.1.1 - 2021-01-01 - Update copyright notice
- * 0.1.0 - 2020-12-29 - Initial prerelease
- * 0.0.0 - 2020-12-19 - First commit
- **/

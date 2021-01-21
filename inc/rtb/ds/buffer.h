@@ -72,8 +72,3 @@ rtb_buf_t *rtb_buf_destroy(rtb_buf_t *buf)
 
 #endif // RTB_DEFINE
 #endif // RTB_DS_BUFFER_H_
-
-/**
- * Version History
- * 0.0.0 - 2020-12-28 - First commit
- **/

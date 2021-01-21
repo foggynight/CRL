@@ -414,8 +414,3 @@ void rtb_list1_replace_at(rtb_list1_t *list, int index, rtb_node1_t *node)
 
 #endif // RTB_DEFINE
 #endif // RTB_DS_LIST_H_
-
-/**
- * Version History
- * 0.0.0 - 2020-12-16 - First commit
- **/
