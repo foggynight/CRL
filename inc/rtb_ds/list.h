@@ -143,7 +143,7 @@ void rtb_list1_replace_at(rtb_list1_t *list, int index, rtb_node1_t *new_node);
 
 #include <stdlib.h>
 
-#include "../log.h"
+#include "../rtb_log.h"
 
 /* Implementations in this header rely on rtb_elog calling exit. */
 #ifdef RTB_NO_EXIT

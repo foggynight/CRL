@@ -43,7 +43,7 @@ rtb_node1_t *rtb_node1_destroy(rtb_node1_t *node);
 
 #include <stdlib.h>
 
-#include "../log.h"
+#include "../rtb_log.h"
 
 rtb_node1_t *rtb_node1_create(void)
 {
