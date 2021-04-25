@@ -5,7 +5,7 @@
  * Last Updated: 2020-12-29
  *
  * Copyright (C) 2020 Robert Coffey
- * Released under the MIT license */
+ * Released under the GPLv2 license */
 
 #include <stdio.h>
 

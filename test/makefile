@@ -1,5 +1,5 @@
 # Copyright (C) 2020 Robert Coffey
-# Released under the MIT license
+# Released under the GPLv2 license
 
 CC=clang
 CFLAGS=-I../src/ -Weverything
