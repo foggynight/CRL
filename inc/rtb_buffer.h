@@ -18,8 +18,8 @@ typedef struct rtb_buffer {
 	size_t end;	// Index after the last element in data -- Zero implies data is empty
 } rtb_buffer_t;
 
-rtb_buffer_t *rtb_buffer_init(void);
 void rtb_buffer_destroy(rtb_buffer_t *target);
+rtb_buffer_t *rtb_buffer_init(size_t initial_size);
 
 #ifdef RTB_DEFINE
 
