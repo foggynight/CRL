@@ -18,8 +18,9 @@ typedef struct rtb_buffer {
 	size_t end;	// Index after the last element in data -- Zero implies data is empty
 } rtb_buffer_t;
 
-void rtb_buffer_destroy(rtb_buffer_t *target);
 rtb_buffer_t *rtb_buffer_init(size_t initial_size);
+void rtb_buffer_destroy(rtb_buffer_t *buffer);
+void rtb_buffer_push(rtb_buffer_t *buffer, void *element);
 
 #ifdef RTB_DEFINE
 
@@ -37,10 +38,21 @@ rtb_buffer_t *rtb_buffer_init(size_t initial_size)
 	return buffer;
 }
 
-void rtb_buffer_destroy(rtb_buffer_t *target)
+void rtb_buffer_destroy(rtb_buffer_t *buffer)
 {
-	free(target->data);
-	free(target);
+	free(buffer->data);
+	free(buffer);
+}
+
+void rtb_buffer_push(rtb_buffer_t *buffer, void *element)
+{
+	if (buffer->end == buffer->size) {
+		size_t new_size = GROWTH_FACTOR * buffer->size;
+		buffer->data = realloc(buffer->data, new_size * sizeof(void *));
+		buffer->size = new_size;
+	}
+
+	buffer->data[buffer->end++] = element;
 }
 
 #endif // RTB_DEFINE
