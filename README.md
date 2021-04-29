@@ -2,11 +2,6 @@
 
 Programmer's toolbox for C
 
-## Directories
-
-- `doc`: Documentation
-- `inc`: Include directory
-- `test`: Unit tests
 
 ## License
 
