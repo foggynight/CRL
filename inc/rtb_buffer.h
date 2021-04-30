@@ -20,7 +20,7 @@ typedef struct rtb_buffer {
 
 rtb_buffer_t *rtb_buffer_init(size_t initial_size);
 void rtb_buffer_destroy(rtb_buffer_t *buffer);
-void rtb_buffer_push(rtb_buffer_t *buffer, void *element);
+int rtb_buffer_push(rtb_buffer_t *buffer, void *element);
 void *rtb_buffer_pop(rtb_buffer_t *buffer);
 
 #ifdef RTB_DEFINE
@@ -45,15 +45,20 @@ void rtb_buffer_destroy(rtb_buffer_t *buffer)
 	free(buffer);
 }
 
-void rtb_buffer_push(rtb_buffer_t *buffer, void *element)
+int rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 {
 	if (buffer->end == buffer->size) {
 		size_t new_size = GROWTH_FACTOR * buffer->size;
+
 		buffer->data = realloc(buffer->data, new_size * sizeof(void *));
+		if (!buffer->data)
+			return 0;
+
 		buffer->size = new_size;
 	}
 
 	buffer->data[buffer->end++] = element;
+	return 1;
 }
 
 void *rtb_buffer_pop(rtb_buffer_t *buffer)
