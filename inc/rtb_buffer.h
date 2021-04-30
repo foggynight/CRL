@@ -10,10 +10,6 @@
 #ifndef RTB_BUFFER_H
 #define RTB_BUFFER_H
 
-#include <stdlib.h>
-
-#define GROWTH_FACTOR 2	// Buffer size is multiplied by GROWTH_FACTOR on resize
-
 typedef struct rtb_buffer {
 	void **data;	// Data contained within the buffer
 	size_t size;	// Size of the buffer -- Number of blocks allocated in data
@@ -25,7 +21,13 @@ void rtb_buffer_destroy(rtb_buffer_t *buffer);
 int rtb_buffer_push(rtb_buffer_t *buffer, void *element);
 void *rtb_buffer_pop(rtb_buffer_t *buffer);
 
+#endif // RTB_BUFFER_H
+
 #ifdef RTB_DEFINE
+
+#include <stdlib.h>
+
+#define GROWTH_FACTOR 2	// Buffer size is multiplied by GROWTH_FACTOR on resize
 
 rtb_buffer_t *rtb_buffer_init(size_t initial_size)
 {
@@ -72,4 +74,3 @@ void *rtb_buffer_pop(rtb_buffer_t *buffer)
 }
 
 #endif // RTB_DEFINE
-#endif // RTB_BUFFER_H
