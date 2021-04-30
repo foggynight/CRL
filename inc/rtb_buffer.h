@@ -21,6 +21,7 @@ typedef struct rtb_buffer {
 rtb_buffer_t *rtb_buffer_init(size_t initial_size);
 void rtb_buffer_destroy(rtb_buffer_t *buffer);
 void rtb_buffer_push(rtb_buffer_t *buffer, void *element);
+void *rtb_buffer_pop(rtb_buffer_t *buffer);
 
 #ifdef RTB_DEFINE
 
@@ -53,6 +54,14 @@ void rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 	}
 
 	buffer->data[buffer->end++] = element;
+}
+
+void *rtb_buffer_pop(rtb_buffer_t *buffer)
+{
+	if (buffer->end < 1)
+		return NULL;
+
+	return buffer->data[(buffer->end--) - 1];
 }
 
 #endif // RTB_DEFINE
