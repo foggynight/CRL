@@ -1,5 +1,7 @@
 /**
- * rtb_buffer - v0.0.0 - Variable sized generic buffer
+ * rtb_buffer.h - v0.0.0 - Variable sized generic buffer
+ *
+ * This file is part of the rtb library.
  *
  * Copyright (C) 2021 Robert Coffey
  * Released under the GPLv2 license
