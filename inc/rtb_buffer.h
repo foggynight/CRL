@@ -10,6 +10,8 @@
 #ifndef RTB_BUFFER_H
 #define RTB_BUFFER_H
 
+#include <stddef.h>
+
 typedef struct rtb_buffer {
 	void **data;	// Data contained within the buffer
 	size_t size;	// Size of the buffer -- Number of blocks allocated in data
