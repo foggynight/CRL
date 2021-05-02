@@ -51,17 +51,23 @@ rtb_buffer_t *rtb_buffer_init(size_t initial_len)
 
 void rtb_buffer_destroy(rtb_buffer_t *buffer)
 {
+	assert(buffer);
+
 	free(buffer->data);
 	free(buffer);
 }
 
 int rtb_buffer_empty(rtb_buffer_t *buffer)
 {
+	assert(buffer);
+
 	return !buffer->end;
 }
 
 int rtb_buffer_resize(rtb_buffer_t *buffer, size_t new_len)
 {
+	assert(buffer);
+
 	buffer->data = realloc(buffer->data, new_len * sizeof(void *));
 	if (!buffer->data)
 		return 0;
@@ -72,6 +78,8 @@ int rtb_buffer_resize(rtb_buffer_t *buffer, size_t new_len)
 
 int rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 {
+	assert(buffer);
+
 	if (buffer->end == buffer->len) {
 		size_t new_len = GROWTH_FACTOR * buffer->len;
 		if (!rtb_buffer_resize(buffer, new_len))
@@ -84,6 +92,8 @@ int rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 
 void *rtb_buffer_pop(rtb_buffer_t *buffer)
 {
+	assert(buffer);
+
 	if (rtb_buffer_empty(buffer))
 		return NULL;
 
@@ -92,6 +102,8 @@ void *rtb_buffer_pop(rtb_buffer_t *buffer)
 
 void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index)
 {
+	assert(buffer);
+
 	if (index >= buffer->end)
 		return NULL;
 
@@ -100,6 +112,8 @@ void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index)
 
 int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value)
 {
+	assert(buffer);
+
 	if (index >= buffer->end)
 		return 0;
 
