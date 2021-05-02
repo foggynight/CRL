@@ -81,7 +81,7 @@ int rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 	assert(buffer);
 
 	if (buffer->end == buffer->len) {
-		size_t new_len = GROWTH_FACTOR * buffer->len;
+		size_t new_len = buffer->len ? GROWTH_FACTOR * buffer->len : 1;
 		if (!rtb_buffer_resize(buffer, new_len))
 			return 0;
 	}
