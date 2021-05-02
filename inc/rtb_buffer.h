@@ -7,8 +7,8 @@
  * Released under the GPLv2 license
  **/
 
-#ifndef RTB_BUFFER_H
-#define RTB_BUFFER_H
+#ifndef RTB__BUFFER_H
+#define RTB__BUFFER_H
 
 #include <stddef.h>
 
@@ -27,7 +27,7 @@ void *rtb_buffer_pop(rtb_buffer_t *buffer);
 void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index);
 int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value);
 
-#endif	// RTB_BUFFER_H
+#endif	// RTB__BUFFER_H
 
 #ifdef RTB_DEFINE
 
