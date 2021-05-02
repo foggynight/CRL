@@ -24,6 +24,7 @@ int rtb_buffer_push(rtb_buffer_t *buffer, void *element);
 void *rtb_buffer_pop(rtb_buffer_t *buffer);
 void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index);
 int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value);
+int rtb_buffer_empty(rtb_buffer_t *buffer);
 
 #endif	// RTB_BUFFER_H
 
@@ -92,6 +93,11 @@ int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value)
 
 	buffer->data[index] = value;
 	return 1;
+}
+
+int rtb_buffer_empty(rtb_buffer_t *buffer)
+{
+	return !buffer->end;
 }
 
 #endif	// RTB_DEFINE
