@@ -20,11 +20,11 @@ typedef struct rtb_buffer {
 
 rtb_buffer_t *rtb_buffer_init(size_t initial_len);
 void rtb_buffer_destroy(rtb_buffer_t *buffer);
+int rtb_buffer_empty(rtb_buffer_t *buffer);
 int rtb_buffer_push(rtb_buffer_t *buffer, void *element);
 void *rtb_buffer_pop(rtb_buffer_t *buffer);
 void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index);
 int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value);
-int rtb_buffer_empty(rtb_buffer_t *buffer);
 
 #endif	// RTB_BUFFER_H
 
@@ -54,6 +54,11 @@ void rtb_buffer_destroy(rtb_buffer_t *buffer)
 	free(buffer);
 }
 
+int rtb_buffer_empty(rtb_buffer_t *buffer)
+{
+	return !buffer->end;
+}
+
 int rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 {
 	if (buffer->end == buffer->len) {
@@ -72,7 +77,7 @@ int rtb_buffer_push(rtb_buffer_t *buffer, void *element)
 
 void *rtb_buffer_pop(rtb_buffer_t *buffer)
 {
-	if (buffer->end < 1)
+	if (rtb_buffer_empty(buffer))
 		return NULL;
 
 	return buffer->data[(buffer->end--) - 1];
@@ -93,11 +98,6 @@ int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value)
 
 	buffer->data[index] = value;
 	return 1;
-}
-
-int rtb_buffer_empty(rtb_buffer_t *buffer)
-{
-	return !buffer->end;
 }
 
 #endif	// RTB_DEFINE
