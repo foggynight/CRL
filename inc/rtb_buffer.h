@@ -94,6 +94,8 @@ void *rtb_buffer_pop(rtb_buffer_t *buffer)
 {
 	assert(buffer);
 
+	// @TODO Replace with assert for not empty? This is ambiguous
+	// with popping a NULL off the buffer.
 	if (rtb_buffer_empty(buffer))
 		return NULL;
 
@@ -104,6 +106,7 @@ void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index)
 {
 	assert(buffer);
 
+	// @TODO Same issue here as with the TODO above.
 	if (index >= buffer->end)
 		return NULL;
 
@@ -114,6 +117,8 @@ int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value)
 {
 	assert(buffer);
 
+	// @TODO Maybe I should assert here too. Want to avoid having to
+	// check for a successful call to rtb_buffer_set if possible.
 	if (index >= buffer->end)
 		return 0;
 
