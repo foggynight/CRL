@@ -25,7 +25,7 @@ int rtb_buffer_resize(rtb_buffer_t *buffer, size_t new_size);
 int rtb_buffer_push(rtb_buffer_t *buffer, void *element);
 void *rtb_buffer_pop(rtb_buffer_t *buffer);
 void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index);
-int rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value);
+void rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value);
 
 #endif	// RTB__BUFFER_H
 
