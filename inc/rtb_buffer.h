@@ -96,7 +96,7 @@ void *rtb_buffer_pop(rtb_buffer_t *buffer)
 	assert(buffer);
 	assert(!rtb_buffer_empty(buffer));
 
-	return buffer->data[(buffer->end--) - 1];
+	return buffer->data[--buffer->end];
 }
 
 void *rtb_buffer_at(rtb_buffer_t *buffer, size_t index)
