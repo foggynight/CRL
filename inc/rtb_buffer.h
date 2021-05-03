@@ -67,6 +67,7 @@ int rtb_buffer_empty(rtb_buffer_t *buffer)
 int rtb_buffer_resize(rtb_buffer_t *buffer, size_t new_len)
 {
 	assert(buffer);
+	assert(new_len > 0);
 
 	buffer->data = realloc(buffer->data, new_len * sizeof(void *));
 	if (!buffer->data)
