@@ -145,5 +145,4 @@ void test_at_set(void)
 			expected_value = NULL;
 		assert(rtb_buffer_at(buffer, i) == expected_value);
 	}
-
 }
