@@ -133,8 +133,17 @@ void test_at_set(void)
 	*(int *)val_1 = 1;
 
 	rtb_buffer_set(buffer, 0, val_0);
-	assert(rtb_buffer_at(buffer, 0) == val_0);
-
 	rtb_buffer_set(buffer, value_count-1, val_1);
-	assert(rtb_buffer_at(buffer, value_count-1) == val_1);
+
+	for (int i = 0; i < value_count; ++i) {
+		void *expected_value;
+		if (i == 0)
+			expected_value = val_0;
+		else if (i == value_count-1)
+			expected_value = val_1;
+		else
+			expected_value = NULL;
+		assert(rtb_buffer_at(buffer, i) == expected_value);
+	}
+
 }
