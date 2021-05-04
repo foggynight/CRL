@@ -13,9 +13,9 @@
 #include <stddef.h>
 
 typedef struct rtb_buffer {
-	void **data;	// Data contained within the buffer
 	size_t len;	// Length of the buffer -- Number of blocks allocated in data
 	size_t end;	// Index after the last element in data -- Zero implies data is empty
+	void **data;	// Data contained within the buffer
 } rtb_buffer_t;
 
 rtb_buffer_t *rtb_buffer_init(size_t initial_len);
