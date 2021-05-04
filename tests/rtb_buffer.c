@@ -90,6 +90,8 @@ void test_resize(size_t initial_len, size_t new_len)
 
 	rtb_buffer_resize(buffer, new_len);
 	assert(buffer->len == new_len);
+
+	rtb_buffer_destroy(buffer);
 }
 
 void test_push_pop(size_t initial_len, size_t value_count, void **values)
@@ -114,6 +116,8 @@ void test_push_pop(size_t initial_len, size_t value_count, void **values)
 		int correct_value = *(int *)values[i - 1];
 		assert(actual_value == correct_value);
 	}
+
+	rtb_buffer_destroy(buffer);
 }
 
 void test_at_set(void)
@@ -145,4 +149,6 @@ void test_at_set(void)
 			expected_value = NULL;
 		assert(rtb_buffer_at(buffer, i) == expected_value);
 	}
+
+	rtb_buffer_destroy(buffer);
 }
