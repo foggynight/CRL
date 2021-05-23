@@ -1,6 +1,6 @@
 # rtb
 
-Programmer's toolbox for C
+Programmer's toolbox for C.
 
 
 ## License
