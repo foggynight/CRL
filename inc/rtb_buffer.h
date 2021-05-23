@@ -1,5 +1,5 @@
 /**
- * rtb_buffer.h - v0.1.0 - Variable sized generic buffer
+ * rtb_buffer.h - v0.1.1 - Variable sized generic buffer
  *
  * This file is part of the rtb library.
  *
@@ -30,7 +30,9 @@ void rtb_buffer_set(rtb_buffer_t *buffer, size_t index, void *value);
 #endif	// RTB__BUFFER_H
 
 #ifdef RTB_DEFINE
+#undef RTB_DEFINE
 
+#include <assert.h>
 #include <stdlib.h>
 
 #define GROWTH_FACTOR 2	// Buffer length is multiplied by GROWTH_FACTOR on growth
