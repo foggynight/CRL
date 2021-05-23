@@ -47,7 +47,7 @@ int main(void)
 
 	test_at_set();
 
-	printf("test_rtb_buffer.c: All tests passed\n");
+	printf("rtb_buffer.c: All tests passed\n");
 }
 
 void test_init_destroy(size_t initial_len)
