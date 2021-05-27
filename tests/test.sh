@@ -6,5 +6,5 @@
 TESTS=rtb_buffer
 
 for TEST in $TESTS; do
-	gcc $TEST.c -o $TEST && ./$TEST && rm $TEST
+	gcc $TEST.c -o $TEST && ./$TEST ; rm $TEST
 done
