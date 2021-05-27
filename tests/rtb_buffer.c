@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #define RTB_DEFINE
-#include "../inc/rtb_buffer.h"
+#include "../src/rtb_buffer.h"
 
 void test_init_destroy(size_t initial_len);
 void test_empty(size_t initial_len);
