@@ -8,10 +8,10 @@
 #define RTB_DEFINE
 #include "../src/rtb_buffer.h"
 
-void test_init_destroy(size_t initial_len);
-void test_empty(size_t initial_len);
-void test_resize(size_t initial_len, size_t new_len);
-void test_push_pop(size_t initial_len, size_t value_count, void **values);
+void test_init_destroy(size_t initial_size);
+void test_empty(size_t initial_size);
+void test_resize(size_t initial_size, size_t new_size);
+void test_push_pop(size_t initial_size, size_t value_count, void **values);
 void test_at_set(void);
 
 int main(void)
@@ -25,9 +25,7 @@ int main(void)
 	test_empty(64);
 
 	test_resize(0, 1);
-	test_resize(1, 1);
 	test_resize(1, 2);
-	test_resize(2, 1);
 	test_resize(2, 64);
 
 	void *val_0 = malloc(sizeof(int));
@@ -50,21 +48,21 @@ int main(void)
 	printf("rtb_buffer.c: All tests passed\n");
 }
 
-void test_init_destroy(size_t initial_len)
+void test_init_destroy(size_t initial_size)
 {
 	rtb_buffer_t *buffer = NULL;
-	buffer = rtb_buffer_init(initial_len);
+	buffer = rtb_buffer_init(initial_size);
 
 	assert(buffer != NULL);
-	assert(buffer->len == initial_len);
+	assert(buffer->size == initial_size);
 	assert(buffer->end == 0);
 
 	rtb_buffer_destroy(buffer);
 }
 
-void test_empty(size_t initial_len)
+void test_empty(size_t initial_size)
 {
-	rtb_buffer_t *buffer = rtb_buffer_init(initial_len);
+	rtb_buffer_t *buffer = rtb_buffer_init(initial_size);
 
 	assert(rtb_buffer_empty(buffer));
 
@@ -83,20 +81,20 @@ void test_empty(size_t initial_len)
 	rtb_buffer_destroy(buffer);
 }
 
-void test_resize(size_t initial_len, size_t new_len)
+void test_resize(size_t initial_size, size_t new_size)
 {
-	rtb_buffer_t *buffer = rtb_buffer_init(initial_len);
-	assert(buffer->len == initial_len);
+	rtb_buffer_t *buffer = rtb_buffer_init(initial_size);
+	assert(buffer->size == initial_size);
 
-	rtb_buffer_resize(buffer, new_len);
-	assert(buffer->len == new_len);
+	rtb_buffer_resize(buffer, new_size);
+	assert(buffer->size == new_size);
 
 	rtb_buffer_destroy(buffer);
 }
 
-void test_push_pop(size_t initial_len, size_t value_count, void **values)
+void test_push_pop(size_t initial_size, size_t value_count, void **values)
 {
-	rtb_buffer_t *buffer = rtb_buffer_init(initial_len);
+	rtb_buffer_t *buffer = rtb_buffer_init(initial_size);
 
 	for (int i = 0; i < value_count; ++i) {
 		assert(buffer->end == i);
